@@ -1,0 +1,727 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Kioptrix Level 1 (#1) Writeup - VulnHub - Ash</title>
+<meta name="description" content="Kioptrix Level 1 is a simple boot-to-root VulnHub box that is vulnerable to a remote code execution vulnerability impacting its Samba service. This box is a great beginner test to learn basic port enumeration and exploitation.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Ash">
+<meta property="og:title" content="Kioptrix Level 1 (#1) Writeup - VulnHub">
+<meta property="og:url" content="http://localhost:4000/Kioptrix-Level-1/">
+
+
+  <meta property="og:description" content="Kioptrix Level 1 is a simple boot-to-root VulnHub box that is vulnerable to a remote code execution vulnerability impacting its Samba service. This box is a great beginner test to learn basic port enumeration and exploitation.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/VulnHub/kioptrix1_logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2020-07-27T00:00:00-04:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/Kioptrix-Level-1/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Ash Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/logo.png" alt=""></a>
+                
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive/">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1">
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Kioptrix Level 1 (#1) Writeup - VulnHub</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/logo.png" alt="" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name"></h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Unix lover and penetration tester. Interested in anything to do wi th computers.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/_bin_Ash" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://github.com/0xAsh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://keybase.io/ashhhhhhh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-keybase" aria-hidden="true"></i> Keybase</a></li>
+          
+        
+          
+            <li><a href="https://www.hackthebox.com/home/users/profile/72624" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-cube" aria-hidden="true"></i> HackTheBox</a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Kioptrix Level 1 (#1) Writeup - VulnHub">
+    <meta itemprop="description" content="Kioptrix Level 1 is a simple boot-to-root VulnHub box that is vulnerable to a remote code execution vulnerability impacting its Samba service. This box is a great beginner test to learn basic port enumeration and exploitation.">
+    <meta itemprop="datePublished" content="July 27, 2020">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Kioptrix Level 1 (#1) Writeup - VulnHub
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2020-07-27T00:00:00-04:00">July 27, 2020 </time> 
+          
+          
+        </p>
+        <p>In preperation for my OSCP exam, I tackled a series of VulnHub boxes, Kioptrix Level 1 being the first. In retrospect, this box is <em>really</em>, <em>really</em> old. Like <em>2010</em> old, so it’s real-life applicability is questionable.</p>
+
+<p>It is a simple boot-to-root box that is vulnerable to a remote code execution vulnerability impacting its Samba service.</p>
+
+<p>It’s good baseline prep for anyone studying for their OSCP/PWK, learning Network pentesting, and trying to get some practice enumerating a box.</p>
+
+<p>I’ll assume you’ve already got the box running and are able to reach it. Let’s get going.</p>
+
+<h1 id="enumeration">Enumeration</h1>
+
+<h3 id="nmap-scans">NMAP Scans</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Starting Nmap 7.80 ( https://nmap.org ) at 2020-07-26 23:04 EDT
+Nmap scan report for 10.0.0.35
+Host is up (0.00013s latency).
+Not shown: 65529 closed ports
+PORT     STATE SERVICE     VERSION
+22/tcp   open  ssh         OpenSSH 2.9p2 (protocol 1.99)
+| ssh-hostkey: 
+|   1024 b8:74:6c:db:fd:8b:e6:66:e9:2a:2b:df:5e:6f:64:86 (RSA1)
+|   1024 8f:8e:5b:81:ed:21:ab:c1:80:e1:57:a3:3c:85:c4:71 (DSA)
+|_  1024 ed:4e:a9:4a:06:14:ff:15:14:ce:da:3a:80:db:e2:81 (RSA)
+|_sshv1: Server supports SSHv1
+80/tcp   open  http        Apache httpd 1.3.20 ((Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b)
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-server-header: Apache/1.3.20 (Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b
+|_http-title: Test Page for the Apache Web Server on Red Hat Linux
+111/tcp  open  rpcbind     2 (RPC #100000)
+139/tcp  open  netbios-ssn Samba smbd (workgroup: MYGROUP)
+443/tcp  open  ssl/https   Apache/1.3.20 (Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b
+|_http-server-header: Apache/1.3.20 (Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b
+|_http-title: 400 Bad Request
+|_ssl-date: 2020-07-27T07:05:40+00:00; +3h59m59s from scanner time.
+| sslv2: 
+|   SSLv2 supported
+|   ciphers: 
+|     SSL2_RC4_64_WITH_MD5
+|     SSL2_RC2_128_CBC_EXPORT40_WITH_MD5
+|     SSL2_DES_192_EDE3_CBC_WITH_MD5
+|     SSL2_RC2_128_CBC_WITH_MD5
+|     SSL2_RC4_128_EXPORT40_WITH_MD5
+|     SSL2_RC4_128_WITH_MD5
+|_    SSL2_DES_64_CBC_WITH_MD5
+1024/tcp open  status      1 (RPC #100024)
+MAC Address: 08:00:27:A0:57:DB (Oracle VirtualBox virtual NIC)
+Device type: general purpose
+Running: Linux 2.4.X
+OS CPE: cpe:/o:linux:linux_kernel:2.4
+OS details: Linux 2.4.9 - 2.4.18 (likely embedded)
+Network Distance: 1 hop
+
+Host script results:
+|_clock-skew: 3h59m58s
+|_nbstat: NetBIOS name: KIOPTRIX, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: &lt;unknown&gt; (unknown)
+|_smb2-time: Protocol negotiation failed (SMB2)
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   0.13 ms 10.0.0.35
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 80.55 seconds
+</code></pre></div></div>
+
+<p>Cool, we see quite a few interesting possibilities here. Let’s start from bottom to top manually enumerating each open port.</p>
+
+<h3 id="enumerating-ssh">Enumerating SSH</h3>
+
+<p>We can use Netcat to quickly grab the service banner on port 22. You’ll notice that this appeared on NMAP scans too, but manually fingerprinting the service isn’t <em>always</em> a waste of time.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ein@~/VulnHub/Kioptrix1:<span class="nv">$ </span>nc 10.0.0.35 22
+SSH-1.99-OpenSSH_2.9p2
+^C
+</code></pre></div></div>
+
+<p>Which reveals that the SSH verson is <code class="language-plaintext highlighter-rouge">SSH-1.99-OpenSSH_2.9p2</code>. We will keep that in mind and move on to HTTP.</p>
+
+<h3 id="enumerating-http">Enumerating HTTP</h3>
+
+<p>Browsing to the port 80 via a web browser simply displays the default Apache landing page.</p>
+
+<p><img src="/assets/images/VulnHub/Kioptrix1_1.PNG" alt="Browsing to HTTP"></p>
+
+<p>Let’s fingerprint the port using netcat and try to find out what version of Apache is running:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ein@~/VulnHub/Kioptrix1:<span class="nv">$ </span>nc 10.0.0.35 80
+GET / HTTP/1.0
+
+HTTP/1.1 200 OK
+Date: Mon, 27 Jul 2020 07:12:21 GMT
+Server: Apache/1.3.20 <span class="o">(</span>Unix<span class="o">)</span>  <span class="o">(</span>Red-Hat/Linux<span class="o">)</span> mod_ssl/2.8.4 OpenSSL/0.9.6b
+Last-Modified: Thu, 06 Sep 2001 03:12:46 GMT
+ETag: <span class="s2">"8805-b4a-3b96e9ae"</span>
+Accept-Ranges: bytes
+Content-Length: 2890
+Connection: close
+Content-Type: text/html
+</code></pre></div></div>
+
+<p>Cool, so we can see that <code class="language-plaintext highlighter-rouge">Apache/1.3.20</code> is running as well as <code class="language-plaintext highlighter-rouge">mod_ssl/2.8.4</code> and <code class="language-plaintext highlighter-rouge">OpenSSL/0.9.6b</code>. Let’s remember these version numbers for later.</p>
+
+<h3 id="enumerating-smb">Enumerating SMB</h3>
+
+<p>We’ll skip up to port 139. I’ll go ahead and use <code class="language-plaintext highlighter-rouge">smbclient</code> to see if there are any shares on the machine:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>smbclient <span class="nt">-m</span> SMB2 <span class="nt">-N</span> <span class="nt">-L</span> //10.0.0.35/
+Server does not support EXTENDED_SECURITY  but <span class="s1">'client use spnego = yes'</span> and <span class="s1">'client ntlmv2 auth = yes'</span> is <span class="nb">set
+</span>Anonymous login successful
+
+        Sharename       Type      Comment
+        <span class="nt">---------</span>       <span class="nt">----</span>      <span class="nt">-------</span>
+        IPC<span class="nv">$ </span>           IPC       IPC Service <span class="o">(</span>Samba Server<span class="o">)</span>
+        ADMIN<span class="nv">$ </span>         IPC       IPC Service <span class="o">(</span>Samba Server<span class="o">)</span>
+Reconnecting with SMB1 <span class="k">for </span>workgroup listing.
+Server does not support EXTENDED_SECURITY  but <span class="s1">'client use spnego = yes'</span> and <span class="s1">'client ntlmv2 auth = yes'</span> is <span class="nb">set
+</span>Anonymous login successful
+
+        Server               Comment
+        <span class="nt">---------</span>            <span class="nt">-------</span>
+        KIOPTRIX             Samba Server
+
+        Workgroup            Master
+        <span class="nt">---------</span>            <span class="nt">-------</span>
+        MYGROUP              KIOPTRIX
+
+</code></pre></div></div>
+
+<p>Okay, looks like the <code class="language-plaintext highlighter-rouge">IPC$</code> and <code class="language-plaintext highlighter-rouge">ADMIN$</code> shares are hosted via SMB. Let’s see if we can connect to these shares:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ein@~/VulnHub/Kioptrix1:<span class="nv">$ </span>smbclient <span class="nt">-m</span> SMB2 <span class="nt">-N</span> //10.0.0.35/IPC<span class="err">$</span>
+Server does not support EXTENDED_SECURITY  but <span class="s1">'client use spnego = yes'</span> and <span class="s1">'client ntlmv2 auth = yes'</span> is <span class="nb">set
+</span>Anonymous login successful
+Try <span class="s2">"help"</span> to get a list of possible commands.
+smb: <span class="se">\&gt;</span> <span class="nb">ls
+</span>NT_STATUS_NETWORK_ACCESS_DENIED listing <span class="se">\*</span>
+smb: <span class="se">\&gt;</span> <span class="nb">exit
+</span>ein@~/VulnHub/Kioptrix1:<span class="nv">$ </span>smbclient <span class="nt">-m</span> SMB2 <span class="nt">-N</span> //10.0.0.35/ADMIN<span class="err">$</span>
+Server does not support EXTENDED_SECURITY  but <span class="s1">'client use spnego = yes'</span> and <span class="s1">'client ntlmv2 auth = yes'</span> is <span class="nb">set
+</span>Anonymous login successful
+tree connect failed: NT_STATUS_WRONG_PASSWORD
+</code></pre></div></div>
+
+<p>No luck, let’s grab the SMB version before moving on. I’ll quickly use the <code class="language-plaintext highlighter-rouge">auxiliary/scanner/smb/smb_version</code> Metasploit module to perform this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf5 auxiliary<span class="o">(</span>scanner/smb/smb_version<span class="o">)</span> <span class="o">&gt;</span> run
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> 10.0.0.35:139         - Host could not be identified: Unix <span class="o">(</span>Samba 2.2.1a<span class="o">)</span>
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> 10.0.0.35:445         - Scanned 1 of 1 hosts <span class="o">(</span>100% <span class="nb">complete</span><span class="o">)</span>
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Auxiliary module execution completed
+msf5 auxiliary<span class="o">(</span>scanner/smb/smb_version<span class="o">)</span> <span class="o">&gt;</span> 
+</code></pre></div></div>
+
+<h3 id="enumerating-https">Enumerating HTTPS</h3>
+
+<p>Looking at port 443 with a web browser reveals the same default landing page.</p>
+
+<p><img src="/assets/images/VulnHub/Kioptrix1_2.PNG" alt="Browsing to HTTP"></p>
+
+<p>At this point, it feels like a good time to go ahead and try to directory brute-force the web server.
+Let’s kick this off on both port 80 and 443 while we hit some other services. We’ll use <code class="language-plaintext highlighter-rouge">ffuf</code> for this:</p>
+
+<h4 id="https">HTTPS:</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffuf <span class="nt">-w</span> /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt  <span class="nt">-u</span> https://10.0.0.35/FUZZ
+</code></pre></div></div>
+
+<h4 id="http">HTTP:</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffuf <span class="nt">-w</span> /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt  <span class="nt">-u</span> http://10.0.0.35/FUZZ
+</code></pre></div></div>
+
+<p>Let’s take a look at the results:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+        /<span class="s1">'___\  /'</span>___<span class="se">\ </span>          /<span class="s1">'___\       
+       /\ \__/ /\ \__/  __  __  /\ \__/       
+       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+         \ \_\   \ \_\  \ \____/  \ \_\       
+          \/_/    \/_/   \/___/    \/_/       
+
+       v1.1.0-git
+________________________________________________
+
+ :: Method           : GET
+ :: URL              : http://10.0.0.35/FUZZ
+ :: Wordlist         : FUZZ: /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+ :: Follow redirects : false
+ :: Calibration      : false
+ :: Timeout          : 10
+ :: Threads          : 40
+ :: Matcher          : Response status: 200,204,301,302,307,401,403
+________________________________________________
+
+#                       [Status: 200, Size: 2890, Words: 453, Lines: 87]
+#                       [Status: 200, Size: 2890, Words: 453, Lines: 87]
+# Suite 300, San Francisco, California, 94105, USA. [Status: 200, Size: 2890, Words: 453, Lines: 87]
+# or send a letter to Creative Commons, 171 Second Street,  [Status: 200, Size: 2890, Words: 453, Lines: 87]
+# Priority ordered case sensative list, where entries were found  [Status: 200, Size: 2890, Words: 453, Lines: 87]
+#                       [Status: 200, Size: 2890, Words: 453, Lines: 87]
+# This work is licensed under the Creative Commons  [Status: 200, Size: 2890, Words: 453, Lines: 87]
+# Attribution-Share Alike 3.0 License. To view a copy of this  [Status: 200, Size: 2890, Words: 453, Lines: 87]
+# on atleast 2 different hosts [Status: 200, Size: 2890, Words: 453, Lines: 87]
+# directory-list-2.3-medium.txt [Status: 200, Size: 2890, Words: 453, Lines: 87]
+# license, visit http://creativecommons.org/licenses/by-sa/3.0/  [Status: 200, Size: 2890, Words: 453, Lines: 87]
+#                       [Status: 200, Size: 2890, Words: 453, Lines: 87]
+# Copyright 2007 James Fisher [Status: 200, Size: 2890, Words: 453, Lines: 87]
+                        [Status: 200, Size: 2890, Words: 453, Lines: 87]
+manual                  [Status: 301, Size: 294, Words: 19, Lines: 10]
+usage                   [Status: 301, Size: 293, Words: 19, Lines: 10]
+mrtg                    [Status: 301, Size: 292, Words: 19, Lines: 10]
+                        [Status: 200, Size: 2890, Words: 453, Lines: 87]
+:: Progress: [220560/220560] :: Job [1/1] :: 1086 req/sec :: Duration: [0:03:23] :: Errors: 0 ::
+</span></code></pre></div></div>
+
+<p>Attempting to access the <code class="language-plaintext highlighter-rouge">/mrtg</code> sub-directory redirects us to <code class="language-plaintext highlighter-rouge">/mrtg/</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc 10.0.0.35 80
+GET /mrtg HTTP/1.0
+
+HTTP/1.1 301 Moved Permanently
+Date: Mon, 27 Jul 2020 07:32:55 GMT
+Server: Apache/1.3.20 <span class="o">(</span>Unix<span class="o">)</span>  <span class="o">(</span>Red-Hat/Linux<span class="o">)</span> mod_ssl/2.8.4 OpenSSL/0.9.6b
+Location: http://127.0.0.1/mrtg/
+Connection: close
+Content-Type: text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>iso-8859-1
+
+&lt;<span class="o">!</span>DOCTYPE HTML PUBLIC <span class="s2">"-//IETF//DTD HTML 2.0//EN"</span><span class="o">&gt;</span>
+&lt;HTML&gt;&lt;HEAD&gt;
+&lt;TITLE&gt;301 Moved Permanently&lt;/TITLE&gt;
+&lt;/HEAD&gt;&lt;BODY&gt;
+&lt;H1&gt;Moved Permanently&lt;/H1&gt;
+The document has moved &lt;A <span class="nv">HREF</span><span class="o">=</span><span class="s2">"http://127.0.0.1/mrtg/"</span><span class="o">&gt;</span>here&lt;/A&gt;.&lt;P&gt;
+&lt;HR&gt;
+&lt;ADDRESS&gt;Apache/1.3.20 Server at 127.0.0.1 Port 80&lt;/ADDRESS&gt;
+&lt;/BODY&gt;&lt;/HTML&gt;
+</code></pre></div></div>
+
+<p>Let’s take a look using a web browser:</p>
+
+<p><img src="/assets/images/VulnHub/Kioptrix1_3.PNG" alt="Browsing to HTTP"></p>
+
+<p>Interesting, it’s hosting some network monitoring software called <code class="language-plaintext highlighter-rouge">Multi Router Traffic Grapher (MRTG)</code>.</p>
+
+<p>Unfortunately, further Googling eventually shows this is a dead end.</p>
+
+<h1 id="exploitation">Exploitation</h1>
+
+<p>Let’s go back to those version numbers we grabbed during the enumeration phase. If we google the Samba version (2.2.1a), we can quickly find an <a href="https://www.exploit-db.com/exploits/10">interesting exploit</a>.</p>
+
+<p>This is a really old exploit, but so is the box.. Let’s see if it works. We can start by grabbing it and compiling it using GCC.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://www.exploit-db.com/download/10
+</code></pre></div></div>
+
+<p>Let’s remove all the garbage comments from the top, and save it with the <code class="language-plaintext highlighter-rouge">.c</code> file extension.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vim 10
+</code></pre></div></div>
+
+<p>Now let’s compile it using GCC</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gcc exploit.c <span class="nt">-o</span> exploit
+</code></pre></div></div>
+
+<p>To run the compiled exploit, we’ll need to specify the architecture via <code class="language-plaintext highlighter-rouge">-b 0</code> and then the IP as the positional argument <code class="language-plaintext highlighter-rouge">&lt;Target IP&gt;</code>.</p>
+
+<p><img src="/assets/images/VulnHub/Kioptrix1_4.PNG" alt="Running the exploit"></p>
+
+<h1 id="privilege-escalation">Privilege Escalation</h1>
+
+<p>After running the exploit, we are dropped directly into a root shell. So that’s it, rooted!</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#ffuf" class="page__taxonomy-item" rel="tag">ffuf</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#mrtg" class="page__taxonomy-item" rel="tag">MRTG</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#samba" class="page__taxonomy-item" rel="tag">Samba</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#smbclient" class="page__taxonomy-item" rel="tag">smbclient</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#vulnhub" class="page__taxonomy-item" rel="tag">VulnHub</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#vulnhub" class="page__taxonomy-item" rel="tag">VulnHub</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-07-27T00:00:00-04:00">July 27, 2020</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="#" class="pagination--pager disabled">Previous</a>
+    
+    
+      <a href="/Kioptrix-Level-1.1/" class="pagination--pager" title="Kioptrix Level 1.1 (#2) Writeup - VulnHub
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+    <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2021 Ash</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+  </body>
+</html>
