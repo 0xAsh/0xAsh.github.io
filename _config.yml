@@ -93,19 +93,19 @@ social:
 
 # Analytics
 analytics:
-  provider               : "google" # false (default), "google", "google-universal", "custom"
+  provider               : false # "google", "google-universal", "custom"
   google:
-    tracking_id          : "UA-145129883-1"
+    tracking_id          : # 
     anonymize_ip         : false # (default)
 
 
 # Site Author
 author:
-  name             : "Snowscan"
+  name             : "Ash"
   avatar           : "/assets/images/avatar.png"
-  bio              : "Pentester, CTF player<br>HackTheBox ATeam"
-  location         : "Canada"
-  email            : "info@snowscan.io"
+  bio              : "Unix lover and penetration tester. Interested in anything to do with computers."
+  location         : 
+  email            : 
   uri              :
   home             : # null (default), "absolute or relative url to link to author home"
   bitbucket        :
@@ -114,10 +114,10 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : "slemire"
+  github           : 
   gitlab           :
   google_plus      :
-  keybase          : "snowscan"
+  keybase          : 
   instagram        :
   lastfm           :
   linkedin         : # "john-doe-12345678" (the last part of your profile url, e.g. https://www.linkedin.com/in/john-doe-12345678)
@@ -126,11 +126,24 @@ author:
   stackoverflow    : # "123456/username" (the last part of your profile url, e.g. https://stackoverflow.com/users/123456/username)
   steam            : # "steamId" (the last part of your profile url, e.g. https://steamcommunity.com/id/steamId/)
   tumblr           :
-  twitter          : "snowscan"
+  twitter          : 
   vine             :
   weibo            :
   xing             :
   youtube          : # "https://youtube.com/c/MichaelRoseDesign"
+  links:
+    - label: "Twitter"
+      icon: "fab fa-fw fa-twitter-square"
+      url: "https://twitter.com/_bin_Ash"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/0xAsh"
+    - label: "Keybase"
+      icon: "fab fa-fw fa-keybase"
+      url: "https://keybase.io/ashhhhhhh"
+    - label: "HackTheBox"
+      icon: "fas fa-fw fa-cube"
+      url: "https://www.hackthebox.com/home/users/profile/72624"
 
 
 # Reading Files
