@@ -23,7 +23,7 @@ description              : "Blogs about information security, technology, red te
 url                      : "https://0xAsh.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "0xAsh/0xAsh.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
-logo                     : "/assets/images/masthead.png"
+logo                     : "/assets/images/temp_lol_this_doesnt_exist_yet.png"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 breadcrumbs              : true # true, false (default)
 words_per_minute         : 200
@@ -102,7 +102,7 @@ analytics:
 # Site Author
 author:
   name             : "Ash"
-  avatar           : "/assets/images/avatar.png"
+  avatar           : "/assets/images/logo.png"
   bio              : "Unix lover and penetration tester. Interested in anything to do with computers."
   location         : 
   email            : 
