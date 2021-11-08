@@ -4,17 +4,17 @@ layout: single
 title: "About me"
 ---
 
+Hi, I'm Ash.
+
 I've worked in security for a short (but fun) time, with a much longer history of enjoying 
-being in front of a computer.
+using computers.
 
-I _love_ Unix. I'm a huge Ken Thompson and Dennis Ritchie fan. I hope one day to contribute something as meaningful to the world as they did with the creation of Unix.
+I currently work as a penetration tester full-time, trying to help illustrate and locate problems for people. More importantly, I try to help people _fix_ the problems I find.
 
-Currently, I work as a penetration tester full-time, trying to help illustrate and locate problems for people. More importantly, I try to help people _fix_ the problems I find.
-
-I'm currently really into attacking Windows/AD, so you might see more content focused around those topics.
+Outside of work I enjoy learning new things through resources like HackTheBox or certifications. As of late I'm especaily interested in learning more about Windows/AD, so you might see more content focused around those topics.
 
 ## Talk To Me
-If you want to talk to me please don't hesitate to hit me up. I prefer Keybase for 
+I like meeting new people, so don't hesitate to hit me up if you like. I prefer Keybase for 
 communication, but am active on Twitter as well.
 
 ## Certifications/Trainings
