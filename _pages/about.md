@@ -7,10 +7,11 @@ title: "About me"
 I've worked in security for a short (but fun) time, with a much longer history of enjoying 
 being in front of a computer.
 
-During the daytime I find things so I can help people find solutions to problems. 
+I _love_ Unix. I'm a huge Ken Thompson and Dennis Ritchie fan. I hope one day to contribute something as meaningful to the world as they did with the creation of Unix.
 
-During the nighttime I try to learn more so I can find more 
-things during the day.
+Currently, I work as a penetration tester full-time, trying to help illustrate and locate problems for people. More importantly, I try to help people _fix_ the problems I find.
+
+I'm currently really into attacking Windows/AD, so you might see more content focused around those topics.
 
 ## Talk To Me
 If you want to talk to me please don't hesitate to hit me up. I prefer Keybase for 
@@ -24,4 +25,3 @@ communication, but am active on Twitter as well.
 
 ## Projects
 - [street2phone.py](https://github.com/0xash/street2phone.py) - A Python script to farm local phone numbers from a given address using the Google Places API. Check out the related [blog post](https://0xash.io/2020-12-14-Farming-phone-numbers-with-Python-and-the-Google-Places-API/).
-
