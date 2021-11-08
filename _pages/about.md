@@ -20,8 +20,8 @@ communication, but am active on Twitter as well.
 ## Certifications/Trainings
 - [CRTO](https://www.zeropointsecurity.co.uk/red-team-ops/overview)
 - [OSCP](https://www.offensive-security.com/pwk-oscp/)
-- [eJPT](https://elearnsecurity.com/product/ejpt-certification/)
 - SANS [SEC542](https://www.sans.org/cyber-security-courses/web-app-penetration-testing-ethical-hacking)/[SEC642](https://www.sans.org/cyber-security-courses/advanced-web-app-penetration-testing-ethical-hacking/)
+- [eJPT](https://elearnsecurity.com/product/ejpt-certification/)
 
 ## Projects
 - [street2phone.py](https://github.com/0xash/street2phone.py) - A Python script to farm local phone numbers from a given address using the Google Places API. Check out the related [blog post](https://0xash.io/2020-12-14-Farming-phone-numbers-with-Python-and-the-Google-Places-API/).
