@@ -3,10 +3,8 @@ permalink: /about/
 title: "About me"
 ---
 
-My name's Asher, but you can call me Ash. 
-
 I've worked in security for a short (but fun) time, with a much longer history of enjoying 
-being in front of a keyboard.
+being in front of a computer.
 
 During the daytime I find things so I can help people find solutions to problems. 
 
