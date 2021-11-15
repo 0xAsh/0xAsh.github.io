@@ -10,13 +10,16 @@ header:
   icon: /assets/images/vulnhub.png
 tags: 
   - VulnHub
+  - SQL Injection
+  - Command Injection
+  - Kernel Exploits
 categories:
   - VulnHub
 ---
 
 Kioptrix Level 1.1 is the next box in the series of Kioptrix VulnHub boxes. This box ups the ante from its predecessor, beginning with a simple SQL injection exploit to gain access to a web console. The web console can be bypassed to execute code, which we use to get a simple reverse shell. Finally, we successfully privilege escalate to root using a kernel exploit. 
 
-Feel free to checkout my writeup on the first box: [Kioptrix 1](https://0xash.github.io/2020-07-27-Kioptrix-Level-1/).
+Feel free to checkout my writeup on the first box: [Kioptrix 1](https://0xash.io/Kioptrix-Level-1/).
 
 The entire Kioptrix series is good baseline prep for anyone studying for their OSCP/PWK, learning Network pentesting, and trying to get some practice enumerating a box. I would highly recommend it _prior_ to purchasing PWK/OSCP as it will give you a good headstart and allow you to get the most out of your lab time.
 
@@ -24,7 +27,7 @@ I’ll assume you’ve already got the box running and are able to reach it. Let
 
 # Enumeration
 
-Let's start by kicking off some NMAP scans.
+We'll start by kicking off some NMAP scans.
 
 ### NMAP Scans
 

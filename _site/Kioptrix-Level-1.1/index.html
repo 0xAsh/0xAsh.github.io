@@ -37,6 +37,10 @@
 
 
 
+  
+
+  
+
 
 <link rel="canonical" href="http://localhost:4000/Kioptrix-Level-1.1/">
 
@@ -45,6 +49,16 @@
 
 
 
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ash",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
 
 
 
@@ -105,7 +119,7 @@
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
         
-          <a class="site-logo" href="/"><img src="/assets/images/logo.png" alt=""></a>
+          <a class="site-logo" href="/"><img src="/assets/images/temp_lol_this_doesnt_exist_yet.png" alt=""></a>
                 
         <ul class="visible-links"><li class="masthead__menu-item">
               <a href="/" >Home</a>
@@ -181,18 +195,18 @@
       
 
       
-        <img src="/assets/images/logo.png" alt="" itemprop="image">
+        <img src="/assets/images/logo.png" alt="Ash" itemprop="image">
       
     </div>
   
 
   <div class="author__content">
     
-      <h3 class="author__name" itemprop="name"></h3>
+      <h3 class="author__name" itemprop="name">Ash</h3>
     
     
       <p class="author__bio" itemprop="description">
-        Unix lover and penetration tester. Interested in anything to do wi th computers.
+        Unix lover. Red teamer. Interested in anything to do with computers.
       </p>
     
   </div>
@@ -312,7 +326,7 @@
         </p>
         <p>Kioptrix Level 1.1 is the next box in the series of Kioptrix VulnHub boxes. This box ups the ante from its predecessor, beginning with a simple SQL injection exploit to gain access to a web console. The web console can be bypassed to execute code, which we use to get a simple reverse shell. Finally, we successfully privilege escalate to root using a kernel exploit.</p>
 
-<p>Feel free to checkout my writeup on the first box: <a href="https://0xash.github.io/2020-07-27-Kioptrix-Level-1/">Kioptrix 1</a>.</p>
+<p>Feel free to checkout my writeup on the first box: <a href="https://0xash.io/Kioptrix-Level-1/">Kioptrix 1</a>.</p>
 
 <p>The entire Kioptrix series is good baseline prep for anyone studying for their OSCP/PWK, learning Network pentesting, and trying to get some practice enumerating a box. I would highly recommend it <em>prior</em> to purchasing PWK/OSCP as it will give you a good headstart and allow you to get the most out of your lab time.</p>
 
@@ -320,7 +334,7 @@
 
 <h1 id="enumeration">Enumeration</h1>
 
-<p>Let’s start by kicking off some NMAP scans.</p>
+<p>We’ll start by kicking off some NMAP scans.</p>
 
 <h3 id="nmap-scans">NMAP Scans</h3>
 
@@ -656,6 +670,18 @@ ls
   <p class="page__taxonomy">
     <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
     <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#command-injection" class="page__taxonomy-item" rel="tag">Command Injection</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#kernel-exploits" class="page__taxonomy-item" rel="tag">Kernel Exploits</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#sql-injection" class="page__taxonomy-item" rel="tag">SQL Injection</a><span class="sep">, </span>
     
       
       

@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Kioptrix Level 1.2 (#3) Writeup - VulnHub
-excerpt: "Kioptrix Level 1.2 continues the Kioptrix VulnHub series, and provides great experience creativily reusing credentials, attacking common web applications, and cracking hashed passwords. We start by exploiting LotusCMS to get a shell as www-data. From there, we find MySQL credentials that we use to login to phpMyAdmin and dump hashed user passwords. Finally, after cracking and logging in using these credentials, we exploit a sudo misconfiguration that allows us to privilege escalate using the ht text editor."
+excerpt: "Kioptrix Level 1.2 continues the Kioptrix VulnHub series, and provides great experience with reusing credentials, attacking common web applications, and cracking hashed passwords. We start by exploiting LotusCMS to get a shell as www-data. From there, we find MySQL credentials that we use to login to phpMyAdmin and dump hashed user passwords. Finally, after cracking and logging in using these credentials, we exploit a sudo misconfiguration that allows us to privilege escalate using the ht text editor."
 date: 2020-07-29
 classes: wide
 header: 
@@ -10,11 +10,17 @@ header:
   icon: /assets/images/vulnhub.png
 tags: 
   - VulnHub
+  - LotusCMS
+  - Metasploit
+  - phpMyAdmin
+  - John
+  - MD5
+  - sudo
 categories:
   - VulnHub
 ---
 
-Kioptrix Level 1.2 continues the Kioptrix VulnHub series, and provides great experience creativily reusing credentials, attacking common web applications, and cracking hashed passwords. 
+Kioptrix Level 1.2 continues the Kioptrix VulnHub series, and provides great experience with reusing credentials, attacking common web applications, and cracking hashed passwords. 
 
 We start by exploiting `LotusCMS` to get a shell as www-data. From there, we find MySQL credentials that we use to login to `phpMyAdmin` and dump hashed user passwords. 
 
@@ -77,21 +83,21 @@ nikto -host kio3 >> nikto.txt
 
 While this runs in the background, let's take a look at the webpage using Firefox:
 
-![Viewing the webpage](/assets/img/VulnHub/Kioptrix1.2_1.PNG)
+![Viewing the webpage](/assets/images/VulnHub/Kioptrix1.2_1.PNG)
 
 I'll click around the website and see what we can find, we can start by taking a look at the `blog` page.
 
-![Viewing the Blog](/assets/img/VulnHub/Kioptrix1.2_2.PNG)
+![Viewing the Blog](/assets/images/VulnHub/Kioptrix1.2_2.PNG)
 
 Not much here, but I did notice a call out to a user known as `loneferret`, let's note this as it could be a valid username for later.
 
 Anyways, let's continue by looking at `/gallery` which is menitoned in a couple places.
 
-![Viewing the Blog](/assets/img/VulnHub/Kioptrix1.2_3.PNG)
+![Viewing the Blog](/assets/images/VulnHub/Kioptrix1.2_3.PNG)
 
 For the most part, this whole thing looks severely broken. Maybe looking at the source HTML will give us some clues:
 
-![Viewing the Blog source](/assets/img/VulnHub/Kioptrix1.2_4.PNG)
+![Viewing the Blog source](/assets/images/VulnHub/Kioptrix1.2_4.PNG)
 
 Okay, one thing that immediately sticks out is the HTML comment containing:
 
@@ -99,11 +105,11 @@ Okay, one thing that immediately sticks out is the HTML comment containing:
 
 If you know HTML, you know that the `href` value will pull in another resource, whether from an external source or a locally hosted resource... is `gadmin` a resource on the web server?
 
-![Trying to access `gadmin`](/assets/img/VulnHub/Kioptrix1.2_5.PNG)
+![Trying to access `gadmin`](/assets/images/VulnHub/Kioptrix1.2_5.PNG)
 
 Sure is! Cool. Let's note that, and look at the remaining pieces of baseline enumeration. Last thing on my list is the `login` button on the orignal homepage, let's take a look at what this redirects to:
 
-![Taking a look at the login page](/assets/img/VulnHub/Kioptrix1.2_6.PNG)
+![Taking a look at the login page](/assets/images/VulnHub/Kioptrix1.2_6.PNG)
 
 Cool, so it's a login form to some admin panel... Looks like it's related to `LotusCMS`, let's note that down.
 
@@ -156,7 +162,7 @@ I was too lazy to take screenshots of each, but all you need to know is that eac
 
 Okay, next up is that `/phpmyadmin/` finding, let's take a look:
 
-![/phpmyadmin/](/assets/img/VulnHub/Kioptrix1.2_7.PNG)
+![/phpmyadmin/](/assets/images/VulnHub/Kioptrix1.2_7.PNG)
 
 Another login page...
 
@@ -200,7 +206,7 @@ http://host/index.php?page=./../../../../../etc/passwd%00
 
 Hmm! Let's give it a shot.
 
-![Trying to get an LFI](/assets/img/VulnHub/Kioptrix1.2_8.PNG)
+![Trying to get an LFI](/assets/images/VulnHub/Kioptrix1.2_8.PNG)
 
 No luck.. There's also that first result which is a MetaSploit module. Let's fire up `msfconsole` real quick and try it out.
 
@@ -276,7 +282,7 @@ Server username: www-data (33)
 meterpreter > 
 ```
 
-We got a shell... idk though... I hate using MetaSploit sometimes. Let's see if we can be elitist and find a manual exploit for this vuln, after all it's from `2011`. There's bound to be one.
+We got a shell... idk though... I hate using MetaSploit _sometimes_ (not always). Let's see if we can be elitist and find a manual exploit for this vuln, after all it's from `2011`. There's bound to be one.
 
 `~~~Googling~~~`
 
@@ -288,7 +294,7 @@ Cool, let's try running it:
 ein@~/VulnHub/Kioptrix1.2:$ ./lotusRCE.sh 10.0.0.204 /index.php
 ```
 
-![Anti-script kiddie](/assets/img/VulnHub/Kioptrix1.2_9.PNG)
+![Anti-script kiddie](/assets/images/VulnHub/Kioptrix1.2_9.PNG)
 
 And we got a shell as `www-data`.
 
@@ -466,7 +472,7 @@ These are all interesting... looking through them all led me to `gallery/gconfig
 
 Cool. Let's truy logging into `/phpmyadmin/` with these.
 
-![Logging into PHP admin](/assets/img/VulnHub/Kioptrix1.2_10.PNG)
+![Logging into PHP admin](/assets/images/VulnHub/Kioptrix1.2_10.PNG)
 
 Easy enough. After this I looked around through the SQL tables for a while, and eventually found some hashed user passwords in the `dev_accounts` table in the `gallery` database:
 
@@ -541,7 +547,7 @@ loneferret@Kioptrix3:~$ export TERM=xterm
 
 Now we can use the `ht` text editor as root! The method I used to privesc is to edit the `/etc/sudoers` file and give us further permission. In this case I'll simply give us full rights to `/bin/su`.
 
-![Editing `/etc/sudoers/`](/assets/img/VulnHub/Kioptrix1.2_11.PNG)
+![Editing `/etc/sudoers/`](/assets/images/VulnHub/Kioptrix1.2_11.PNG)
 
 And now we can simply switch users to root:
 

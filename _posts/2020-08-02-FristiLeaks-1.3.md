@@ -11,6 +11,10 @@ header:
 tags: 
   - VulnHub
   - FristiLeaks
+  - Nikto
+  - Webshells
+  - Reversing
+  - Sudo
 categories:
   - VulnHub
 ---
@@ -90,17 +94,17 @@ ein@~:$ nikto -host 10.0.0.64
 
 I'll  enumerate a bit using a web browser. We'll start as usual by just browsing to the default landing page.
 
-![Landing Page](/assets/img/VulnHub/Fristi_1.PNG)
+![Landing Page](/assets/images/VulnHub/Fristi_1.PNG)
 
 Nothing interesting here, let's start looking at the sub-directories that nikto and NMAP picked up.
 
 `/cola/`, `/sisi/`, and `/beer/` all result in the following page:
 
-![cola](/assets/img/VulnHub/Fristi_2.PNG)
+![cola](/assets/images/VulnHub/Fristi_2.PNG)
 
 This part took me a while, but after thinking about it I simply tried `/fristi` and got the following result:
 
-![Frist admin page](/assets/img/VulnHub/Fristi_3.PNG)
+![Frist admin page](/assets/images/VulnHub/Fristi_3.PNG)
 
 So kinda stupid. IDK, I banged my head against this trying to find some sweet bypass but whatever. Let's keep moving on.
 
@@ -181,7 +185,7 @@ cat HTMLcomment | base64 -d >> image.png
 
 And viewing the image gives us:
 
-![Decoded image](/assets/img/VulnHub/Fristi_4.PNG)
+![Decoded image](/assets/images/VulnHub/Fristi_4.PNG)
 
 Nice, this is most likely a password. 
 
@@ -189,7 +193,7 @@ At first glance I thought it was maybe a cleartext password migrated to an esote
 
 Looking back, I should have tried the lowest-hanging fruit first. If we go  back to the admin login page and try the following creds: `eezeepz:keKkeKKeKKeKkEkkEk`:
 
-![Successful login](/assets/img/VulnHub/Fristi_5.PNG)
+![Successful login](/assets/images/VulnHub/Fristi_5.PNG)
 
 We have a successful login. Nice.
 
@@ -239,7 +243,7 @@ I'll go ahead and setup the listener I specified in the reverse shell (for me th
 
 And we get a shell:
 
-![Successful login](/assets/img/VulnHub/Fristi_6.PNG)
+![Successful login](/assets/images/VulnHub/Fristi_6.PNG)
 
 # Privilege Escalation
 

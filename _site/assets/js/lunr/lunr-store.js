@@ -6,22 +6,22 @@ var store = [{
         "teaser":"http://localhost:4000/assets/images/VulnHub/kioptrix1_logo.png"},{
         "title": "Kioptrix Level 1.1 (#2) Writeup - VulnHub",
         "excerpt":"Kioptrix Level 1.1 is the next box in the series of Kioptrix VulnHub boxes. This box ups the ante from its predecessor, beginning with a simple SQL injection exploit to gain access to a web console. The web console can be bypassed to execute code, which we use to get...","categories": ["VulnHub"],
-        "tags": ["VulnHub"],
+        "tags": ["VulnHub","SQL Injection","Command Injection","Kernel Exploits"],
         "url": "http://localhost:4000/Kioptrix-Level-1.1/",
         "teaser":"http://localhost:4000/assets/images/VulnHub/kioptrix1.1_logo.png"},{
         "title": "Kioptrix Level 1.2 (#3) Writeup - VulnHub",
-        "excerpt":"Kioptrix Level 1.2 continues the Kioptrix VulnHub series, and provides great experience creativily reusing credentials, attacking common web applications, and cracking hashed passwords. We start by exploiting LotusCMS to get a shell as www-data. From there, we find MySQL credentials that we use to login to phpMyAdmin and dump hashed...","categories": ["VulnHub"],
-        "tags": ["VulnHub"],
+        "excerpt":"Kioptrix Level 1.2 continues the Kioptrix VulnHub series, and provides great experience with reusing credentials, attacking common web applications, and cracking hashed passwords. We start by exploiting LotusCMS to get a shell as www-data. From there, we find MySQL credentials that we use to login to phpMyAdmin and dump hashed...","categories": ["VulnHub"],
+        "tags": ["VulnHub","LotusCMS","Metasploit","phpMyAdmin","John","MD5","sudo"],
         "url": "http://localhost:4000/Kioptrix-Level-1.2/",
         "teaser":"http://localhost:4000/assets/images/VulnHub/kioptrix1.2_logo.png"},{
         "title": "Kioptrix Level 1.3 (#4) Writeup - VulnHub",
         "excerpt":"Kioptrix Level 1.3 is the fourth iteration of the Kioptrix VulnHub challenges. It involves taking advantage of a SQL injection vulnerablility to login to a simple web application that leaks user credentials. Using these credentials we can connect to the box via SSH. Unfortunately, our SSH sessions spawn a restricted...","categories": ["VulnHub"],
-        "tags": ["VulnHub"],
+        "tags": ["VulnHub","ffuf","enum4linux","SQL Injection","Restricted Shell Escapes","setuid"],
         "url": "http://localhost:4000/Kioptrix-Level-1.3/",
         "teaser":"http://localhost:4000/assets/images/VulnHub/kioptrix1.3_logo.png"},{
         "title": "FristiLeaks 1.3 Writeup - VulnHub",
         "excerpt":"FristiLeaks 1.3 is a VulnHub box that I used to prepare for the OSCP exam. It’s by far one of my favorite VulnHub boxes I’ve done, as it involves some fun and simple reversing/code analysis. It also involves practice hopping around and enumerating a Linux environment from the perspective of...","categories": ["VulnHub"],
-        "tags": ["VulnHub","FristiLeaks"],
+        "tags": ["VulnHub","FristiLeaks","Nikto","Webshells","Reversing","Sudo"],
         "url": "http://localhost:4000/FristiLeaks-1.3/",
         "teaser":"http://localhost:4000/assets/images/VulnHub/fristileaks1.3_logo.png"},{
         "title": "Farming phone numbers with Python and the Google Places API",

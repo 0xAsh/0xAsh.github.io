@@ -10,6 +10,11 @@ header:
   icon: /assets/images/vulnhub.png
 tags: 
   - VulnHub
+  - ffuf
+  - enum4linux
+  - SQL Injection
+  - Restricted Shell Escapes
+  - setuid
 categories:
   - VulnHub
 ---
@@ -199,7 +204,7 @@ Cool, that should cover SMB. Moving on to HTTP.
 
 Per usual we'll start by vising the website.
 
-![Website homepage](/assets/img/VulnHub/Kioptrix1.3_1.PNG)
+![Website homepage](/assets/images/VulnHub/Kioptrix1.3_1.PNG)
 
 And we've got a login form. Let's get `ffuf` running in the background while we keep looking:
 
@@ -253,13 +258,13 @@ server-status           [Status: 403, Size: 330, Words: 24, Lines: 11]
 
 Hmm..`john` and `robert` stick out, let's take a look:
 
-![Looking at the interesting sub-directories](/assets/img/VulnHub/Kioptrix1.3_2.PNG)
+![Looking at the interesting sub-directories](/assets/images/VulnHub/Kioptrix1.3_2.PNG)
 
 # Exploitation
 
 Just a directory listing, and it looks like clicking on either file just redirects us to the homepage:
 
-![302 Redirections](/assets/img/VulnHub/Kioptrix1.3_3.PNG)
+![302 Redirections](/assets/images/VulnHub/Kioptrix1.3_3.PNG)
 
 Weird, well lets account for any low hanging fruit, starting with some weak password/SQLi guessing. Remember at this point we have the following usernames to test with:
 - `john`
@@ -268,11 +273,11 @@ Weird, well lets account for any low hanging fruit, starting with some weak pass
 
 I'll start with attempting to login as `john` with a password of `' OR '1'='1`:
 
-![302 Redirections](/assets/img/VulnHub/Kioptrix1.3_4.PNG)
+![302 Redirections](/assets/images/VulnHub/Kioptrix1.3_4.PNG)
 
 And sure enough that got us in. Let's take a look at what the internal webpage looks like now.
 
-![Logged in page](/assets/img/VulnHub/Kioptrix1.3_5.PNG)
+![Logged in page](/assets/images/VulnHub/Kioptrix1.3_5.PNG)
 
 Pretty straightforward, let's try to use these creds to connect via SSH:
 

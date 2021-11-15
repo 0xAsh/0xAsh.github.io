@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>Kioptrix Level 1.2 (#3) Writeup - VulnHub - Ash</title>
-<meta name="description" content="Kioptrix Level 1.2 continues the Kioptrix VulnHub series, and provides great experience creativily reusing credentials, attacking common web applications, and cracking hashed passwords. We start by exploiting LotusCMS to get a shell as www-data. From there, we find MySQL credentials that we use to login to phpMyAdmin and dump hashed user passwords. Finally, after cracking and logging in using these credentials, we exploit a sudo misconfiguration that allows us to privilege escalate using the ht text editor.">
+<meta name="description" content="Kioptrix Level 1.2 continues the Kioptrix VulnHub series, and provides great experience with reusing credentials, attacking common web applications, and cracking hashed passwords. We start by exploiting LotusCMS to get a shell as www-data. From there, we find MySQL credentials that we use to login to phpMyAdmin and dump hashed user passwords. Finally, after cracking and logging in using these credentials, we exploit a sudo misconfiguration that allows us to privilege escalate using the ht text editor.">
 
 
 
@@ -21,7 +21,7 @@
 <meta property="og:url" content="http://localhost:4000/Kioptrix-Level-1.2/">
 
 
-  <meta property="og:description" content="Kioptrix Level 1.2 continues the Kioptrix VulnHub series, and provides great experience creativily reusing credentials, attacking common web applications, and cracking hashed passwords. We start by exploiting LotusCMS to get a shell as www-data. From there, we find MySQL credentials that we use to login to phpMyAdmin and dump hashed user passwords. Finally, after cracking and logging in using these credentials, we exploit a sudo misconfiguration that allows us to privilege escalate using the ht text editor.">
+  <meta property="og:description" content="Kioptrix Level 1.2 continues the Kioptrix VulnHub series, and provides great experience with reusing credentials, attacking common web applications, and cracking hashed passwords. We start by exploiting LotusCMS to get a shell as www-data. From there, we find MySQL credentials that we use to login to phpMyAdmin and dump hashed user passwords. Finally, after cracking and logging in using these credentials, we exploit a sudo misconfiguration that allows us to privilege escalate using the ht text editor.">
 
 
 
@@ -37,6 +37,10 @@
 
 
 
+  
+
+  
+
 
 <link rel="canonical" href="http://localhost:4000/Kioptrix-Level-1.2/">
 
@@ -45,6 +49,16 @@
 
 
 
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ash",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
 
 
 
@@ -105,7 +119,7 @@
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
         
-          <a class="site-logo" href="/"><img src="/assets/images/logo.png" alt=""></a>
+          <a class="site-logo" href="/"><img src="/assets/images/temp_lol_this_doesnt_exist_yet.png" alt=""></a>
                 
         <ul class="visible-links"><li class="masthead__menu-item">
               <a href="/" >Home</a>
@@ -181,18 +195,18 @@
       
 
       
-        <img src="/assets/images/logo.png" alt="" itemprop="image">
+        <img src="/assets/images/logo.png" alt="Ash" itemprop="image">
       
     </div>
   
 
   <div class="author__content">
     
-      <h3 class="author__name" itemprop="name"></h3>
+      <h3 class="author__name" itemprop="name">Ash</h3>
     
     
       <p class="author__bio" itemprop="description">
-        Unix lover and penetration tester. Interested in anything to do wi th computers.
+        Unix lover. Red teamer. Interested in anything to do with computers.
       </p>
     
   </div>
@@ -289,7 +303,7 @@
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="Kioptrix Level 1.2 (#3) Writeup - VulnHub">
-    <meta itemprop="description" content="Kioptrix Level 1.2 continues the Kioptrix VulnHub series, and provides great experience creativily reusing credentials, attacking common web applications, and cracking hashed passwords. We start by exploiting LotusCMS to get a shell as www-data. From there, we find MySQL credentials that we use to login to phpMyAdmin and dump hashed user passwords. Finally, after cracking and logging in using these credentials, we exploit a sudo misconfiguration that allows us to privilege escalate using the ht text editor.">
+    <meta itemprop="description" content="Kioptrix Level 1.2 continues the Kioptrix VulnHub series, and provides great experience with reusing credentials, attacking common web applications, and cracking hashed passwords. We start by exploiting LotusCMS to get a shell as www-data. From there, we find MySQL credentials that we use to login to phpMyAdmin and dump hashed user passwords. Finally, after cracking and logging in using these credentials, we exploit a sudo misconfiguration that allows us to privilege escalate using the ht text editor.">
     <meta itemprop="datePublished" content="July 29, 2020">
     
 
@@ -310,7 +324,7 @@
           
           
         </p>
-        <p>Kioptrix Level 1.2 continues the Kioptrix VulnHub series, and provides great experience creativily reusing credentials, attacking common web applications, and cracking hashed passwords.</p>
+        <p>Kioptrix Level 1.2 continues the Kioptrix VulnHub series, and provides great experience with reusing credentials, attacking common web applications, and cracking hashed passwords.</p>
 
 <p>We start by exploiting <code class="language-plaintext highlighter-rouge">LotusCMS</code> to get a shell as www-data. From there, we find MySQL credentials that we use to login to <code class="language-plaintext highlighter-rouge">phpMyAdmin</code> and dump hashed user passwords.</p>
 
@@ -369,21 +383,21 @@ Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
 
 <p>While this runs in the background, let’s take a look at the webpage using Firefox:</p>
 
-<p><img src="/assets/img/VulnHub/Kioptrix1.2_1.PNG" alt="Viewing the webpage" /></p>
+<p><img src="/assets/images/VulnHub/Kioptrix1.2_1.PNG" alt="Viewing the webpage" /></p>
 
 <p>I’ll click around the website and see what we can find, we can start by taking a look at the <code class="language-plaintext highlighter-rouge">blog</code> page.</p>
 
-<p><img src="/assets/img/VulnHub/Kioptrix1.2_2.PNG" alt="Viewing the Blog" /></p>
+<p><img src="/assets/images/VulnHub/Kioptrix1.2_2.PNG" alt="Viewing the Blog" /></p>
 
 <p>Not much here, but I did notice a call out to a user known as <code class="language-plaintext highlighter-rouge">loneferret</code>, let’s note this as it could be a valid username for later.</p>
 
 <p>Anyways, let’s continue by looking at <code class="language-plaintext highlighter-rouge">/gallery</code> which is menitoned in a couple places.</p>
 
-<p><img src="/assets/img/VulnHub/Kioptrix1.2_3.PNG" alt="Viewing the Blog" /></p>
+<p><img src="/assets/images/VulnHub/Kioptrix1.2_3.PNG" alt="Viewing the Blog" /></p>
 
 <p>For the most part, this whole thing looks severely broken. Maybe looking at the source HTML will give us some clues:</p>
 
-<p><img src="/assets/img/VulnHub/Kioptrix1.2_4.PNG" alt="Viewing the Blog source" /></p>
+<p><img src="/assets/images/VulnHub/Kioptrix1.2_4.PNG" alt="Viewing the Blog source" /></p>
 
 <p>Okay, one thing that immediately sticks out is the HTML comment containing:</p>
 
@@ -391,11 +405,11 @@ Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
 
 <p>If you know HTML, you know that the <code class="language-plaintext highlighter-rouge">href</code> value will pull in another resource, whether from an external source or a locally hosted resource… is <code class="language-plaintext highlighter-rouge">gadmin</code> a resource on the web server?</p>
 
-<p><img src="/assets/img/VulnHub/Kioptrix1.2_5.PNG" alt="Trying to access `gadmin`" /></p>
+<p><img src="/assets/images/VulnHub/Kioptrix1.2_5.PNG" alt="Trying to access `gadmin`" /></p>
 
 <p>Sure is! Cool. Let’s note that, and look at the remaining pieces of baseline enumeration. Last thing on my list is the <code class="language-plaintext highlighter-rouge">login</code> button on the orignal homepage, let’s take a look at what this redirects to:</p>
 
-<p><img src="/assets/img/VulnHub/Kioptrix1.2_6.PNG" alt="Taking a look at the login page" /></p>
+<p><img src="/assets/images/VulnHub/Kioptrix1.2_6.PNG" alt="Taking a look at the login page" /></p>
 
 <p>Cool, so it’s a login form to some admin panel… Looks like it’s related to <code class="language-plaintext highlighter-rouge">LotusCMS</code>, let’s note that down.</p>
 
@@ -446,7 +460,7 @@ Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
 
 <p>Okay, next up is that <code class="language-plaintext highlighter-rouge">/phpmyadmin/</code> finding, let’s take a look:</p>
 
-<p><img src="/assets/img/VulnHub/Kioptrix1.2_7.PNG" alt="/phpmyadmin/" /></p>
+<p><img src="/assets/images/VulnHub/Kioptrix1.2_7.PNG" alt="/phpmyadmin/" /></p>
 
 <p>Another login page…</p>
 
@@ -489,7 +503,7 @@ http://host/index.php?page<span class="o">=</span>./../../../../../etc/passwd%00
 
 <p>Hmm! Let’s give it a shot.</p>
 
-<p><img src="/assets/img/VulnHub/Kioptrix1.2_8.PNG" alt="Trying to get an LFI" /></p>
+<p><img src="/assets/images/VulnHub/Kioptrix1.2_8.PNG" alt="Trying to get an LFI" /></p>
 
 <p>No luck.. There’s also that first result which is a MetaSploit module. Let’s fire up <code class="language-plaintext highlighter-rouge">msfconsole</code> real quick and try it out.</p>
 
@@ -564,7 +578,7 @@ Server username: www-data (33)
 meterpreter &gt; 
 </span></code></pre></div></div>
 
-<p>We got a shell… idk though… I hate using MetaSploit sometimes. Let’s see if we can be elitist and find a manual exploit for this vuln, after all it’s from <code class="language-plaintext highlighter-rouge">2011</code>. There’s bound to be one.</p>
+<p>We got a shell… idk though… I hate using MetaSploit <em>sometimes</em> (not always). Let’s see if we can be elitist and find a manual exploit for this vuln, after all it’s from <code class="language-plaintext highlighter-rouge">2011</code>. There’s bound to be one.</p>
 
 <p><code class="language-plaintext highlighter-rouge">~~~Googling~~~</code></p>
 
@@ -575,7 +589,7 @@ meterpreter &gt;
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ein@~/VulnHub/Kioptrix1.2:<span class="nv">$ </span>./lotusRCE.sh 10.0.0.204 /index.php
 </code></pre></div></div>
 
-<p><img src="/assets/img/VulnHub/Kioptrix1.2_9.PNG" alt="Anti-script kiddie" /></p>
+<p><img src="/assets/images/VulnHub/Kioptrix1.2_9.PNG" alt="Anti-script kiddie" /></p>
 
 <p>And we got a shell as <code class="language-plaintext highlighter-rouge">www-data</code>.</p>
 
@@ -742,7 +756,7 @@ www-data@Kioptrix3:/home/www/kioptrix3.com<span class="nv">$ </span>
 
 <p>Cool. Let’s truy logging into <code class="language-plaintext highlighter-rouge">/phpmyadmin/</code> with these.</p>
 
-<p><img src="/assets/img/VulnHub/Kioptrix1.2_10.PNG" alt="Logging into PHP admin" /></p>
+<p><img src="/assets/images/VulnHub/Kioptrix1.2_10.PNG" alt="Logging into PHP admin" /></p>
 
 <p>Easy enough. After this I looked around through the SQL tables for a while, and eventually found some hashed user passwords in the <code class="language-plaintext highlighter-rouge">dev_accounts</code> table in the <code class="language-plaintext highlighter-rouge">gallery</code> database:</p>
 
@@ -812,7 +826,7 @@ User loneferret may run the following commands on this host:
 
 <p>Now we can use the <code class="language-plaintext highlighter-rouge">ht</code> text editor as root! The method I used to privesc is to edit the <code class="language-plaintext highlighter-rouge">/etc/sudoers</code> file and give us further permission. In this case I’ll simply give us full rights to <code class="language-plaintext highlighter-rouge">/bin/su</code>.</p>
 
-<p><img src="/assets/img/VulnHub/Kioptrix1.2_11.PNG" alt="Editing `/etc/sudoers/`" /></p>
+<p><img src="/assets/images/VulnHub/Kioptrix1.2_11.PNG" alt="Editing `/etc/sudoers/`" /></p>
 
 <p>And now we can simply switch users to root:</p>
 
@@ -887,6 +901,30 @@ public domain I used them.
   <p class="page__taxonomy">
     <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
     <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#john" class="page__taxonomy-item" rel="tag">John</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#lotuscms" class="page__taxonomy-item" rel="tag">LotusCMS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#md5" class="page__taxonomy-item" rel="tag">MD5</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#metasploit" class="page__taxonomy-item" rel="tag">Metasploit</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#phpmyadmin" class="page__taxonomy-item" rel="tag">phpMyAdmin</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#sudo" class="page__taxonomy-item" rel="tag">sudo</a><span class="sep">, </span>
     
       
       

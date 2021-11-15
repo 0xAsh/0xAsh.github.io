@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Ash</title>
+<!-- begin _includes/seo.html --><title>Posts by Category - Ash</title>
 <meta name="description" content="Blogs about information security, technology, red teaming, and other random musings.">
 
 
@@ -17,8 +17,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Ash">
-<meta property="og:title" content="Ash">
-<meta property="og:url" content="http://localhost:4000/">
+<meta property="og:title" content="Posts by Category">
+<meta property="og:url" content="http://localhost:4000/categories/">
 
 
 
@@ -36,7 +36,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/">
+<link rel="canonical" href="http://localhost:4000/categories/">
 
 
 
@@ -100,7 +100,7 @@
 
   </head>
 
-  <body class="layout--home">
+  <body class="layout--categories">
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -148,6 +148,32 @@
     <div class="initial-content">
       
 
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Posts by Category</li>
+      
+    
+  </ol>
+</nav>
+
+  
 
 
 <div id="main" role="main">
@@ -271,56 +297,68 @@
 
   <div class="archive">
     
-      <h1 id="page-title" class="page__title"></h1>
+      <h1 id="page-title" class="page__title">Posts by Category</h1>
     
     
 
-<h3 class="archive__subtitle">Recent Posts</h3>
+
+
+
+
+<ul class="taxonomy__index">
+  
+    
+      
+        <li>
+          <a href="#vulnhub">
+            <strong>VulnHub</strong> <span class="taxonomy__count">5</span>
+          </a>
+        </li>
+      
+    
+      
+    
+  
+    
+      
+    
+      
+    
+  
+    
+      
+    
+      
+    
+  
+    
+      
+    
+      
+    
+  
+    
+      
+    
+      
+        <li>
+          <a href="#projects">
+            <strong>Projects</strong> <span class="taxonomy__count">1</span>
+          </a>
+        </li>
+      
+    
+  
+</ul>
 
 
   
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
     
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/Farming-phone-numbers-with-Python-and-the-Google-Places-API/" rel="permalink">Farming phone numbers with Python and the Google Places API
-</a>
-        
-      
-    </h2>
-
-    <p class="page__meta">
-      
-        <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2020-12-14T00:00:00-05:00">December 14, 2020 </time>&emsp;
-      
-      
-    </p>
-
-    <p class="archive__item-excerpt" itemprop="description"><img src="/assets/images/street2phone/street2phone2.png" alt="" style="float: right;margin-right:10px; margin-left:20px; margin-bottom:10px; height:120px;">How I used Python and Google’s Places API to farm phone numbers. Walk through my thought process of taking a problem, attacking it with Python and the (expensive) Google Places API to reach a workable solution.
-</p>
-    <i class="fas fa-tags"></i>
-    
-      <a href="/tags/#Python" class="page__meta btn" rel="tag">Python</a>
-    
-      <a href="/tags/#API" class="page__meta btn" rel="tag">API</a>
-    
-      <a href="/tags/#Google Maps" class="page__meta btn" rel="tag">Google Maps</a>
-    
-      <a href="/tags/#Google Places" class="page__meta btn" rel="tag">Google Places</a>
-    
-      <a href="/tags/#Google APIs" class="page__meta btn" rel="tag">Google APIs</a>
-    
-      <a href="/tags/#Automation" class="page__meta btn" rel="tag">Automation</a>
-    
-  </article>
-</div>
-
-
-  
+      <section id="vulnhub" class="taxonomy__section">
+        <h2 class="archive__subtitle">VulnHub</h2>
+        <div class="entries-list">
+          
+            
 
 
 
@@ -361,8 +399,8 @@
   </article>
 </div>
 
-
-  
+          
+            
 
 
 
@@ -403,8 +441,8 @@
   </article>
 </div>
 
-
-  
+          
+            
 
 
 
@@ -447,8 +485,8 @@
   </article>
 </div>
 
-
-  
+          
+            
 
 
 
@@ -485,8 +523,8 @@
   </article>
 </div>
 
-
-  
+          
+            
 
 
 
@@ -525,9 +563,88 @@
   </article>
 </div>
 
+          
+        </div>
+        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
+      </section>
+    
+  
+    
+  
+
+  
+    
+  
+    
+  
+
+  
+    
+  
+    
+  
+
+  
+    
+  
+    
+  
+
+  
+    
+  
+    
+      <section id="projects" class="taxonomy__section">
+        <h2 class="archive__subtitle">Projects</h2>
+        <div class="entries-list">
+          
+            
 
 
 
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/Farming-phone-numbers-with-Python-and-the-Google-Places-API/" rel="permalink">Farming phone numbers with Python and the Google Places API
+</a>
+        
+      
+    </h2>
+
+    <p class="page__meta">
+      
+        <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2020-12-14T00:00:00-05:00">December 14, 2020 </time>&emsp;
+      
+      
+    </p>
+
+    <p class="archive__item-excerpt" itemprop="description"><img src="/assets/images/street2phone/street2phone2.png" alt="" style="float: right;margin-right:10px; margin-left:20px; margin-bottom:10px; height:120px;">How I used Python and Google’s Places API to farm phone numbers. Walk through my thought process of taking a problem, attacking it with Python and the (expensive) Google Places API to reach a workable solution.
+</p>
+    <i class="fas fa-tags"></i>
+    
+      <a href="/tags/#Python" class="page__meta btn" rel="tag">Python</a>
+    
+      <a href="/tags/#API" class="page__meta btn" rel="tag">API</a>
+    
+      <a href="/tags/#Google Maps" class="page__meta btn" rel="tag">Google Maps</a>
+    
+      <a href="/tags/#Google Places" class="page__meta btn" rel="tag">Google Places</a>
+    
+      <a href="/tags/#Google APIs" class="page__meta btn" rel="tag">Google APIs</a>
+    
+      <a href="/tags/#Automation" class="page__meta btn" rel="tag">Automation</a>
+    
+  </article>
+</div>
+
+          
+        </div>
+        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
+      </section>
+    
+  
 
 
   </div>
