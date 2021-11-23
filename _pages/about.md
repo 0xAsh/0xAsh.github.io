@@ -25,3 +25,6 @@ communication, but am active on Twitter as well.
 
 ## Projects
 - [street2phone.py](https://github.com/0xash/street2phone.py) - A Python script to farm local phone numbers from a given address using the Google Places API. Check out the related [blog post](https://0xash.io/Farming-phone-numbers-with-Python-and-the-Google-Places-API/).
+
+XMR:
+8BCuZhucww4NSWeyhHdQMKDkaZqZACCSLDJWFfccaVyhXXo1cbBnTTRiSEG5EDSPuTCaNqhBhZDzbT6KWzhyuTCXP6Nzgar
