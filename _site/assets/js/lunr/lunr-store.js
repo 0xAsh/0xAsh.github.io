@@ -30,7 +30,7 @@ var store = [{
         "url": "http://localhost:4000/Farming-phone-numbers-with-Python-and-the-Google-Places-API/",
         "teaser":"http://localhost:4000/assets/images/street2phone/street2phone2.png"},{
         "title": "Zero-Point Security's Certified Red Team Operator (CRTO) Review",
-        "excerpt":"Overview “Red Team Ops” is the course accompanying the Certified Red Team Operator (CRTO) certification offered by Zero-Point Security. The course is written for individuals with a general background in information security, especially those working in offensive security positions. The difficulty is most applicable to a junior audience, but I...","categories": ["Certifications"],
+        "excerpt":"Overview Red Team Ops is the course accompanying the Certified Red Team Operator (CRTO) certification offered by Zero-Point Security. The course was written by Rasta Mouse, who you may recognize as the original creator of the RastaLabs pro lab in HackTheBox. He maintains both the course content and runs Zero-Point...","categories": ["Certifications"],
         "tags": ["CRTO","Certified Red Team Operator","AD","Active Directory","Cobalt Strike","RastaMouse","Zero-Point Security","Certifications","C2"],
         "url": "http://localhost:4000/Certified-Red-Team-Operator-Review/",
         "teaser":"http://localhost:4000/assets/images/crto/crto_logo.png"}]
