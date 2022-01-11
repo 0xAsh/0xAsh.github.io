@@ -1,4 +1,316 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-12-27T10:57:24-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Ash</title><subtitle>Blogs about information security, technology, red teaming, and other random musings.</subtitle><author><name>Ash</name></author><entry><title type="html">Farming phone numbers with Python and the Google Places API</title><link href="http://localhost:4000/Farming-phone-numbers-with-Python-and-the-Google-Places-API/" rel="alternate" type="text/html" title="Farming phone numbers with Python and the Google Places API" /><published>2020-12-14T00:00:00-05:00</published><updated>2020-12-14T00:00:00-05:00</updated><id>http://localhost:4000/Farming-phone-numbers-with-Python-and-the-Google-Places-API</id><content type="html" xml:base="http://localhost:4000/Farming-phone-numbers-with-Python-and-the-Google-Places-API/">&lt;p&gt;&lt;img src=&quot;/assets/images/street2phone/street2phone3.png&quot; alt=&quot;Headerimg&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-10T20:04:17-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Ash</title><subtitle>Blogs about information security, technology, red teaming, and other random musings.</subtitle><author><name>Ash</name></author><entry><title type="html">Zero-Point Security’s Certified Red Team Operator (CRTO) Review</title><link href="http://localhost:4000/Certified-Red-Team-Operator-Review/" rel="alternate" type="text/html" title="Zero-Point Security’s Certified Red Team Operator (CRTO) Review" /><published>2022-01-10T00:00:00-05:00</published><updated>2022-01-10T00:00:00-05:00</updated><id>http://localhost:4000/Certified-Red-Team-Operator-Review</id><content type="html" xml:base="http://localhost:4000/Certified-Red-Team-Operator-Review/">&lt;h1&gt;Overview&lt;/h1&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;“Red Team Ops” is the course accompanying the Certified Red Team Operator (CRTO) certification offered by Zero-Point Security.&lt;/p&gt;
+
+&lt;p&gt;The course is written for individuals with a general background in information security, especially those working in offensive security positions. The difficulty is most applicable to a junior audience, but I would argue the course environment is also useful for individuals who are more experienced red teamers.&lt;/p&gt;
+
+&lt;p&gt;In this review I’ll give a brief overview of the course configuration, and talk about the pros and cons of the entire process in depth. I’ll also share my exam experience, and give some tips/tricks for passing. Lastly, I’ll close with some thoughts of why you might purchase the course (you totally should by the way).&lt;/p&gt;
+
+&lt;h4 id=&quot;my-background&quot;&gt;My Background&lt;/h4&gt;
+&lt;p&gt;CRTO was the logical next step in my personal journey after achieving OSCP in the prior year. After taking some time to get sped up on web application testing, I developed a huge interest
+in Active Directory/Windows-centric tactics. This was especially true after &lt;a href=&quot;https://github.com/topotam/PetitPotam&quot;&gt;PetitPotam&lt;/a&gt; came out and the awesome &lt;a href=&quot;https://posts.specterops.io/certified-pre-owned-d95910965cd2&quot;&gt;work by Will Schroeder and Lee
+Christensen&lt;/a&gt; was made public.&lt;/p&gt;
+
+&lt;h4 id=&quot;a-bit-of-history&quot;&gt;A Bit of History&lt;/h4&gt;
+&lt;p&gt;Prior to purchasing the course myself, Rasta announced a &lt;a href=&quot;https://www.zeropointsecurity.co.uk/blog/red-team-ops-2021-update&quot;&gt;signficant change to how it would operate&lt;/a&gt;. Most notable of
+which being the fact that Cobalt Strike is &lt;em&gt;included with the course purchase&lt;/em&gt;. Covenant is also no longer supported within the labs and course content, and &lt;em&gt;private&lt;/em&gt; lab environments are
+provided to all students.&lt;/p&gt;
+
+&lt;p&gt;There are a handful of reviews on both this updated version and the prior version with Covenant/BYOC2, shared labs, etc. To be clear, this review pertains the most recent CRTO (CRTO2?) update.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-course&quot;&gt;The Course&lt;/h2&gt;
+&lt;p&gt;Content within Red Team Ops is split into the following sections:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1. Course Introduction
+	1. What is Red Teaming?
+	2. Phases of an Engagement
+	3. Command &amp;amp; Control
+	4. Cobalt Strike Primer
+2. Planning &amp;amp; Client Engagement Phase
+3. Assessment Phase
+	1. External Reconnaissance
+	2. Initial Compromise
+	3. Host Reconnaissance
+	4. Host Persistence
+	5. Host Privilege Escalation
+	6. Domain Reconnaissance
+	7. Lateral Movement
+	8. Credentials &amp;amp; User Impersonation
+	9. Password Cracking Hints &amp;amp; Tips
+	10. Session Passing
+	11. Pivoting
+	12. Reverse Port Forwards
+	13. Data Protection API
+	14. Kerberos
+	15. Group Policy
+	16. Discretionary Access Control Lists
+	17. MS SQL Servers
+	18. Domain Dominance
+	19. Forest &amp;amp; Domain Trusts
+	20. Local Administrator Password Solution
+	21. Bypassing Antivirus
+	22. Bypassing AppLocker
+	23. Data Hunting &amp;amp; Exfiltration
+4. Post-Engagement &amp;amp; Reporting
+5. Extending Cobalt Strike
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It would be too lengthy to talk about each section in detail, so I’ll highlight a few takeaways:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Operational Guidance&lt;/strong&gt;: One aspect of the course I found surprising is the amount of content around engagement planning and operation. While it’s not to the level of detail present in something like &lt;a href=&quot;https://redteam.guide/&quot;&gt;Red Team Development and Operations&lt;/a&gt; by Joe Vest, it does contain helpful information around planning, reporting, and the non-technical aspects of security consulting. This is valuable information, especially if you’re like me trying to figure out how to master both of these aspects.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Targeting Microsoft&lt;/strong&gt;: This sort of goes without saying, but you’ll notice that almost every section is focused around technologies such as Windows, Active Directory, Kerberos, and so on. This means that once you come out of this course you’ll have a massive bag of tricks to attempt during your next engagement. Bad news? We’ll if you’re tasked with an engagement on a shop that purely uses Macs and Chromebooks you might be out of luck. I don’t necessarily see this as a con as this course is intended to fill the widest use-case you’ll encounter as a junior pentester/red teamer, which is a Microsoft technology stack.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;OPSEC&lt;/strong&gt;: When applicable, course sections contain guidance around Operational Security (OPSEC) or in other words how to not get caught. These tidbits of information were &lt;em&gt;amazing&lt;/em&gt; for me to begin thinking about purposefully remaining quiet, a tactic I have not had to employ in the past. On top of that, the lab environment contains a Splunk ingestion server you can use to actually analyze events as they occur within the environment.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;A great piece of supplemental learning to go along with OPSEC content from the course is this talk by RastaMouse himself:&lt;br /&gt; 
+&lt;a href=&quot;https://www.youtube.com/watch?v=qIbrozlf2wM&quot;&gt;Five Ways I got Caught Before Lunch&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I’ll also note five sections I found especially fun/interesting:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Initial Compromise&lt;/strong&gt;: Interesting tactics used to get a beacon to spawn on target machines, including topics such as malicious Office documents and HTA files.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Host Persistence&lt;/strong&gt;: Lots of cool ways to stay sticky on hosts, along with some cool exercises related to COM objects. This section is also probably really useful if you work in a SOC/DFIR type role.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Kerberos&lt;/strong&gt;: By far the most ingestible Kerberos overview I’ve ever encountered, packed with great techniques on how to attack it, especially tailored for AD environments (of course).&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Forest &amp;amp; Domain Trusts&lt;/strong&gt;: This begins with an amazing overview of Active Directory trust types, then delves into ways you can attack each. Second only in my mind to Harmj0y’s extremely detailed &lt;a href=&quot;https://www.harmj0y.net/blog/redteaming/a-guide-to-attacking-domain-trusts/&quot;&gt;Guide to Attacking Domain Trusts&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Local Administrator Password Solution&lt;/strong&gt;: Fun ways to (ab)use LAPS-specific permissions within an environment.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;Note: it was really hard to choose my top five.&lt;/em&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;h1&gt;Pros of CRTO&lt;/h1&gt;&lt;/center&gt;
+&lt;hr /&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+	&lt;img src=&quot;/assets/images/crto/crto_overview.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&quot;price&quot;&gt;Price&lt;/h2&gt;
+&lt;p&gt;It would be hard to begin talking about the CRTO’s pros without first mentioning the price.&lt;/p&gt;
+
+&lt;p&gt;At an astounding cost of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$472.0806&lt;/code&gt; US dollars you get access to the entire course, as well as any additional content that is added to the curriculum in the future.&lt;/p&gt;
+
+&lt;p&gt;That’s a fraction compared to other industry leaders like:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Offensive Security&lt;/strong&gt;: generally starting at a minimum of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~$1,000&lt;/code&gt; (if not more)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;INE/eLearnSecurity&lt;/strong&gt;: at a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$749&lt;/code&gt; annual fee with individual exam fees.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;SANS training&lt;/strong&gt;: with the GIAC course sitting at around &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~$8,000&lt;/code&gt; including an exam attempt.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;This is not to say that those training platforms don’t have value. I personally know that the opposite is especially true. I bring this up rather to illustrate how insanely cost-effective the CRTO is compared to the rest of the industry.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+        &lt;img src=&quot;/assets/images/crto/crto_price.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h4 id=&quot;lab-time&quot;&gt;Lab Time&lt;/h4&gt;
+&lt;p&gt;I would at a minimum purchase 40 hours of lab time, but highly recommend future-proofing yourself with extra time. Let’s say you give yourself 80 hours, that’s brings your total cost to: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$607&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;I personally went with 80 hours when I signed up. Let’s talk about why this matters.&lt;/p&gt;
+
+&lt;h2 id=&quot;labs&quot;&gt;Labs&lt;/h2&gt;
+&lt;p align=&quot;center&quot;&gt;
+        &lt;img src=&quot;/assets/images/crto/crto_labs.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The lab environment for CRTO is deployed through a platform called &lt;a href=&quot;https://www.snaplabs.io/&quot;&gt;SnapLabs&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Why does this matter to you? SnapLabs is the platform that handles all the VM management for you, including snapshotting, stopping/starting machines (duh), and resetting your lab environment.&lt;/p&gt;
+
+&lt;p&gt;It’s also how you access your machines when you want to follow along with the course, perform exercises from the content, or just mess around. This is done through the web browser, with desktop sessions deployed through Apache Guacamole.&lt;/p&gt;
+
+&lt;p&gt;Also, as I mentioned earlier &lt;em&gt;each student gets their own unique lab environment&lt;/em&gt;. You no longer have to worry about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;H3x_budd1e&lt;/code&gt; changing all the passwords or nuking that box you were working on. Your environment is completely yours.&lt;/p&gt;
+
+&lt;h4 id=&quot;environment&quot;&gt;Environment&lt;/h4&gt;
+&lt;p&gt;Once your access is setup, you’ll be dropped into an environment with:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;An attacking Windows/Linux host (Kali)&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;MSSQL servers&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Exchange servers&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Unix hosts&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Windows workstations&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Windows domain controllers&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Splunk&lt;/strong&gt;… wait… &lt;strong&gt;Splunk&lt;/strong&gt;? &lt;strong&gt;&lt;em&gt;yes. Splunk.&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Did you hear me mention &lt;strong&gt;Splunk&lt;/strong&gt;? No way. Let’s talk about &lt;strong&gt;Splunk&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;splunk&quot;&gt;Splunk&lt;/h4&gt;
+&lt;hr /&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+        &lt;img src=&quot;/assets/images/crto/crto_splonk.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;This is a hidden gem that’s included in the course and something that I personally think is extremely beneficial for the student.&lt;/p&gt;
+
+&lt;p&gt;The course not only provisions all these boxes for you attack, but also has them all pushing logs to &lt;strong&gt;Splunk&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Wow! Amazing! Well guess what.. &lt;strong&gt;&lt;em&gt;you can access the Splunk instance too&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;This was really useful for myself to:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;em&gt;Realize just how many !@#!$%! events are generated in live networks&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Figure out how to filter down specific events I’m looking for&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Analyze detection methods for the tactics I employ&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;You might remember I mentioned purchasing extra lab time. This is one of the reasons why. I plan on going back and using the lab from time to time to analyze detection of tactics I’m executing in the real world. This is one of the reasons I think the course is also beneficial to experienced red teamers, and not just limited to those looking to get into it.&lt;/p&gt;
+
+&lt;h2 id=&quot;rastas-teaching-style&quot;&gt;Rasta’s Teaching Style&lt;/h2&gt;
+&lt;center&gt;&lt;h2&gt;This is easily the highlight of the entire course.&lt;/h2&gt;&lt;/center&gt;
+&lt;p align=&quot;center&quot;&gt;
+        &lt;img src=&quot;/assets/images/crto/crto_learn.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Each piece of course content is divided into bite-size chunks that can be easily ingested. An individual article usually begins with a rough overview of the minimum information needed to grasp a topic and understand why it matters. Next it will delve into usage examples that are short and sweet. These serve the purpose of getting your hands on the keyboard executing commands, which for myself is the most productive method for me to ingest information.&lt;/p&gt;
+
+&lt;p&gt;Additionally, there are a handful of included videos walking you through a technique or demonstating a tactic. These are usually ~10 minutes long, and fairly straight to the point.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Personally, I found the articles on each topic to be where the course really shined.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Want to learn about Kerberoasting? Read the 5 minute article, then go perform the tactics in your live lab environment.&lt;/p&gt;
+
+&lt;p&gt;No sifting through a PDF and making notes. No slide deck extravaganza. Just read a quick article and start playing around.&lt;/p&gt;
+
+&lt;h4 id=&quot;comparisonsptsd&quot;&gt;Comparisons/PTSD&lt;/h4&gt;
+&lt;p&gt;If you’ve experienced the OSCP, chances are you remember how hard it was to focus on the PDF or watch the provided videos.&lt;/p&gt;
+
+&lt;p&gt;In my experience, I would try to force myself to ingest content, and do so at a rapid pace to keep up with my personal timelines (and expiring lab time).&lt;/p&gt;
+
+&lt;p&gt;Alternatively, I found myself actually &lt;em&gt;looking forward&lt;/em&gt; to ingesting the course content with CRTO, something that I’ve rarely been able to say in other learning efforts.&lt;/p&gt;
+
+&lt;h2 id=&quot;cobalt-strike&quot;&gt;Cobalt Strike&lt;/h2&gt;
+&lt;p align=&quot;center&quot;&gt;
+        &lt;img src=&quot;/assets/images/crto/crto_cs.png&quot; /&gt;
+&lt;/p&gt;
+&lt;p&gt;Lastly, it must be mentioned that Cobalt Strike is included within the lab environment. If you’re like me, you’ve been dying to get your hands on this toolset for years. I found finally getting to use it to be extremely fun.&lt;/p&gt;
+
+&lt;p&gt;Additionally, Rasta includes content on configuring Cobalt Strike to your needs (more on this later), which should help you kick start using it in the real world, should you have the ability to.&lt;/p&gt;
+
+&lt;p&gt;As far as I’m aware, CRTO is the only (legal) way of getting a taste of the toolset apart from purchasing a license, so for those who are looking to get their hands dirty with it, the course is a great place to start.&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;h1&gt;Cons of CRTO&lt;/h1&gt;&lt;/center&gt;
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;connection-options&quot;&gt;Connection Options&lt;/h2&gt;
+&lt;p&gt;I mentioned this earlier but wanted to reiterate the topic. A common complaint with the course is that you are locked to the browser when accessing your lab machines. No VPN connection, no &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.ovpn&lt;/code&gt; file, just Apache Guacamole and lots of browser tabs.&lt;/p&gt;
+
+&lt;p&gt;For myself this was really annoying in the beginning, but I quickly got used to it. It actually comes in handy if you’re switching between more than two assets inside the lab.&lt;/p&gt;
+
+&lt;p&gt;With that said, it may be a major turn off for some people, which is warranted, but not enough in my mind to completely discount the course. I figured it’s worth mentioning in case you’re expecting VPN access.&lt;/p&gt;
+
+&lt;h2 id=&quot;cobalt-strike-1&quot;&gt;Cobalt Strike&lt;/h2&gt;
+&lt;p&gt;Yes, this is a pro and also a con.&lt;/p&gt;
+
+&lt;p&gt;The course is tied heavily to usage of Cobalt Strike. The examples included within each section are strictly built for Cobalt Strike. This may or may not be a big deal for you depending on your situation. (i.e. whether or not you can afford it IRL).&lt;/p&gt;
+
+&lt;p&gt;One thing I will say is that the techniques and tactics employed by CS can generally be adapted to any platform, so it may still be a value-add. Often times, you’re really just using Cobalt Strike’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;execute-assembly&lt;/code&gt; to run a binary on a host, which is nowhere unique to the platform.&lt;/p&gt;
+
+&lt;p&gt;If this is something you’re worried about, I would recommend attempting to locate a similar or comparable functionality in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$c2_tool_you_use&lt;/code&gt; to whatever Cobalt Strike functionality is being used in the course.&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;h1&gt;Exam&lt;/h1&gt;&lt;/center&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;The CRTO exam is a comprised of a 48-hour assessment where the student must gather 6 of 8 flags to pass. The caveat is that this 48-hours of lab time can be spread across a 4-day window.&lt;/p&gt;
+
+&lt;p&gt;To pass one must simply submit the flags. &lt;em&gt;No reporting is neccessary.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Once your exam time begins, you will be provided with a packet containing a set of &lt;strong&gt;TTPs&lt;/strong&gt; to emulate. One must successfully emulate these &lt;strong&gt;TTPs&lt;/strong&gt; to progress through the environment, and collect all the flags.&lt;/p&gt;
+
+&lt;p&gt;Also, since you can pause the exam and start the labs, if you &lt;em&gt;really&lt;/em&gt; need to go back and double check something in a pseudo-dev environment, you can (although I would avoid this).&lt;/p&gt;
+
+&lt;p&gt;Overall, I would say the course is pretty difficult, but extremely fair. You may be asked to perform steps outside of your comfort zone, but I truly mean it when I say &lt;em&gt;the course content contains everything you need to pass&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;keys-for-success&quot;&gt;Keys For Success&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;FAQ&lt;/em&gt;&lt;/strong&gt;: Read the &lt;a href=&quot;https://www.zeropointsecurity.co.uk/red-team-ops/book-exam&quot;&gt;course FAQ&lt;/a&gt; and &lt;a href=&quot;https://www.zeropointsecurity.co.uk/red-team-ops/book-exam&quot;&gt;exam FAQ&lt;/a&gt;. Seriously, &lt;strong&gt;read the FAQs&lt;/strong&gt;. There were so many times in the Discord server I saw questions that are answered on those links.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;Discord&lt;/em&gt;&lt;/strong&gt;: Speaking of Discord, you should totally join the &lt;a href=&quot;https://discord.com/invite/yrktDxPA&quot;&gt;Zero-Point Security Discord server&lt;/a&gt;. This was crucial for not only my learning experience, but also my passing of the exam (more on this in a sec). Within the server you’ll find students progressing through the course/labs and a fairly active community. Everyone is generally helpful should you have any questions.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;Cobalt Strike Config&lt;/em&gt;&lt;/strong&gt;: Make sure you review every piece of content in the course related to Cobalt Strike and its configuration. Additionally, it would be really helpful to take a look at some &lt;a href=&quot;https://github.com/rsmudge/Malleable-C2-Profiles&quot;&gt;Malleable C2 Profiles&lt;/a&gt; and understand what they are doing. This is going to help you out immensely when you start your exam&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;Have fun!&lt;/em&gt;&lt;/strong&gt;: The challenges within the exam are extremely enjoyable. So start the exam, get Cobalt Strike configured correctly, sit back, and start progressing through the environment. If you worked your way through all the course content and took good notes, you should have a good experience.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;my-experience&quot;&gt;My Experience&lt;/h2&gt;
+&lt;p&gt;First off, let me say that even after my initial struggles, this was &lt;strong&gt;by far&lt;/strong&gt; the &lt;em&gt;most fun&lt;/em&gt; I’ve had on an exam so far.&lt;/p&gt;
+
+&lt;p&gt;With my exam scheduled for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10:00 AM&lt;/code&gt; my local time, I woke up around &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8:00AM&lt;/code&gt;, had a small breakfast, made some coffee, and gathered my notes.&lt;/p&gt;
+
+&lt;p&gt;The clock hit 10 and my lab time started. I reviewed the TTPs passed to me as part of the exam and &lt;em&gt;immediately&lt;/em&gt; felt that rush you feel when you begin an exam you know you didn’t study for. You know what I’m talking about. That sinking feeling in your stomach of inevitable failure.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;I had focused so much on all the tactics presented in the course that I had forgotten to review the course material around configuring Cobalt Strike.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;scrambling&quot;&gt;Scrambling&lt;/h4&gt;
+&lt;p&gt;At this point I was effectively freaking out, as I was worried I would not even be able to reach what was effectively the first step of the exam.&lt;/p&gt;
+
+&lt;p&gt;I paused the exam environment for a large part of the entire first day and spent the remainder reading Cobalt Strke documentation, reviewing course content for configuration guidance, and generating my profile.&lt;/p&gt;
+
+&lt;p&gt;Time progressed, and eventually at around &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2:00 AM&lt;/code&gt; the next day, I decided to give it a go.&lt;/p&gt;
+
+&lt;p&gt;I powered on the exam machines. Tried what I had been preparing for the entire day and…all my attempts were unsuccessful. Distraught and pretty stressed out I paused everything and went to bed.&lt;/p&gt;
+
+&lt;h4 id=&quot;round-two&quot;&gt;Round Two&lt;/h4&gt;
+&lt;p&gt;I slept from around &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4AM&lt;/code&gt; - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10AM&lt;/code&gt;, got up and immediately hit the ground running.&lt;/p&gt;
+
+&lt;p&gt;Refreshed, I realized I had rabbit-holed &lt;em&gt;really really&lt;/em&gt; hard the entire prior day, and tried a new method to achieve &lt;em&gt;“step 1”&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;FINALLY, I received the “output” I was looking for. I had the breakthrough I needed.&lt;/p&gt;
+
+&lt;p&gt;This occured around noon on this second day. At this stage I had also only used around ~6 hours of exam time thanks to the tactical pause.&lt;/p&gt;
+
+&lt;h4 id=&quot;riding-the-wave-of-a-dunning-kruger-graph&quot;&gt;Riding the wave of a Dunning-Kruger graph&lt;/h4&gt;
+&lt;p&gt;At this point, I was fully riding the wave of a steep &lt;a href=&quot;https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect&quot;&gt;Dunning-Kruger graph&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+        &lt;img src=&quot;/assets/images/crto/crto_graph.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;I took some notes throughout the exam to document what I was feeling, the one around this time read:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I spent around ~20 hours getting it [Cobalt Strike] to work
+I feel like I can finally actually take the exam
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And take the exam I did. Within an hour I had compromised the first host, and after a few more hours worked my way to an additional handful of assets.&lt;/p&gt;
+
+&lt;p&gt;I progressed through the lab environment, never having to reset the exam or restart/reconfigure Cobalt Strike.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;I really wish I could share the war stories of all the cool steps within the lab, but you’ll just have to see for yourself.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;As time progressed, eventually the clock struck around &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4AM&lt;/code&gt; the following day (Sunday). I had been going since around &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10AM&lt;/code&gt; the previous day (Saturday).&lt;/p&gt;
+
+&lt;p&gt;At this stage I had progressed through environment pretty far, and after a large final hurdle finally gained access to a total of six machines in the environment.&lt;/p&gt;
+
+&lt;h4 id=&quot;no-flags-yet-wait-no-flags-yet&quot;&gt;No flags yet. Wait, no flags yet!?&lt;/h4&gt;
+&lt;p&gt;Yeah so it turns out you really shouldn’t reset the exam environment unless you have to. During my initial Cobalt Strike fiasco I had reset the environment, which it turns out produces an error where no flags are present on the exam machines.&lt;/p&gt;
+
+&lt;p&gt;I was so focused on progressing across hosts that this didn’t really cross my mind until I reached the sixth machine. After which I kind of thought &lt;em&gt;“Wait, should I be seeing some flags?”&lt;/em&gt; and got worried.&lt;/p&gt;
+
+&lt;p&gt;After reviewing the FAQ, it looked like each machine should possess an indiviual flag. My notebook at this time read:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Popped 6/8 machines which means I passed
+kinda.... the only issue is none of my machines have flags on them lol. Trying to get ahold of Rasta to ask him
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I DMed Rasta and thanks to his help and some screenshot providing, was awarded the flags I needed to pass. At this point it is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;6AM&lt;/code&gt; on Sunday, the third day of my exam, and almost 48 hours since my exam began.&lt;/p&gt;
+
+&lt;p&gt;I was ecstatic, but also really tired. I paused my exam and got some much needed rest.&lt;/p&gt;
+
+&lt;p&gt;Fast forward to Monday and a pretty ruined sleep schedule. The next step was deciding between pursuing the final two remaining flags and receiving my cert or &lt;strong&gt;not pursuing&lt;/strong&gt; the two remaining flags and &lt;strong&gt;&lt;em&gt;still receieve my cert&lt;/em&gt;&lt;/strong&gt;. I opted for the latter option, which I sort of regret to be honest. I ended up using the day to handle some admin (AKA real life) stuff and rest. Part of me is still curious as to the steps it would take to get the final two flags.&lt;/p&gt;
+
+&lt;p&gt;Anyways, after the exam environment closed, I officailly received my &lt;a href=&quot;https://twitter.com/_bin_Ash/status/1455545788705255438&quot;&gt;CRTO certification!&lt;/a&gt; and passed the course.&lt;/p&gt;
+
+&lt;p&gt;My CRTO cert on my LinkedIn:&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+        &lt;img src=&quot;/assets/images/crto/crto_cert.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h1 id=&quot;closing-thoughts&quot;&gt;Closing Thoughts&lt;/h1&gt;
+&lt;p&gt;There is elegance in being succinct. CRTO was a breath of fresh air after banging my head against the ~800-page PDF that is OSCP. I really appreciate Rasta’s presentation of information, and can personally say this is the &lt;em&gt;first time ever&lt;/em&gt; I’ve &lt;strong&gt;really&lt;/strong&gt; looked forward to going through course material.&lt;/p&gt;
+
+&lt;p&gt;Maybe you just passed your OSCP and are looking to transition into a red team, threat emulation role.&lt;/p&gt;
+
+&lt;p&gt;Maybe you’re already running internal network pentests and want to up your game to the next level.&lt;/p&gt;
+
+&lt;p&gt;Maybe you just want to use Cobalt Strike for a fraction of the price.&lt;/p&gt;
+
+&lt;p&gt;Whether or not any of these are true, I would &lt;em&gt;highly&lt;/em&gt; recommend this course to anyone looking to further develop their red team skillset.&lt;/p&gt;</content><author><name>Ash</name></author><category term="Certifications" /><category term="CRTO" /><category term="Certified Red Team Operator" /><category term="AD" /><category term="Active Directory" /><category term="Cobalt Strike" /><category term="RastaMouse" /><category term="Zero-Point Security" /><category term="Certifications" /><category term="C2" /><summary type="html">An overview and review of Zero-Point Security's (A.K.A. RastaMouse) newly revamped Certified Red Team Operator (CRTO) certification, and why you might want to pursue it.</summary></entry><entry><title type="html">Farming phone numbers with Python and the Google Places API</title><link href="http://localhost:4000/Farming-phone-numbers-with-Python-and-the-Google-Places-API/" rel="alternate" type="text/html" title="Farming phone numbers with Python and the Google Places API" /><published>2020-12-14T00:00:00-05:00</published><updated>2020-12-14T00:00:00-05:00</updated><id>http://localhost:4000/Farming-phone-numbers-with-Python-and-the-Google-Places-API</id><content type="html" xml:base="http://localhost:4000/Farming-phone-numbers-with-Python-and-the-Google-Places-API/">&lt;p&gt;&lt;img src=&quot;/assets/images/street2phone/street2phone3.png&quot; alt=&quot;Headerimg&quot; /&gt;&lt;/p&gt;
 
 &lt;p class=&quot;notice--primary&quot;&gt;Only care about the source code? Checkout the &lt;a href=&quot;https://github.com/0xash/street2phone.py&quot;&gt;Github Repo&lt;/a&gt;&lt;/p&gt;
 

@@ -1,0 +1,803 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Zero-Point Security’s Certified Red Team Operator (CRTO) Review - Ash</title>
+<meta name="description" content="An overview and review of Zero-Point Security’s (A.K.A. RastaMouse) newly revamped Certified Red Team Operator (CRTO) certification, and why you might want to pursue it.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Ash">
+<meta property="og:title" content="Zero-Point Security’s Certified Red Team Operator (CRTO) Review">
+<meta property="og:url" content="http://localhost:4000/Certified-Red-Team-Operator-Review/">
+
+
+  <meta property="og:description" content="An overview and review of Zero-Point Security’s (A.K.A. RastaMouse) newly revamped Certified Red Team Operator (CRTO) certification, and why you might want to pursue it.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/crto/crto_logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2022-01-10T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Certified-Red-Team-Operator-Review/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ash",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Ash Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<link rel="shortcut icon" type="image/png" href="favicon.ico">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="shortcut icon" href="/assets/images/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/images/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/banner_logo.gif" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Zero-Point Security's Certified Red Team Operator (CRTO) Review</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/logo.png" alt="Ash" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Ash</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Unix lover. Red teamer. Interested in anything to do with computers.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/_bin_Ash" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://github.com/0xAsh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://keybase.io/ashhhhhhh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-keybase" aria-hidden="true"></i> Keybase</a></li>
+          
+        
+          
+            <li><a href="https://www.hackthebox.com/home/users/profile/72624" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-cube" aria-hidden="true"></i> HackTheBox</a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Zero-Point Security’s Certified Red Team Operator (CRTO) Review">
+    <meta itemprop="description" content="An overview and review of Zero-Point Security’s (A.K.A. RastaMouse) newly revamped Certified Red Team Operator (CRTO) certification, and why you might want to pursue it.">
+    <meta itemprop="datePublished" content="January 10, 2022">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Zero-Point Security’s Certified Red Team Operator (CRTO) Review
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2022-01-10T00:00:00-05:00">January 10, 2022 </time>&emsp;
+          
+          
+        </p>
+        <h1>Overview</h1>
+<hr />
+
+<p>“Red Team Ops” is the course accompanying the Certified Red Team Operator (CRTO) certification offered by Zero-Point Security.</p>
+
+<p>The course is written for individuals with a general background in information security, especially those working in offensive security positions. The difficulty is most applicable to a junior audience, but I would argue the course environment is also useful for individuals who are more experienced red teamers.</p>
+
+<p>In this review I’ll give a brief overview of the course configuration, and talk about the pros and cons of the entire process in depth. I’ll also share my exam experience, and give some tips/tricks for passing. Lastly, I’ll close with some thoughts of why you might purchase the course (you totally should by the way).</p>
+
+<h4 id="my-background">My Background</h4>
+<p>CRTO was the logical next step in my personal journey after achieving OSCP in the prior year. After taking some time to get sped up on web application testing, I developed a huge interest
+in Active Directory/Windows-centric tactics. This was especially true after <a href="https://github.com/topotam/PetitPotam">PetitPotam</a> came out and the awesome <a href="https://posts.specterops.io/certified-pre-owned-d95910965cd2">work by Will Schroeder and Lee
+Christensen</a> was made public.</p>
+
+<h4 id="a-bit-of-history">A Bit of History</h4>
+<p>Prior to purchasing the course myself, Rasta announced a <a href="https://www.zeropointsecurity.co.uk/blog/red-team-ops-2021-update">signficant change to how it would operate</a>. Most notable of
+which being the fact that Cobalt Strike is <em>included with the course purchase</em>. Covenant is also no longer supported within the labs and course content, and <em>private</em> lab environments are
+provided to all students.</p>
+
+<p>There are a handful of reviews on both this updated version and the prior version with Covenant/BYOC2, shared labs, etc. To be clear, this review pertains the most recent CRTO (CRTO2?) update.</p>
+
+<h2 id="the-course">The Course</h2>
+<p>Content within Red Team Ops is split into the following sections:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Course Introduction
+	1. What is Red Teaming?
+	2. Phases of an Engagement
+	3. Command &amp; Control
+	4. Cobalt Strike Primer
+2. Planning &amp; Client Engagement Phase
+3. Assessment Phase
+	1. External Reconnaissance
+	2. Initial Compromise
+	3. Host Reconnaissance
+	4. Host Persistence
+	5. Host Privilege Escalation
+	6. Domain Reconnaissance
+	7. Lateral Movement
+	8. Credentials &amp; User Impersonation
+	9. Password Cracking Hints &amp; Tips
+	10. Session Passing
+	11. Pivoting
+	12. Reverse Port Forwards
+	13. Data Protection API
+	14. Kerberos
+	15. Group Policy
+	16. Discretionary Access Control Lists
+	17. MS SQL Servers
+	18. Domain Dominance
+	19. Forest &amp; Domain Trusts
+	20. Local Administrator Password Solution
+	21. Bypassing Antivirus
+	22. Bypassing AppLocker
+	23. Data Hunting &amp; Exfiltration
+4. Post-Engagement &amp; Reporting
+5. Extending Cobalt Strike
+</code></pre></div></div>
+
+<p>It would be too lengthy to talk about each section in detail, so I’ll highlight a few takeaways:</p>
+<ul>
+  <li><strong>Operational Guidance</strong>: One aspect of the course I found surprising is the amount of content around engagement planning and operation. While it’s not to the level of detail present in something like <a href="https://redteam.guide/">Red Team Development and Operations</a> by Joe Vest, it does contain helpful information around planning, reporting, and the non-technical aspects of security consulting. This is valuable information, especially if you’re like me trying to figure out how to master both of these aspects.</li>
+  <li><strong>Targeting Microsoft</strong>: This sort of goes without saying, but you’ll notice that almost every section is focused around technologies such as Windows, Active Directory, Kerberos, and so on. This means that once you come out of this course you’ll have a massive bag of tricks to attempt during your next engagement. Bad news? We’ll if you’re tasked with an engagement on a shop that purely uses Macs and Chromebooks you might be out of luck. I don’t necessarily see this as a con as this course is intended to fill the widest use-case you’ll encounter as a junior pentester/red teamer, which is a Microsoft technology stack.</li>
+  <li><strong>OPSEC</strong>: When applicable, course sections contain guidance around Operational Security (OPSEC) or in other words how to not get caught. These tidbits of information were <em>amazing</em> for me to begin thinking about purposefully remaining quiet, a tactic I have not had to employ in the past. On top of that, the lab environment contains a Splunk ingestion server you can use to actually analyze events as they occur within the environment.</li>
+</ul>
+
+<p class="notice--primary">A great piece of supplemental learning to go along with OPSEC content from the course is this talk by RastaMouse himself:<br /> 
+<a href="https://www.youtube.com/watch?v=qIbrozlf2wM">Five Ways I got Caught Before Lunch</a></p>
+
+<p>I’ll also note five sections I found especially fun/interesting:</p>
+<ul>
+  <li><strong>Initial Compromise</strong>: Interesting tactics used to get a beacon to spawn on target machines, including topics such as malicious Office documents and HTA files.</li>
+  <li><strong>Host Persistence</strong>: Lots of cool ways to stay sticky on hosts, along with some cool exercises related to COM objects. This section is also probably really useful if you work in a SOC/DFIR type role.</li>
+  <li><strong>Kerberos</strong>: By far the most ingestible Kerberos overview I’ve ever encountered, packed with great techniques on how to attack it, especially tailored for AD environments (of course).</li>
+  <li><strong>Forest &amp; Domain Trusts</strong>: This begins with an amazing overview of Active Directory trust types, then delves into ways you can attack each. Second only in my mind to Harmj0y’s extremely detailed <a href="https://www.harmj0y.net/blog/redteaming/a-guide-to-attacking-domain-trusts/">Guide to Attacking Domain Trusts</a>.</li>
+  <li><strong>Local Administrator Password Solution</strong>: Fun ways to (ab)use LAPS-specific permissions within an environment.</li>
+</ul>
+
+<p><em>Note: it was really hard to choose my top five.</em><br /><br /></p>
+
+<center><h1>Pros of CRTO</h1></center>
+<hr />
+
+<p align="center">
+	<img src="/assets/images/crto/crto_overview.png" />
+</p>
+
+<h2 id="price">Price</h2>
+<p>It would be hard to begin talking about the CRTO’s pros without first mentioning the price.</p>
+
+<p>At an astounding cost of <code class="language-plaintext highlighter-rouge">$472.0806</code> US dollars you get access to the entire course, as well as any additional content that is added to the curriculum in the future.</p>
+
+<p>That’s a fraction compared to other industry leaders like:</p>
+<ul>
+  <li><strong>Offensive Security</strong>: generally starting at a minimum of <code class="language-plaintext highlighter-rouge">~$1,000</code> (if not more)</li>
+  <li><strong>INE/eLearnSecurity</strong>: at a <code class="language-plaintext highlighter-rouge">$749</code> annual fee with individual exam fees.</li>
+  <li><strong>SANS training</strong>: with the GIAC course sitting at around <code class="language-plaintext highlighter-rouge">~$8,000</code> including an exam attempt.</li>
+</ul>
+
+<p><strong><em>This is not to say that those training platforms don’t have value. I personally know that the opposite is especially true. I bring this up rather to illustrate how insanely cost-effective the CRTO is compared to the rest of the industry.</em></strong></p>
+
+<p align="center">
+        <img src="/assets/images/crto/crto_price.png" />
+</p>
+
+<h4 id="lab-time">Lab Time</h4>
+<p>I would at a minimum purchase 40 hours of lab time, but highly recommend future-proofing yourself with extra time. Let’s say you give yourself 80 hours, that’s brings your total cost to: <code class="language-plaintext highlighter-rouge">$607</code>.</p>
+
+<p>I personally went with 80 hours when I signed up. Let’s talk about why this matters.</p>
+
+<h2 id="labs">Labs</h2>
+<p align="center">
+        <img src="/assets/images/crto/crto_labs.png" />
+</p>
+
+<p>The lab environment for CRTO is deployed through a platform called <a href="https://www.snaplabs.io/">SnapLabs</a>.</p>
+
+<p>Why does this matter to you? SnapLabs is the platform that handles all the VM management for you, including snapshotting, stopping/starting machines (duh), and resetting your lab environment.</p>
+
+<p>It’s also how you access your machines when you want to follow along with the course, perform exercises from the content, or just mess around. This is done through the web browser, with desktop sessions deployed through Apache Guacamole.</p>
+
+<p>Also, as I mentioned earlier <em>each student gets their own unique lab environment</em>. You no longer have to worry about <code class="language-plaintext highlighter-rouge">H3x_budd1e</code> changing all the passwords or nuking that box you were working on. Your environment is completely yours.</p>
+
+<h4 id="environment">Environment</h4>
+<p>Once your access is setup, you’ll be dropped into an environment with:</p>
+<ul>
+  <li><strong>An attacking Windows/Linux host (Kali)</strong></li>
+  <li><strong>MSSQL servers</strong></li>
+  <li><strong>Exchange servers</strong></li>
+  <li><strong>Unix hosts</strong></li>
+  <li><strong>Windows workstations</strong></li>
+  <li><strong>Windows domain controllers</strong></li>
+  <li><strong>Splunk</strong>… wait… <strong>Splunk</strong>? <strong><em>yes. Splunk.</em></strong></li>
+</ul>
+
+<p>Did you hear me mention <strong>Splunk</strong>? No way. Let’s talk about <strong>Splunk</strong>.</p>
+
+<h4 id="splunk">Splunk</h4>
+<hr />
+
+<p align="center">
+        <img src="/assets/images/crto/crto_splonk.png" />
+</p>
+
+<p>This is a hidden gem that’s included in the course and something that I personally think is extremely beneficial for the student.</p>
+
+<p>The course not only provisions all these boxes for you attack, but also has them all pushing logs to <strong>Splunk</strong>.</p>
+
+<p>Wow! Amazing! Well guess what.. <strong><em>you can access the Splunk instance too</em></strong>.</p>
+
+<p>This was really useful for myself to:</p>
+<ol>
+  <li><em>Realize just how many !@#!$%! events are generated in live networks</em></li>
+  <li><em>Figure out how to filter down specific events I’m looking for</em></li>
+  <li><em>Analyze detection methods for the tactics I employ</em></li>
+</ol>
+
+<p>You might remember I mentioned purchasing extra lab time. This is one of the reasons why. I plan on going back and using the lab from time to time to analyze detection of tactics I’m executing in the real world. This is one of the reasons I think the course is also beneficial to experienced red teamers, and not just limited to those looking to get into it.</p>
+
+<h2 id="rastas-teaching-style">Rasta’s Teaching Style</h2>
+<center><h2>This is easily the highlight of the entire course.</h2></center>
+<p align="center">
+        <img src="/assets/images/crto/crto_learn.png" />
+</p>
+
+<p>Each piece of course content is divided into bite-size chunks that can be easily ingested. An individual article usually begins with a rough overview of the minimum information needed to grasp a topic and understand why it matters. Next it will delve into usage examples that are short and sweet. These serve the purpose of getting your hands on the keyboard executing commands, which for myself is the most productive method for me to ingest information.</p>
+
+<p>Additionally, there are a handful of included videos walking you through a technique or demonstating a tactic. These are usually ~10 minutes long, and fairly straight to the point.</p>
+
+<p><strong><em>Personally, I found the articles on each topic to be where the course really shined.</em></strong></p>
+
+<p>Want to learn about Kerberoasting? Read the 5 minute article, then go perform the tactics in your live lab environment.</p>
+
+<p>No sifting through a PDF and making notes. No slide deck extravaganza. Just read a quick article and start playing around.</p>
+
+<h4 id="comparisonsptsd">Comparisons/PTSD</h4>
+<p>If you’ve experienced the OSCP, chances are you remember how hard it was to focus on the PDF or watch the provided videos.</p>
+
+<p>In my experience, I would try to force myself to ingest content, and do so at a rapid pace to keep up with my personal timelines (and expiring lab time).</p>
+
+<p>Alternatively, I found myself actually <em>looking forward</em> to ingesting the course content with CRTO, something that I’ve rarely been able to say in other learning efforts.</p>
+
+<h2 id="cobalt-strike">Cobalt Strike</h2>
+<p align="center">
+        <img src="/assets/images/crto/crto_cs.png" />
+</p>
+<p>Lastly, it must be mentioned that Cobalt Strike is included within the lab environment. If you’re like me, you’ve been dying to get your hands on this toolset for years. I found finally getting to use it to be extremely fun.</p>
+
+<p>Additionally, Rasta includes content on configuring Cobalt Strike to your needs (more on this later), which should help you kick start using it in the real world, should you have the ability to.</p>
+
+<p>As far as I’m aware, CRTO is the only (legal) way of getting a taste of the toolset apart from purchasing a license, so for those who are looking to get their hands dirty with it, the course is a great place to start.<br /><br /></p>
+
+<center><h1>Cons of CRTO</h1></center>
+<hr />
+
+<h2 id="connection-options">Connection Options</h2>
+<p>I mentioned this earlier but wanted to reiterate the topic. A common complaint with the course is that you are locked to the browser when accessing your lab machines. No VPN connection, no <code class="language-plaintext highlighter-rouge">.ovpn</code> file, just Apache Guacamole and lots of browser tabs.</p>
+
+<p>For myself this was really annoying in the beginning, but I quickly got used to it. It actually comes in handy if you’re switching between more than two assets inside the lab.</p>
+
+<p>With that said, it may be a major turn off for some people, which is warranted, but not enough in my mind to completely discount the course. I figured it’s worth mentioning in case you’re expecting VPN access.</p>
+
+<h2 id="cobalt-strike-1">Cobalt Strike</h2>
+<p>Yes, this is a pro and also a con.</p>
+
+<p>The course is tied heavily to usage of Cobalt Strike. The examples included within each section are strictly built for Cobalt Strike. This may or may not be a big deal for you depending on your situation. (i.e. whether or not you can afford it IRL).</p>
+
+<p>One thing I will say is that the techniques and tactics employed by CS can generally be adapted to any platform, so it may still be a value-add. Often times, you’re really just using Cobalt Strike’s <code class="language-plaintext highlighter-rouge">execute-assembly</code> to run a binary on a host, which is nowhere unique to the platform.</p>
+
+<p>If this is something you’re worried about, I would recommend attempting to locate a similar or comparable functionality in <code class="language-plaintext highlighter-rouge">$c2_tool_you_use</code> to whatever Cobalt Strike functionality is being used in the course.<br /><br /></p>
+
+<center><h1>Exam</h1></center>
+<hr />
+
+<p>The CRTO exam is a comprised of a 48-hour assessment where the student must gather 6 of 8 flags to pass. The caveat is that this 48-hours of lab time can be spread across a 4-day window.</p>
+
+<p>To pass one must simply submit the flags. <em>No reporting is neccessary.</em></p>
+
+<p>Once your exam time begins, you will be provided with a packet containing a set of <strong>TTPs</strong> to emulate. One must successfully emulate these <strong>TTPs</strong> to progress through the environment, and collect all the flags.</p>
+
+<p>Also, since you can pause the exam and start the labs, if you <em>really</em> need to go back and double check something in a pseudo-dev environment, you can (although I would avoid this).</p>
+
+<p>Overall, I would say the course is pretty difficult, but extremely fair. You may be asked to perform steps outside of your comfort zone, but I truly mean it when I say <em>the course content contains everything you need to pass</em>.</p>
+
+<h2 id="keys-for-success">Keys For Success</h2>
+<ul>
+  <li><strong><em>FAQ</em></strong>: Read the <a href="https://www.zeropointsecurity.co.uk/red-team-ops/book-exam">course FAQ</a> and <a href="https://www.zeropointsecurity.co.uk/red-team-ops/book-exam">exam FAQ</a>. Seriously, <strong>read the FAQs</strong>. There were so many times in the Discord server I saw questions that are answered on those links.</li>
+  <li><strong><em>Discord</em></strong>: Speaking of Discord, you should totally join the <a href="https://discord.com/invite/yrktDxPA">Zero-Point Security Discord server</a>. This was crucial for not only my learning experience, but also my passing of the exam (more on this in a sec). Within the server you’ll find students progressing through the course/labs and a fairly active community. Everyone is generally helpful should you have any questions.</li>
+  <li><strong><em>Cobalt Strike Config</em></strong>: Make sure you review every piece of content in the course related to Cobalt Strike and its configuration. Additionally, it would be really helpful to take a look at some <a href="https://github.com/rsmudge/Malleable-C2-Profiles">Malleable C2 Profiles</a> and understand what they are doing. This is going to help you out immensely when you start your exam</li>
+  <li><strong><em>Have fun!</em></strong>: The challenges within the exam are extremely enjoyable. So start the exam, get Cobalt Strike configured correctly, sit back, and start progressing through the environment. If you worked your way through all the course content and took good notes, you should have a good experience.</li>
+</ul>
+
+<h2 id="my-experience">My Experience</h2>
+<p>First off, let me say that even after my initial struggles, this was <strong>by far</strong> the <em>most fun</em> I’ve had on an exam so far.</p>
+
+<p>With my exam scheduled for <code class="language-plaintext highlighter-rouge">10:00 AM</code> my local time, I woke up around <code class="language-plaintext highlighter-rouge">8:00AM</code>, had a small breakfast, made some coffee, and gathered my notes.</p>
+
+<p>The clock hit 10 and my lab time started. I reviewed the TTPs passed to me as part of the exam and <em>immediately</em> felt that rush you feel when you begin an exam you know you didn’t study for. You know what I’m talking about. That sinking feeling in your stomach of inevitable failure.</p>
+
+<p><em>I had focused so much on all the tactics presented in the course that I had forgotten to review the course material around configuring Cobalt Strike.</em></p>
+
+<h4 id="scrambling">Scrambling</h4>
+<p>At this point I was effectively freaking out, as I was worried I would not even be able to reach what was effectively the first step of the exam.</p>
+
+<p>I paused the exam environment for a large part of the entire first day and spent the remainder reading Cobalt Strke documentation, reviewing course content for configuration guidance, and generating my profile.</p>
+
+<p>Time progressed, and eventually at around <code class="language-plaintext highlighter-rouge">2:00 AM</code> the next day, I decided to give it a go.</p>
+
+<p>I powered on the exam machines. Tried what I had been preparing for the entire day and…all my attempts were unsuccessful. Distraught and pretty stressed out I paused everything and went to bed.</p>
+
+<h4 id="round-two">Round Two</h4>
+<p>I slept from around <code class="language-plaintext highlighter-rouge">4AM</code> - <code class="language-plaintext highlighter-rouge">10AM</code>, got up and immediately hit the ground running.</p>
+
+<p>Refreshed, I realized I had rabbit-holed <em>really really</em> hard the entire prior day, and tried a new method to achieve <em>“step 1”</em>.</p>
+
+<p>FINALLY, I received the “output” I was looking for. I had the breakthrough I needed.</p>
+
+<p>This occured around noon on this second day. At this stage I had also only used around ~6 hours of exam time thanks to the tactical pause.</p>
+
+<h4 id="riding-the-wave-of-a-dunning-kruger-graph">Riding the wave of a Dunning-Kruger graph</h4>
+<p>At this point, I was fully riding the wave of a steep <a href="https://en.wikipedia.org/wiki/Dunning%E2%80%93Kruger_effect">Dunning-Kruger graph</a>.</p>
+
+<p align="center">
+        <img src="/assets/images/crto/crto_graph.png" />
+</p>
+
+<p>I took some notes throughout the exam to document what I was feeling, the one around this time read:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I spent around ~20 hours getting it [Cobalt Strike] to work
+I feel like I can finally actually take the exam
+</code></pre></div></div>
+
+<p>And take the exam I did. Within an hour I had compromised the first host, and after a few more hours worked my way to an additional handful of assets.</p>
+
+<p>I progressed through the lab environment, never having to reset the exam or restart/reconfigure Cobalt Strike.</p>
+
+<p><strong><em>I really wish I could share the war stories of all the cool steps within the lab, but you’ll just have to see for yourself.</em></strong></p>
+
+<p>As time progressed, eventually the clock struck around <code class="language-plaintext highlighter-rouge">4AM</code> the following day (Sunday). I had been going since around <code class="language-plaintext highlighter-rouge">10AM</code> the previous day (Saturday).</p>
+
+<p>At this stage I had progressed through environment pretty far, and after a large final hurdle finally gained access to a total of six machines in the environment.</p>
+
+<h4 id="no-flags-yet-wait-no-flags-yet">No flags yet. Wait, no flags yet!?</h4>
+<p>Yeah so it turns out you really shouldn’t reset the exam environment unless you have to. During my initial Cobalt Strike fiasco I had reset the environment, which it turns out produces an error where no flags are present on the exam machines.</p>
+
+<p>I was so focused on progressing across hosts that this didn’t really cross my mind until I reached the sixth machine. After which I kind of thought <em>“Wait, should I be seeing some flags?”</em> and got worried.</p>
+
+<p>After reviewing the FAQ, it looked like each machine should possess an indiviual flag. My notebook at this time read:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Popped 6/8 machines which means I passed
+kinda.... the only issue is none of my machines have flags on them lol. Trying to get ahold of Rasta to ask him
+</code></pre></div></div>
+
+<p>I DMed Rasta and thanks to his help and some screenshot providing, was awarded the flags I needed to pass. At this point it is <code class="language-plaintext highlighter-rouge">6AM</code> on Sunday, the third day of my exam, and almost 48 hours since my exam began.</p>
+
+<p>I was ecstatic, but also really tired. I paused my exam and got some much needed rest.</p>
+
+<p>Fast forward to Monday and a pretty ruined sleep schedule. The next step was deciding between pursuing the final two remaining flags and receiving my cert or <strong>not pursuing</strong> the two remaining flags and <strong><em>still receieve my cert</em></strong>. I opted for the latter option, which I sort of regret to be honest. I ended up using the day to handle some admin (AKA real life) stuff and rest. Part of me is still curious as to the steps it would take to get the final two flags.</p>
+
+<p>Anyways, after the exam environment closed, I officailly received my <a href="https://twitter.com/_bin_Ash/status/1455545788705255438">CRTO certification!</a> and passed the course.</p>
+
+<p>My CRTO cert on my LinkedIn:</p>
+<p align="center">
+        <img src="/assets/images/crto/crto_cert.png" />
+</p>
+
+<h1 id="closing-thoughts">Closing Thoughts</h1>
+<p>There is elegance in being succinct. CRTO was a breath of fresh air after banging my head against the ~800-page PDF that is OSCP. I really appreciate Rasta’s presentation of information, and can personally say this is the <em>first time ever</em> I’ve <strong>really</strong> looked forward to going through course material.</p>
+
+<p>Maybe you just passed your OSCP and are looking to transition into a red team, threat emulation role.</p>
+
+<p>Maybe you’re already running internal network pentests and want to up your game to the next level.</p>
+
+<p>Maybe you just want to use Cobalt Strike for a fraction of the price.</p>
+
+<p>Whether or not any of these are true, I would <em>highly</em> recommend this course to anyone looking to further develop their red team skillset.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#active-directory" class="page__taxonomy-item" rel="tag">Active Directory</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ad" class="page__taxonomy-item" rel="tag">AD</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#c2" class="page__taxonomy-item" rel="tag">C2</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#certifications" class="page__taxonomy-item" rel="tag">Certifications</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#certified-red-team-operator" class="page__taxonomy-item" rel="tag">Certified Red Team Operator</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#cobalt-strike" class="page__taxonomy-item" rel="tag">Cobalt Strike</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#crto" class="page__taxonomy-item" rel="tag">CRTO</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#rastamouse" class="page__taxonomy-item" rel="tag">RastaMouse</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#zero-point-security" class="page__taxonomy-item" rel="tag">Zero-Point Security</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#certifications" class="page__taxonomy-item" rel="tag">Certifications</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2022-01-10T00:00:00-05:00">January 10, 2022</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/Farming-phone-numbers-with-Python-and-the-Google-Places-API/" class="pagination--pager" title="Farming phone numbers with Python and the Google Places API
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Ash</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+  </body>
+</html>

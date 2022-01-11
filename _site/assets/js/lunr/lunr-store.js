@@ -28,4 +28,9 @@ var store = [{
         "excerpt":"Only care about the source code? Checkout the Github Repo Background &amp; Motivation One day a friend asked me something along the lines of: “Do you think you could grab the local phone number area code from an address?” A simple question. “Yeah!” I answered. A quick Google search can...","categories": ["Projects"],
         "tags": ["Python","API","Google Maps","Google Places","Google APIs","Automation"],
         "url": "http://localhost:4000/Farming-phone-numbers-with-Python-and-the-Google-Places-API/",
-        "teaser":"http://localhost:4000/assets/images/street2phone/street2phone2.png"}]
+        "teaser":"http://localhost:4000/assets/images/street2phone/street2phone2.png"},{
+        "title": "Zero-Point Security's Certified Red Team Operator (CRTO) Review",
+        "excerpt":"Overview “Red Team Ops” is the course accompanying the Certified Red Team Operator (CRTO) certification offered by Zero-Point Security. The course is written for individuals with a general background in information security, especially those working in offensive security positions. The difficulty is most applicable to a junior audience, but I...","categories": ["Certifications"],
+        "tags": ["CRTO","Certified Red Team Operator","AD","Active Directory","Cobalt Strike","RastaMouse","Zero-Point Security","Certifications","C2"],
+        "url": "http://localhost:4000/Certified-Red-Team-Operator-Review/",
+        "teaser":"http://localhost:4000/assets/images/crto/crto_logo.png"}]
