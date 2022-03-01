@@ -31,6 +31,11 @@ var store = [{
         "teaser":"http://localhost:4000/assets/images/street2phone/street2phone2.png"},{
         "title": "Zero-Point Security's Certified Red Team Operator (CRTO) Review",
         "excerpt":"Overview Red Team Ops is the course accompanying the Certified Red Team Operator (CRTO) certification offered by Zero-Point Security. The course was written by Rasta Mouse, who you may recognize as the original creator of the RastaLabs pro lab in HackTheBox. He maintains both the course content and runs Zero-Point...","categories": ["Certifications"],
-        "tags": ["CRTO","Certified Red Team Operator","AD","Active Directory","Cobalt Strike","RastaMouse","Zero-Point Security","Certifications","C2"],
+        "tags": ["Active Directory","Cobalt Strike","Certifications"],
         "url": "http://localhost:4000/Certified-Red-Team-Operator-Review/",
-        "teaser":"http://localhost:4000/assets/images/crto/crto_logo.png"}]
+        "teaser":"http://localhost:4000/assets/images/crto/crto_logo.png"},{
+        "title": "Harnessing the Power of LinkedIn and Talon for Password Spraying",
+        "excerpt":"Internal network password spraying is something I’ve always approached with a lot of caution. If not done correctly, you have the potential for: Exorbitant network activity and alerts Compromised ability for employees to do their job And most of all, locked out accounts (scary) Talon, written by the extremely talented...","categories": ["Tradecraft and Techniques"],
+        "tags": ["Active Directory","Networks","Password Spraying","OSINT"],
+        "url": "http://localhost:4000/Harnessing-the-power-of-LinkedIn-and-Talon-for-Password-Spraying/",
+        "teaser":"http://localhost:4000/assets/images/misc/linkedin_talon/logo.png"}]

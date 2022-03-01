@@ -1,4 +1,183 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-01-11T04:56:35-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Ash</title><subtitle>Blogs about information security, technology, red teaming, and other random musings.</subtitle><author><name>Ash</name></author><entry><title type="html">Zero-Point Security’s Certified Red Team Operator (CRTO) Review</title><link href="http://localhost:4000/Certified-Red-Team-Operator-Review/" rel="alternate" type="text/html" title="Zero-Point Security’s Certified Red Team Operator (CRTO) Review" /><published>2022-01-10T00:00:00-05:00</published><updated>2022-01-10T00:00:00-05:00</updated><id>http://localhost:4000/Certified-Red-Team-Operator-Review</id><content type="html" xml:base="http://localhost:4000/Certified-Red-Team-Operator-Review/">&lt;h1&gt;Overview&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-03-01T00:15:48-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Ash</title><subtitle>Blogs about information security, technology, red teaming, and other random musings.</subtitle><author><name>Ash</name></author><entry><title type="html">Harnessing the Power of LinkedIn and Talon for Password Spraying</title><link href="http://localhost:4000/Harnessing-the-power-of-LinkedIn-and-Talon-for-Password-Spraying/" rel="alternate" type="text/html" title="Harnessing the Power of LinkedIn and Talon for Password Spraying" /><published>2022-02-28T00:00:00-05:00</published><updated>2022-02-28T00:00:00-05:00</updated><id>http://localhost:4000/Harnessing-the-power-of-LinkedIn-and-Talon-for-Password-Spraying</id><content type="html" xml:base="http://localhost:4000/Harnessing-the-power-of-LinkedIn-and-Talon-for-Password-Spraying/">&lt;p&gt;Internal network password spraying is something I’ve always approached with a lot of caution.&lt;/p&gt;
+
+&lt;p&gt;If not done correctly, you have the potential for:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Exorbitant network activity and alerts&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Compromised ability for employees to do their job&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;And most of all, locked out accounts (scary)&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/optiv/Talon&quot;&gt;Talon&lt;/a&gt;, written by the extremely talented &lt;a href=&quot;https://twitter.com/Tyl0us&quot;&gt;Tylous&lt;/a&gt;, is a really cool tool that helps eliminate some of the blind spots encountered when spraying Active Directory services on an internal network engagement. When combined with the treasure-trove that is LinkedIn, it makes for a really great experience during testing.&lt;/p&gt;
+
+&lt;p&gt;Talon is especially great because it:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Is written in Go&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Supports Kerberos &lt;strong&gt;and&lt;/strong&gt; LDAPS&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Is highly flexible&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Rotates traffic between targets&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Can enumerate if users exist &lt;strong&gt;without locking them out&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;https://www.optiv.com/insights/source-zero/blog/digging-your-talons-new-take-password-guessing&quot;&gt;associated blog post&lt;/a&gt; for more info on how it works and all the hard work put into it.&lt;/p&gt;
+
+&lt;h2 id=&quot;lets-get-a-user-list&quot;&gt;Let’s Get a User List&lt;/h2&gt;
+&lt;p&gt;We’ll assume we’ve been dropped on a network with little to no knowledge and we need a list of employee accounts that we can password spray.&lt;/p&gt;
+
+&lt;p&gt;I like to use &lt;a href=&quot;https://github.com/initstring/linkedin2username&quot;&gt;linkedin2username&lt;/a&gt; by &lt;a href=&quot;https://twitter.com/init_string&quot;&gt;initstring&lt;/a&gt;, which scrapes all the employees attached to an organization’s LinkedIn page to collect information. This information comes in the form of neatly structured lists of employee names in a couple different permutations. For example, if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;John Doe&lt;/code&gt; works at a target company I’ll get a listing of him (and all his coworkers) in the format of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;john.doe&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;j.doe&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;johnd&lt;/code&gt;, and so on.&lt;/p&gt;
+
+&lt;p&gt;To begin, grab the company name from the target company’s LinkedIn profile page. It should look something like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;https://linkedin.com/company/contoso12345/&lt;/code&gt;. That last bit (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;contoso12345&lt;/code&gt;) is what we’re looking for.&lt;/p&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;Next, clone a fresh copy of linkedin2username and scrape the company’s page:&lt;/p&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/initstring/linkedin2username
+
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;linkedin2username
+
+&lt;span class=&quot;c&quot;&gt;## Note &amp;lt;username&amp;gt; is your LinkedIn username&lt;/span&gt;
+python3 linkedin2username.py &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; &amp;lt;username&amp;gt; &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &amp;lt;company&amp;gt;
+
+&lt;span class=&quot;c&quot;&gt;## Output is here&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;li2u-output
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Here’s me running the tool on our target &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;contoso12345&lt;/code&gt;:&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+        &lt;img src=&quot;/assets/images/misc/linkedin_talon/linkedin2username.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The complete output will produce a couple lists in different formats that we can use internally.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+        &lt;img src=&quot;/assets/images/misc/linkedin_talon/enumoutput.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;h4 id=&quot;errors&quot;&gt;Errors&lt;/h4&gt;
+&lt;p&gt;So, full disclosure, &lt;strong&gt;LinkedIn is weird&lt;/strong&gt;. I had issues running this from a host I usually don’t access LinkedIn on, and you might experience a series of different errors using the tool. You’re ultimately at the mercy of how LinkedIn governs its platform.&lt;/p&gt;
+
+&lt;p&gt;I wouldn’t expect a given enumeration tool to work for an extensive period, so it’s probably a good idea to keep tabs on tooling as it’s released and things change.&lt;/p&gt;
+
+&lt;p&gt;One can always use alternate toolsets to achieve the same result. This may require some bash magic to get things in the correct format, which is why I currently prefer linkedin2username. Here are some additional tools to look at:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/vysecurity/LinkedInt&quot;&gt;LinkedInt&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/blackhatethicalhacking/linkedin_scraper&quot;&gt;LinkedIn Scraper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/eracle/linkedin&quot;&gt;Linkedin Automation scraper&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;talon&quot;&gt;Talon&lt;/h2&gt;
+&lt;p&gt;Now I’ll typically grab my generated user lists and begin enumeration with Talon.&lt;/p&gt;
+
+&lt;p&gt;Talon will take a list of users and do two things:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Enumerate if they exist&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Perform a password spray&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;By default, password spraying can only be performed with a single password at a time.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;I’m lazy&lt;/strong&gt;, so I added some additional logic that allows a list of passwords to be specified along with some timing controls I’ll explain later. That way you can setup the tool and let it go, making sure to periodically check back between cycles, thus protecting your precious fingers from the strain of strenuously running a spray one-by-one.&lt;/p&gt;
+
+&lt;p&gt;You can grab my forked version &lt;a href=&quot;https://github.com/0xAsh/Talon&quot;&gt;here&lt;/a&gt;. Almost all of the functionality overlaps (I’ll tell you when it doesn’t).&lt;/p&gt;
+
+&lt;h4 id=&quot;installation&quot;&gt;Installation&lt;/h4&gt;
+&lt;p&gt;To install either version of Talon, perform the following (with Go already installed):&lt;/p&gt;
+&lt;div class=&quot;language-golang highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;##&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Original&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clone&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//github.com/Optiv/Talon&lt;/span&gt;
+
+&lt;span class=&quot;err&quot;&gt;##&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;My&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fork&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clone&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//github.com/0xAsh/Talon&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Talon&lt;/span&gt;
+
+&lt;span class=&quot;err&quot;&gt;##&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dependencies&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;go&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;github&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fatih&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;go&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gopkg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jcmturner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gokrb5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v7&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;go&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gopkg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jcmturner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gokrb5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v7&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;go&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gopkg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jcmturner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gokrb5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v7&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iana&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;etypeID&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;go&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gopkg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ldap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt;
+
+&lt;span class=&quot;err&quot;&gt;##&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Build&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;go&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;build&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Talon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;go&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;domain-controllers&quot;&gt;Domain Controllers&lt;/h4&gt;
+&lt;p&gt;Talon’s functionality includes the ability to specify multiple domain controllers to target for enumeration. This will distribute any generated alerts between hosts. You can control this via the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Hostfile&lt;/code&gt; argument, which takes a file containing a newline-delimited list of hosts as an argument.&lt;/p&gt;
+
+&lt;p&gt;How you get this information is up to you, and will likely vary, but a good place to start is by enumerating hosts using &lt;strong&gt;CrackMapExec&lt;/strong&gt; and looking for hostnames containing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DC&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;crackmapexec smb &amp;lt;targets&amp;gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; crackmapexec_enum.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;enumeration&quot;&gt;Enumeration&lt;/h4&gt;
+&lt;p&gt;For our purposes I’ve setup the following users in my lab:&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+        &lt;img src=&quot;/assets/images/misc/linkedin_talon/users.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;We can assume that these users are somewhere within our &lt;strong&gt;linkedin2username&lt;/strong&gt; output (not really), along with some other false entries. Let’s take our list of target domain controllers, and begin detecting valid users:&lt;/p&gt;
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;./&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Talon&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Userfile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;username_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hostfile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DC_list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;O&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;output_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Note&lt;/strong&gt;: I would heavily recommend always running Talon with an output file specified with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-O&lt;/code&gt; argument.&lt;/p&gt;
+
+&lt;p&gt;In my lab this looks like the following:&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+        &lt;img src=&quot;/assets/images/misc/linkedin_talon/talonenum.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;As you can see it detected the valid users from our listing. We can generate a new list of valid users with the following bash command:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;User Exist&quot;&lt;/span&gt; &amp;lt;output_file&amp;gt; | &lt;span class=&quot;nb&quot;&gt;cut&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'\'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; 2 | &lt;span class=&quot;nb&quot;&gt;cut&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;:&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;spraying&quot;&gt;Spraying&lt;/h4&gt;
+&lt;p&gt;With our generated list of valid users, let’s run a single password spray with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Password1!&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;./&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Talon&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Userfile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;username_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hostfile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DC_list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;O&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;output_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Password1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And in the lab environment:&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+        &lt;img src=&quot;/assets/images/misc/linkedin_talon/pwdspray.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;As you can see, each password spraying attempt was successful, as each account used a password of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Password1!&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Note&lt;/strong&gt;: You can instruct Talon to only utilize Kerberos or LDAPS for enumeration. This can be performed via:&lt;br /&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-L&lt;/code&gt; for LDAPS&lt;br /&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-K&lt;/code&gt; for Kerberos&lt;/p&gt;
+
+&lt;h4 id=&quot;additional-functionality&quot;&gt;Additional Functionality&lt;/h4&gt;
+&lt;p&gt;Here are the additional options within &lt;a href=&quot;https://github.com/0xAsh/Talon&quot;&gt;my fork of Talon&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Extra&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Usage&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;./&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Talon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;float&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Authentication&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;attempts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;per&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lockout&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;period&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Lockout&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;float&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Account&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lockout&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;period&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minutes&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Passfile&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;File&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;containing&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;passwords&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This allows you to give the tool a list of passwords it will iterate through every defined number of minutes specified by the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Lockout&lt;/code&gt; parameter. You can control the number of authentication attempts made per period of testing via the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-A&lt;/code&gt; (attempts) parameter.&lt;/p&gt;
+
+&lt;p&gt;So let’s say we have our list of valid users, a password list, and we want to perform three password attempts every 70 minutes. We can now automate the entire process of password spraying through the following:&lt;/p&gt;
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;./&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Talon&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Userfile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;username_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Passfile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;password_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Lockout&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;70&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hostfile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DC_list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;O&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;output_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In my lab:&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+        &lt;img src=&quot;/assets/images/misc/linkedin_talon/pwdlistspray.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;As you may have noticed, I’ve added some timestamping to the output, as well as a notification of when the next attempt cycle will occur.&lt;/p&gt;
+
+&lt;p&gt;As we progressed through a password list, eventually we hit the same password found earlier, and achieved a successful login to the target accounts.&lt;/p&gt;
+
+&lt;p&gt;Meanwhile if we look at the logs on the DC we can see a series of &lt;a href=&quot;https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4625&quot;&gt;4625: An account failed to log on.&lt;/a&gt; events. Not exactly quiet behavior.&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+        &lt;img src=&quot;/assets/images/misc/linkedin_talon/auditlog.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;If you use my fork please be careful and don’t break stuff lol.&lt;/p&gt;
+
+&lt;h2 id=&quot;final-thoughts&quot;&gt;Final Thoughts&lt;/h2&gt;
+&lt;p&gt;I would highly recommend walking through the process of password spraying with whoever you’ll be testing before performing any of this activity. It’s also a good idea to get their password policy from them if they are onboard so you can tailor testing to not lockout anyone/anything out. If password spraying isn’t something your target is comfortable with, you shouldn’t perform it :)&lt;/p&gt;
+
+&lt;p&gt;Also huge thanks to &lt;a href=&quot;https://twitter.com/Tyl0us&quot;&gt;Tylous&lt;/a&gt; for not only writing the tool but also making it public. It’s really great.&lt;/p&gt;</content><author><name>Ash</name></author><category term="Tradecraft and Techniques" /><category term="Active Directory" /><category term="Networks" /><category term="Password Spraying" /><category term="OSINT" /><summary type="html">A quick guide on low-and-slow password spraying using LinkedIn enumeration output along with the amazing Talon toolset written by Tylous.</summary></entry><entry><title type="html">Zero-Point Security’s Certified Red Team Operator (CRTO) Review</title><link href="http://localhost:4000/Certified-Red-Team-Operator-Review/" rel="alternate" type="text/html" title="Zero-Point Security’s Certified Red Team Operator (CRTO) Review" /><published>2022-01-10T00:00:00-05:00</published><updated>2022-01-10T00:00:00-05:00</updated><id>http://localhost:4000/Certified-Red-Team-Operator-Review</id><content type="html" xml:base="http://localhost:4000/Certified-Red-Team-Operator-Review/">&lt;h1&gt;Overview&lt;/h1&gt;
 &lt;hr /&gt;
 
 &lt;p&gt;Red Team Ops is the course accompanying the Certified Red Team Operator (CRTO) certification offered by Zero-Point Security. The course was written by &lt;a href=&quot;https://twitter.com/_rastamouse&quot;&gt;Rasta Mouse&lt;/a&gt;, who you may recognize as the original creator of the &lt;a href=&quot;https://www.hackthebox.com/newsroom/prolab-rastalabs&quot;&gt;RastaLabs&lt;/a&gt; pro lab in HackTheBox. He maintains both the course content and runs Zero-Point Security.&lt;/p&gt;
@@ -317,7 +496,7 @@ kinda.... the only issue is none of my machines have flags on them lol. Trying t
 
 &lt;p&gt;Maybe you just want to use Cobalt Strike for a fraction of the price.&lt;/p&gt;
 
-&lt;p&gt;Whether or not any of these are true, I would &lt;em&gt;highly&lt;/em&gt; recommend this course to anyone looking to further develop their red team skill set.&lt;/p&gt;</content><author><name>Ash</name></author><category term="Certifications" /><category term="CRTO" /><category term="Certified Red Team Operator" /><category term="AD" /><category term="Active Directory" /><category term="Cobalt Strike" /><category term="RastaMouse" /><category term="Zero-Point Security" /><category term="Certifications" /><category term="C2" /><summary type="html">An overview and review of Zero-Point Security's (A.K.A. RastaMouse) newly revamped Certified Red Team Operator (CRTO) certification, and why you might want to pursue it.</summary></entry><entry><title type="html">Farming phone numbers with Python and the Google Places API</title><link href="http://localhost:4000/Farming-phone-numbers-with-Python-and-the-Google-Places-API/" rel="alternate" type="text/html" title="Farming phone numbers with Python and the Google Places API" /><published>2020-12-14T00:00:00-05:00</published><updated>2020-12-14T00:00:00-05:00</updated><id>http://localhost:4000/Farming-phone-numbers-with-Python-and-the-Google-Places-API</id><content type="html" xml:base="http://localhost:4000/Farming-phone-numbers-with-Python-and-the-Google-Places-API/">&lt;p&gt;&lt;img src=&quot;/assets/images/street2phone/street2phone3.png&quot; alt=&quot;Headerimg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Whether or not any of these are true, I would &lt;em&gt;highly&lt;/em&gt; recommend this course to anyone looking to further develop their red team skill set.&lt;/p&gt;</content><author><name>Ash</name></author><category term="Certifications" /><category term="Active Directory" /><category term="Cobalt Strike" /><category term="Certifications" /><summary type="html">An overview and review of Zero-Point Security's (A.K.A. RastaMouse) newly revamped Certified Red Team Operator (CRTO) certification, and why you might want to pursue it.</summary></entry><entry><title type="html">Farming phone numbers with Python and the Google Places API</title><link href="http://localhost:4000/Farming-phone-numbers-with-Python-and-the-Google-Places-API/" rel="alternate" type="text/html" title="Farming phone numbers with Python and the Google Places API" /><published>2020-12-14T00:00:00-05:00</published><updated>2020-12-14T00:00:00-05:00</updated><id>http://localhost:4000/Farming-phone-numbers-with-Python-and-the-Google-Places-API</id><content type="html" xml:base="http://localhost:4000/Farming-phone-numbers-with-Python-and-the-Google-Places-API/">&lt;p&gt;&lt;img src=&quot;/assets/images/street2phone/street2phone3.png&quot; alt=&quot;Headerimg&quot; /&gt;&lt;/p&gt;
 
 &lt;p class=&quot;notice--primary&quot;&gt;Only care about the source code? Checkout the &lt;a href=&quot;https://github.com/0xash/street2phone.py&quot;&gt;Github Repo&lt;/a&gt;&lt;/p&gt;
 

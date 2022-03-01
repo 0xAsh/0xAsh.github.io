@@ -10,15 +10,9 @@ excerpt: "An overview and review of Zero-Point Security's (A.K.A. RastaMouse) ne
 categories:
   - Certifications
 tags:
-  - CRTO
-  - Certified Red Team Operator
-  - AD
   - Active Directory
   - Cobalt Strike
-  - RastaMouse
-  - Zero-Point Security
   - Certifications
-  - C2
 ---
 <h1>Overview</h1><hr>
 Red Team Ops is the course accompanying the Certified Red Team Operator (CRTO) certification offered by Zero-Point Security. The course was written by [Rasta Mouse](https://twitter.com/_rastamouse), who you may recognize as the original creator of the [RastaLabs](https://www.hackthebox.com/newsroom/prolab-rastalabs) pro lab in HackTheBox. He maintains both the course content and runs Zero-Point Security.

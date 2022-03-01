@@ -1,0 +1,649 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Harnessing the Power of LinkedIn and Talon for Password Spraying - Ash</title>
+<meta name="description" content="A quick guide on low-and-slow password spraying using LinkedIn enumeration output along with the amazing Talon toolset written by Tylous.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Ash">
+<meta property="og:title" content="Harnessing the Power of LinkedIn and Talon for Password Spraying">
+<meta property="og:url" content="http://localhost:4000/Harnessing-the-power-of-LinkedIn-and-Talon-for-Password-Spraying/">
+
+
+  <meta property="og:description" content="A quick guide on low-and-slow password spraying using LinkedIn enumeration output along with the amazing Talon toolset written by Tylous.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/misc/linkedin_talon/logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2022-02-28T00:00:00-05:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Harnessing-the-power-of-LinkedIn-and-Talon-for-Password-Spraying/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ash",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Ash Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<link rel="shortcut icon" type="image/png" href="favicon.ico">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="shortcut icon" href="/assets/images/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/images/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/banner_logo.gif" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Harnessing the Power of LinkedIn and Talon for Password Spraying</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/logo.png" alt="Ash" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Ash</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Unix lover. Red teamer. Interested in anything to do with computers.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/_bin_Ash" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://github.com/0xAsh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://keybase.io/ashhhhhhh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-keybase" aria-hidden="true"></i> Keybase</a></li>
+          
+        
+          
+            <li><a href="https://www.hackthebox.com/home/users/profile/72624" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-cube" aria-hidden="true"></i> HackTheBox</a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Harnessing the Power of LinkedIn and Talon for Password Spraying">
+    <meta itemprop="description" content="A quick guide on low-and-slow password spraying using LinkedIn enumeration output along with the amazing Talon toolset written by Tylous.">
+    <meta itemprop="datePublished" content="February 28, 2022">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Harnessing the Power of LinkedIn and Talon for Password Spraying
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2022-02-28T00:00:00-05:00">February 28, 2022 </time>&emsp;
+          
+          
+        </p>
+        <p>Internal network password spraying is something I’ve always approached with a lot of caution.</p>
+
+<p>If not done correctly, you have the potential for:</p>
+<ul>
+  <li><em>Exorbitant network activity and alerts</em></li>
+  <li><em>Compromised ability for employees to do their job</em></li>
+  <li><em>And most of all, locked out accounts (scary)</em></li>
+</ul>
+
+<p><a href="https://github.com/optiv/Talon">Talon</a>, written by the extremely talented <a href="https://twitter.com/Tyl0us">Tylous</a>, is a really cool tool that helps eliminate some of the blind spots encountered when spraying Active Directory services on an internal network engagement. When combined with the treasure-trove that is LinkedIn, it makes for a really great experience during testing.</p>
+
+<p>Talon is especially great because it:</p>
+<ul>
+  <li><em>Is written in Go</em></li>
+  <li><em>Supports Kerberos <strong>and</strong> LDAPS</em></li>
+  <li><em>Is highly flexible</em></li>
+  <li><em>Rotates traffic between targets</em></li>
+  <li><em>Can enumerate if users exist <strong>without locking them out</strong></em></li>
+</ul>
+
+<p>Check out the <a href="https://www.optiv.com/insights/source-zero/blog/digging-your-talons-new-take-password-guessing">associated blog post</a> for more info on how it works and all the hard work put into it.</p>
+
+<h2 id="lets-get-a-user-list">Let’s Get a User List</h2>
+<p>We’ll assume we’ve been dropped on a network with little to no knowledge and we need a list of employee accounts that we can password spray.</p>
+
+<p>I like to use <a href="https://github.com/initstring/linkedin2username">linkedin2username</a> by <a href="https://twitter.com/init_string">initstring</a>, which scrapes all the employees attached to an organization’s LinkedIn page to collect information. This information comes in the form of neatly structured lists of employee names in a couple different permutations. For example, if <code class="language-plaintext highlighter-rouge">John Doe</code> works at a target company I’ll get a listing of him (and all his coworkers) in the format of <code class="language-plaintext highlighter-rouge">john.doe</code>, <code class="language-plaintext highlighter-rouge">j.doe</code> <code class="language-plaintext highlighter-rouge">johnd</code>, and so on.</p>
+
+<p>To begin, grab the company name from the target company’s LinkedIn profile page. It should look something like <code class="language-plaintext highlighter-rouge">https://linkedin.com/company/contoso12345/</code>. That last bit (<code class="language-plaintext highlighter-rouge">contoso12345</code>) is what we’re looking for.</p>
+<hr />
+
+<p>Next, clone a fresh copy of linkedin2username and scrape the company’s page:</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/initstring/linkedin2username
+
+<span class="nb">cd </span>linkedin2username
+
+<span class="c">## Note &lt;username&gt; is your LinkedIn username</span>
+python3 linkedin2username.py <span class="nt">-u</span> &lt;username&gt; <span class="nt">-c</span> &lt;company&gt;
+
+<span class="c">## Output is here</span>
+<span class="nb">cd </span>li2u-output
+</code></pre></div></div>
+
+<p>Here’s me running the tool on our target <code class="language-plaintext highlighter-rouge">contoso12345</code>:</p>
+<p align="center">
+        <img src="/assets/images/misc/linkedin_talon/linkedin2username.png" />
+</p>
+
+<p>The complete output will produce a couple lists in different formats that we can use internally.</p>
+
+<p align="center">
+        <img src="/assets/images/misc/linkedin_talon/enumoutput.png" />
+</p>
+
+<h4 id="errors">Errors</h4>
+<p>So, full disclosure, <strong>LinkedIn is weird</strong>. I had issues running this from a host I usually don’t access LinkedIn on, and you might experience a series of different errors using the tool. You’re ultimately at the mercy of how LinkedIn governs its platform.</p>
+
+<p>I wouldn’t expect a given enumeration tool to work for an extensive period, so it’s probably a good idea to keep tabs on tooling as it’s released and things change.</p>
+
+<p>One can always use alternate toolsets to achieve the same result. This may require some bash magic to get things in the correct format, which is why I currently prefer linkedin2username. Here are some additional tools to look at:</p>
+<ul>
+  <li><a href="https://github.com/vysecurity/LinkedInt">LinkedInt</a></li>
+  <li><a href="https://github.com/blackhatethicalhacking/linkedin_scraper">LinkedIn Scraper</a></li>
+  <li><a href="https://github.com/eracle/linkedin">Linkedin Automation scraper</a></li>
+</ul>
+
+<h2 id="talon">Talon</h2>
+<p>Now I’ll typically grab my generated user lists and begin enumeration with Talon.</p>
+
+<p>Talon will take a list of users and do two things:</p>
+<ul>
+  <li><em>Enumerate if they exist</em></li>
+  <li><em>Perform a password spray</em></li>
+</ul>
+
+<p>By default, password spraying can only be performed with a single password at a time.</p>
+
+<p><strong>I’m lazy</strong>, so I added some additional logic that allows a list of passwords to be specified along with some timing controls I’ll explain later. That way you can setup the tool and let it go, making sure to periodically check back between cycles, thus protecting your precious fingers from the strain of strenuously running a spray one-by-one.</p>
+
+<p>You can grab my forked version <a href="https://github.com/0xAsh/Talon">here</a>. Almost all of the functionality overlaps (I’ll tell you when it doesn’t).</p>
+
+<h4 id="installation">Installation</h4>
+<p>To install either version of Talon, perform the following (with Go already installed):</p>
+<div class="language-golang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">##</span> <span class="n">Original</span> <span class="n">version</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c">//github.com/Optiv/Talon</span>
+
+<span class="err">##</span> <span class="n">My</span> <span class="n">fork</span> 
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c">//github.com/0xAsh/Talon</span>
+
+<span class="n">cd</span> <span class="n">Talon</span>
+
+<span class="err">##</span> <span class="n">Install</span> <span class="n">Dependencies</span>
+<span class="k">go</span> <span class="n">get</span> <span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">fatih</span><span class="o">/</span><span class="n">color</span>
+<span class="k">go</span> <span class="n">get</span> <span class="n">gopkg</span><span class="o">.</span><span class="n">in</span><span class="o">/</span><span class="n">jcmturner</span><span class="o">/</span><span class="n">gokrb5</span><span class="o">.</span><span class="n">v7</span><span class="o">/</span><span class="n">client</span>
+<span class="k">go</span> <span class="n">get</span> <span class="n">gopkg</span><span class="o">.</span><span class="n">in</span><span class="o">/</span><span class="n">jcmturner</span><span class="o">/</span><span class="n">gokrb5</span><span class="o">.</span><span class="n">v7</span><span class="o">/</span><span class="n">config</span>
+<span class="k">go</span> <span class="n">get</span> <span class="n">gopkg</span><span class="o">.</span><span class="n">in</span><span class="o">/</span><span class="n">jcmturner</span><span class="o">/</span><span class="n">gokrb5</span><span class="o">.</span><span class="n">v7</span><span class="o">/</span><span class="n">iana</span><span class="o">/</span><span class="n">etypeID</span>
+<span class="k">go</span> <span class="n">get</span> <span class="n">gopkg</span><span class="o">.</span><span class="n">in</span><span class="o">/</span><span class="n">ldap</span><span class="o">.</span><span class="n">v2</span>
+
+<span class="err">##</span> <span class="n">Build</span>
+<span class="k">go</span> <span class="n">build</span> <span class="n">Talon</span><span class="o">.</span><span class="k">go</span>
+</code></pre></div></div>
+
+<h4 id="domain-controllers">Domain Controllers</h4>
+<p>Talon’s functionality includes the ability to specify multiple domain controllers to target for enumeration. This will distribute any generated alerts between hosts. You can control this via the <code class="language-plaintext highlighter-rouge">-Hostfile</code> argument, which takes a file containing a newline-delimited list of hosts as an argument.</p>
+
+<p>How you get this information is up to you, and will likely vary, but a good place to start is by enumerating hosts using <strong>CrackMapExec</strong> and looking for hostnames containing <code class="language-plaintext highlighter-rouge">DC</code>.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crackmapexec smb &lt;targets&gt; <span class="o">&gt;&gt;</span> crackmapexec_enum.txt
+</code></pre></div></div>
+
+<h4 id="enumeration">Enumeration</h4>
+<p>For our purposes I’ve setup the following users in my lab:</p>
+<p align="center">
+        <img src="/assets/images/misc/linkedin_talon/users.png" />
+</p>
+
+<p>We can assume that these users are somewhere within our <strong>linkedin2username</strong> output (not really), along with some other false entries. Let’s take our list of target domain controllers, and begin detecting valid users:</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">./</span><span class="n">Talon</span> <span class="o">-</span><span class="n">E</span> <span class="o">-</span><span class="n">D</span> <span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">Userfile</span> <span class="o">&lt;</span><span class="n">username_file</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">Hostfile</span> <span class="o">&lt;</span><span class="n">DC_list</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">O</span> <span class="o">&lt;</span><span class="n">output_file</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">sleep</span> <span class="m">1</span>
+</code></pre></div></div>
+
+<p class="notice--primary"><strong>Note</strong>: I would heavily recommend always running Talon with an output file specified with the <code class="language-plaintext highlighter-rouge">-O</code> argument.</p>
+
+<p>In my lab this looks like the following:</p>
+<p align="center">
+        <img src="/assets/images/misc/linkedin_talon/talonenum.png" />
+</p>
+
+<p>As you can see it detected the valid users from our listing. We can generate a new list of valid users with the following bash command:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s2">"User Exist"</span> &lt;output_file&gt; | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s1">'\'</span> <span class="nt">-f</span> 2 | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">":"</span> <span class="nt">-f</span> 1
+</code></pre></div></div>
+
+<h4 id="spraying">Spraying</h4>
+<p>With our generated list of valid users, let’s run a single password spray with <code class="language-plaintext highlighter-rouge">Password1!</code>:</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">./</span><span class="n">Talon</span> <span class="o">-</span><span class="n">D</span> <span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">Userfile</span> <span class="o">&lt;</span><span class="n">username_file</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">Hostfile</span> <span class="o">&lt;</span><span class="n">DC_list</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">O</span> <span class="o">&lt;</span><span class="n">output_file</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">sleep</span> <span class="m">1</span> <span class="o">-</span><span class="n">P</span> <span class="err">'</span><span class="n">Password1</span><span class="o">!</span><span class="err">'</span>
+</code></pre></div></div>
+
+<p>And in the lab environment:</p>
+<p align="center">
+        <img src="/assets/images/misc/linkedin_talon/pwdspray.png" />
+</p>
+
+<p>As you can see, each password spraying attempt was successful, as each account used a password of <code class="language-plaintext highlighter-rouge">Password1!</code>.</p>
+
+<p class="notice--primary"><strong>Note</strong>: You can instruct Talon to only utilize Kerberos or LDAPS for enumeration. This can be performed via:<br /> <code class="language-plaintext highlighter-rouge">-L</code> for LDAPS<br /> <code class="language-plaintext highlighter-rouge">-K</code> for Kerberos</p>
+
+<h4 id="additional-functionality">Additional Functionality</h4>
+<p>Here are the additional options within <a href="https://github.com/0xAsh/Talon">my fork of Talon</a>:</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Extra</span> <span class="n">Usage</span> <span class="n">of</span> <span class="o">./</span><span class="n">Talon</span><span class="o">:</span>
+  <span class="o">-</span><span class="n">A</span> <span class="n">float</span>
+        <span class="n">Authentication</span> <span class="n">attempts</span> <span class="n">per</span> <span class="n">lockout</span> <span class="n">period</span> <span class="p">(</span><span class="k">default</span> <span class="m">3</span><span class="p">)</span>
+  <span class="o">-</span><span class="n">Lockout</span> <span class="n">float</span>
+        <span class="n">Account</span> <span class="n">lockout</span> <span class="n">period</span> <span class="n">in</span> <span class="n">minutes</span> <span class="p">(</span><span class="k">default</span> <span class="m">60</span><span class="p">)</span>
+  <span class="o">-</span><span class="n">Passfile</span> <span class="kt">string</span>
+        <span class="n">File</span> <span class="n">containing</span> <span class="n">the</span> <span class="n">list</span> <span class="n">of</span> <span class="n">passwords</span>
+</code></pre></div></div>
+
+<p>This allows you to give the tool a list of passwords it will iterate through every defined number of minutes specified by the <code class="language-plaintext highlighter-rouge">-Lockout</code> parameter. You can control the number of authentication attempts made per period of testing via the <code class="language-plaintext highlighter-rouge">-A</code> (attempts) parameter.</p>
+
+<p>So let’s say we have our list of valid users, a password list, and we want to perform three password attempts every 70 minutes. We can now automate the entire process of password spraying through the following:</p>
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">./</span><span class="n">Talon</span> <span class="o">-</span><span class="n">D</span> <span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">Userfile</span> <span class="o">&lt;</span><span class="n">username_file</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">Passfile</span> <span class="o">&lt;</span><span class="n">password_file</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">A</span> <span class="m">3</span> <span class="o">-</span><span class="n">Lockout</span> <span class="m">70</span> <span class="o">-</span><span class="n">Hostfile</span> <span class="o">&lt;</span><span class="n">DC_list</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">O</span> <span class="o">&lt;</span><span class="n">output_file</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">sleep</span> <span class="m">1</span>
+</code></pre></div></div>
+
+<p>In my lab:</p>
+<p align="center">
+        <img src="/assets/images/misc/linkedin_talon/pwdlistspray.png" />
+</p>
+
+<p>As you may have noticed, I’ve added some timestamping to the output, as well as a notification of when the next attempt cycle will occur.</p>
+
+<p>As we progressed through a password list, eventually we hit the same password found earlier, and achieved a successful login to the target accounts.</p>
+
+<p>Meanwhile if we look at the logs on the DC we can see a series of <a href="https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4625">4625: An account failed to log on.</a> events. Not exactly quiet behavior.</p>
+<p align="center">
+        <img src="/assets/images/misc/linkedin_talon/auditlog.png" />
+</p>
+
+<p>If you use my fork please be careful and don’t break stuff lol.</p>
+
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>I would highly recommend walking through the process of password spraying with whoever you’ll be testing before performing any of this activity. It’s also a good idea to get their password policy from them if they are onboard so you can tailor testing to not lockout anyone/anything out. If password spraying isn’t something your target is comfortable with, you shouldn’t perform it :)</p>
+
+<p>Also huge thanks to <a href="https://twitter.com/Tyl0us">Tylous</a> for not only writing the tool but also making it public. It’s really great.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#active-directory" class="page__taxonomy-item" rel="tag">Active Directory</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#networks" class="page__taxonomy-item" rel="tag">Networks</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#osint" class="page__taxonomy-item" rel="tag">OSINT</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#password-spraying" class="page__taxonomy-item" rel="tag">Password Spraying</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#tradecraft-and-techniques" class="page__taxonomy-item" rel="tag">Tradecraft and Techniques</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2022-02-28T00:00:00-05:00">February 28, 2022</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/Certified-Red-Team-Operator-Review/" class="pagination--pager" title="Zero-Point Security’s Certified Red Team Operator (CRTO) Review
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Ash</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+  </body>
+</html>
