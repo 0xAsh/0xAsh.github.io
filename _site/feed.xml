@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-03-01T00:15:48-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Ash</title><subtitle>Blogs about information security, technology, red teaming, and other random musings.</subtitle><author><name>Ash</name></author><entry><title type="html">Harnessing the Power of LinkedIn and Talon for Password Spraying</title><link href="http://localhost:4000/Harnessing-the-power-of-LinkedIn-and-Talon-for-Password-Spraying/" rel="alternate" type="text/html" title="Harnessing the Power of LinkedIn and Talon for Password Spraying" /><published>2022-02-28T00:00:00-05:00</published><updated>2022-02-28T00:00:00-05:00</updated><id>http://localhost:4000/Harnessing-the-power-of-LinkedIn-and-Talon-for-Password-Spraying</id><content type="html" xml:base="http://localhost:4000/Harnessing-the-power-of-LinkedIn-and-Talon-for-Password-Spraying/">&lt;p&gt;Internal network password spraying is something I’ve always approached with a lot of caution.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-05-01T13:32:55-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Ash</title><subtitle>Blogs about information security, technology, red teaming, and other random musings.</subtitle><author><name>Ash</name></author><entry><title type="html">Harnessing the Power of LinkedIn and Talon for Password Spraying</title><link href="http://localhost:4000/Harnessing-the-power-of-LinkedIn-and-Talon-for-Password-Spraying/" rel="alternate" type="text/html" title="Harnessing the Power of LinkedIn and Talon for Password Spraying" /><published>2022-02-28T00:00:00-05:00</published><updated>2022-02-28T00:00:00-05:00</updated><id>http://localhost:4000/Harnessing-the-power-of-LinkedIn-and-Talon-for-Password-Spraying</id><content type="html" xml:base="http://localhost:4000/Harnessing-the-power-of-LinkedIn-and-Talon-for-Password-Spraying/">&lt;p&gt;Internal network password spraying is something I’ve always approached with a lot of caution.&lt;/p&gt;
 
 &lt;p&gt;If not done correctly, you have the potential for:&lt;/p&gt;
 &lt;ul&gt;
@@ -72,19 +72,15 @@ python3 linkedin2username.py &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; &a
   &lt;li&gt;&lt;em&gt;Perform a password spray&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;By default, password spraying can only be performed with a single password at a time.&lt;/p&gt;
+&lt;p&gt;I added some additional logic that allows a list of passwords to be specified along with some timing controls I’ll explain later. That way you can setup the tool and let it go, making sure to periodically check back between cycles, thus protecting your precious fingers from the strain of strenuously running a spray one-by-one.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;I’m lazy&lt;/strong&gt;, so I added some additional logic that allows a list of passwords to be specified along with some timing controls I’ll explain later. That way you can setup the tool and let it go, making sure to periodically check back between cycles, thus protecting your precious fingers from the strain of strenuously running a spray one-by-one.&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;You can grab my forked version &lt;a href=&quot;https://github.com/0xAsh/Talon&quot;&gt;here&lt;/a&gt;. Almost all of the functionality overlaps (I’ll tell you when it doesn’t).&lt;/del&gt;&lt;/p&gt;
 
-&lt;p&gt;You can grab my forked version &lt;a href=&quot;https://github.com/0xAsh/Talon&quot;&gt;here&lt;/a&gt;. Almost all of the functionality overlaps (I’ll tell you when it doesn’t).&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Update&lt;/em&gt;: My changes &lt;a href=&quot;https://github.com/optiv/Talon/pull/2&quot;&gt;have been  merged&lt;/a&gt; into the master version of Talon.&lt;/p&gt;
 
 &lt;h4 id=&quot;installation&quot;&gt;Installation&lt;/h4&gt;
-&lt;p&gt;To install either version of Talon, perform the following (with Go already installed):&lt;/p&gt;
-&lt;div class=&quot;language-golang highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;##&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Original&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clone&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//github.com/Optiv/Talon&lt;/span&gt;
-
-&lt;span class=&quot;err&quot;&gt;##&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;My&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fork&lt;/span&gt; 
-&lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clone&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//github.com/0xAsh/Talon&lt;/span&gt;
+&lt;p&gt;To install Talon, perform the following (with Go already installed):&lt;/p&gt;
+&lt;div class=&quot;language-golang highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clone&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//github.com/Optiv/Talon&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Talon&lt;/span&gt;
 
@@ -112,7 +108,7 @@ python3 linkedin2username.py &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; &a
         &lt;img src=&quot;/assets/images/misc/linkedin_talon/users.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;We can assume that these users are somewhere within our &lt;strong&gt;linkedin2username&lt;/strong&gt; output (not really), along with some other false entries. Let’s take our list of target domain controllers, and begin detecting valid users:&lt;/p&gt;
+&lt;p&gt;Let’s say that these users are somewhere within our &lt;strong&gt;linkedin2username&lt;/strong&gt; output, along with some other false entries. We will take our list of target domain controllers, and begin detecting valid users:&lt;/p&gt;
 &lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;./&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Talon&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;E&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Userfile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;username_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hostfile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DC_list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;O&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;output_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -137,12 +133,12 @@ python3 linkedin2username.py &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; &a
         &lt;img src=&quot;/assets/images/misc/linkedin_talon/pwdspray.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;As you can see, each password spraying attempt was successful, as each account used a password of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Password1!&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Each password spraying attempt was successful, as each account used a password of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Password1!&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p class=&quot;notice--primary&quot;&gt;&lt;strong&gt;Note&lt;/strong&gt;: You can instruct Talon to only utilize Kerberos or LDAPS for enumeration. This can be performed via:&lt;br /&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-L&lt;/code&gt; for LDAPS&lt;br /&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-K&lt;/code&gt; for Kerberos&lt;/p&gt;
 
 &lt;h4 id=&quot;additional-functionality&quot;&gt;Additional Functionality&lt;/h4&gt;
-&lt;p&gt;Here are the additional options within &lt;a href=&quot;https://github.com/0xAsh/Talon&quot;&gt;my fork of Talon&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;Here are the additional options within Talon to automate this process:&lt;/p&gt;
 &lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Extra&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Usage&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;./&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Talon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
   &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;float&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;Authentication&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;attempts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;per&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lockout&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;period&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -163,7 +159,7 @@ python3 linkedin2username.py &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; &a
         &lt;img src=&quot;/assets/images/misc/linkedin_talon/pwdlistspray.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;As you may have noticed, I’ve added some timestamping to the output, as well as a notification of when the next attempt cycle will occur.&lt;/p&gt;
+&lt;p&gt;You’ll notice additional timestamping within the output, as well as a notification of when the next attempt cycle will occur.&lt;/p&gt;
 
 &lt;p&gt;As we progressed through a password list, eventually we hit the same password found earlier, and achieved a successful login to the target accounts.&lt;/p&gt;
 
@@ -172,10 +168,8 @@ python3 linkedin2username.py &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; &a
         &lt;img src=&quot;/assets/images/misc/linkedin_talon/auditlog.png&quot; /&gt;
 &lt;/p&gt;
 
-&lt;p&gt;If you use my fork please be careful and don’t break stuff lol.&lt;/p&gt;
-
 &lt;h2 id=&quot;final-thoughts&quot;&gt;Final Thoughts&lt;/h2&gt;
-&lt;p&gt;I would highly recommend walking through the process of password spraying with whoever you’ll be testing before performing any of this activity. It’s also a good idea to get their password policy from them if they are onboard so you can tailor testing to not lockout anyone/anything out. If password spraying isn’t something your target is comfortable with, you shouldn’t perform it :)&lt;/p&gt;
+&lt;p&gt;It’s recommended to talk about the process of password spraying with whoever you’ll be testing before performing any of this activity. It’s also a good idea to get their password policy from them if they are onboard so you can tailor testing to not lockout anyone/anything out. If password spraying isn’t something your target is comfortable with, you shouldn’t perform it :)&lt;/p&gt;
 
 &lt;p&gt;Also huge thanks to &lt;a href=&quot;https://twitter.com/Tyl0us&quot;&gt;Tylous&lt;/a&gt; for not only writing the tool but also making it public. It’s really great.&lt;/p&gt;</content><author><name>Ash</name></author><category term="Tradecraft and Techniques" /><category term="Active Directory" /><category term="Networks" /><category term="Password Spraying" /><category term="OSINT" /><summary type="html">A quick guide on low-and-slow password spraying using LinkedIn enumeration output along with the amazing Talon toolset written by Tylous.</summary></entry><entry><title type="html">Zero-Point Security’s Certified Red Team Operator (CRTO) Review</title><link href="http://localhost:4000/Certified-Red-Team-Operator-Review/" rel="alternate" type="text/html" title="Zero-Point Security’s Certified Red Team Operator (CRTO) Review" /><published>2022-01-10T00:00:00-05:00</published><updated>2022-01-10T00:00:00-05:00</updated><id>http://localhost:4000/Certified-Red-Team-Operator-Review</id><content type="html" xml:base="http://localhost:4000/Certified-Red-Team-Operator-Review/">&lt;h1&gt;Overview&lt;/h1&gt;
 &lt;hr /&gt;

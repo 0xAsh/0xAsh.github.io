@@ -82,20 +82,16 @@ Talon will take a list of users and do two things:
 - _Enumerate if they exist_
 - _Perform a password spray_
 
-By default, password spraying can only be performed with a single password at a time.
+I added some additional logic that allows a list of passwords to be specified along with some timing controls I'll explain later. That way you can setup the tool and let it go, making sure to periodically check back between cycles, thus protecting your precious fingers from the strain of strenuously running a spray one-by-one.
 
-**I'm lazy**, so I added some additional logic that allows a list of passwords to be specified along with some timing controls I'll explain later. That way you can setup the tool and let it go, making sure to periodically check back between cycles, thus protecting your precious fingers from the strain of strenuously running a spray one-by-one.
+~~You can grab my forked version [here](https://github.com/0xAsh/Talon). Almost all of the functionality overlaps (I'll tell you when it doesn't).~~
 
-You can grab my forked version [here](https://github.com/0xAsh/Talon). Almost all of the functionality overlaps (I'll tell you when it doesn't). 
+_Update_: My changes [have been  merged](https://github.com/optiv/Talon/pull/2) into the master version of Talon.
 
 #### Installation
-To install either version of Talon, perform the following (with Go already installed):
+To install Talon, perform the following (with Go already installed):
 ```golang
-## Original version
 git clone https://github.com/Optiv/Talon
-
-## My fork 
-git clone https://github.com/0xAsh/Talon
 
 cd Talon
 
@@ -124,7 +120,7 @@ For our purposes I've setup the following users in my lab:
         <img src="/assets/images/misc/linkedin_talon/users.png" />
 </p>
 
-We can assume that these users are somewhere within our **linkedin2username** output (not really), along with some other false entries. Let's take our list of target domain controllers, and begin detecting valid users:
+Let's say that these users are somewhere within our **linkedin2username** output, along with some other false entries. We will take our list of target domain controllers, and begin detecting valid users:
 ```go
 ./Talon -E -D <domain> -Userfile <username_file> -Hostfile <DC_list> -O <output_file> -sleep 1
 ```
@@ -153,13 +149,13 @@ And in the lab environment:
         <img src="/assets/images/misc/linkedin_talon/pwdspray.png" />
 </p>
 
-As you can see, each password spraying attempt was successful, as each account used a password of `Password1!`.
+Each password spraying attempt was successful, as each account used a password of `Password1!`.
 
 **Note**: You can instruct Talon to only utilize Kerberos or LDAPS for enumeration. This can be performed via:<br> `-L` for LDAPS<br> `-K` for Kerberos
 {: .notice--primary}
 
 #### Additional Functionality
-Here are the additional options within [my fork of Talon](https://github.com/0xAsh/Talon):
+Here are the additional options within Talon to automate this process:
 ```go
 Extra Usage of ./Talon:
   -A float
@@ -182,7 +178,7 @@ In my lab:
         <img src="/assets/images/misc/linkedin_talon/pwdlistspray.png" />
 </p>
 
-As you may have noticed, I've added some timestamping to the output, as well as a notification of when the next attempt cycle will occur.
+You'll notice additional timestamping within the output, as well as a notification of when the next attempt cycle will occur.
 
 As we progressed through a password list, eventually we hit the same password found earlier, and achieved a successful login to the target accounts.
 
@@ -191,12 +187,8 @@ Meanwhile if we look at the logs on the DC we can see a series of [4625: An acco
         <img src="/assets/images/misc/linkedin_talon/auditlog.png" />
 </p>
 
-
-
-If you use my fork please be careful and don't break stuff lol.
-
 ## Final Thoughts
-I would highly recommend walking through the process of password spraying with whoever you'll be testing before performing any of this activity. It's also a good idea to get their password policy from them if they are onboard so you can tailor testing to not lockout anyone/anything out. If password spraying isn't something your target is comfortable with, you shouldn't perform it :) 
+It's recommended to talk about the process of password spraying with whoever you'll be testing before performing any of this activity. It's also a good idea to get their password policy from them if they are onboard so you can tailor testing to not lockout anyone/anything out. If password spraying isn't something your target is comfortable with, you shouldn't perform it :) 
 
 
 Also huge thanks to [Tylous](https://twitter.com/Tyl0us) for not only writing the tool but also making it public. It's really great.

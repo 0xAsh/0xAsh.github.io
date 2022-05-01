@@ -103,7 +103,7 @@ analytics:
 author:
   name             : "Ash"
   avatar           : "/assets/images/logo.png"
-  bio              : "Unix lover. Red teamer. Interested in anything to do with computers."
+  bio              : "Computer enjoyer."
   location         : 
   email            : 
   uri              :
@@ -143,7 +143,7 @@ author:
       url: "https://keybase.io/ashhhhhhh"
     - label: "HackTheBox"
       icon: "fas fa-fw fa-cube"
-      url: "https://www.hackthebox.com/home/users/profile/72624"
+      url: "https://app.hackthebox.com/profile/72624"
 
 
 # Reading Files

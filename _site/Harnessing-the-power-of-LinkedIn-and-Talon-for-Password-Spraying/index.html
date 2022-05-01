@@ -217,7 +217,7 @@
     
     
       <p class="author__bio" itemprop="description">
-        Unix lover. Red teamer. Interested in anything to do with computers.
+        Computer enjoyer.
       </p>
     
   </div>
@@ -242,7 +242,7 @@
           
         
           
-            <li><a href="https://www.hackthebox.com/home/users/profile/72624" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-cube" aria-hidden="true"></i> HackTheBox</a></li>
+            <li><a href="https://app.hackthebox.com/profile/72624" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-cube" aria-hidden="true"></i> HackTheBox</a></li>
           
         
       
@@ -409,19 +409,15 @@ python3 linkedin2username.py <span class="nt">-u</span> &lt;username&gt; <span c
   <li><em>Perform a password spray</em></li>
 </ul>
 
-<p>By default, password spraying can only be performed with a single password at a time.</p>
+<p>I added some additional logic that allows a list of passwords to be specified along with some timing controls I’ll explain later. That way you can setup the tool and let it go, making sure to periodically check back between cycles, thus protecting your precious fingers from the strain of strenuously running a spray one-by-one.</p>
 
-<p><strong>I’m lazy</strong>, so I added some additional logic that allows a list of passwords to be specified along with some timing controls I’ll explain later. That way you can setup the tool and let it go, making sure to periodically check back between cycles, thus protecting your precious fingers from the strain of strenuously running a spray one-by-one.</p>
+<p><del>You can grab my forked version <a href="https://github.com/0xAsh/Talon">here</a>. Almost all of the functionality overlaps (I’ll tell you when it doesn’t).</del></p>
 
-<p>You can grab my forked version <a href="https://github.com/0xAsh/Talon">here</a>. Almost all of the functionality overlaps (I’ll tell you when it doesn’t).</p>
+<p><em>Update</em>: My changes <a href="https://github.com/optiv/Talon/pull/2">have been  merged</a> into the master version of Talon.</p>
 
 <h4 id="installation">Installation</h4>
-<p>To install either version of Talon, perform the following (with Go already installed):</p>
-<div class="language-golang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">##</span> <span class="n">Original</span> <span class="n">version</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c">//github.com/Optiv/Talon</span>
-
-<span class="err">##</span> <span class="n">My</span> <span class="n">fork</span> 
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c">//github.com/0xAsh/Talon</span>
+<p>To install Talon, perform the following (with Go already installed):</p>
+<div class="language-golang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c">//github.com/Optiv/Talon</span>
 
 <span class="n">cd</span> <span class="n">Talon</span>
 
@@ -449,7 +445,7 @@ python3 linkedin2username.py <span class="nt">-u</span> &lt;username&gt; <span c
         <img src="/assets/images/misc/linkedin_talon/users.png" />
 </p>
 
-<p>We can assume that these users are somewhere within our <strong>linkedin2username</strong> output (not really), along with some other false entries. Let’s take our list of target domain controllers, and begin detecting valid users:</p>
+<p>Let’s say that these users are somewhere within our <strong>linkedin2username</strong> output, along with some other false entries. We will take our list of target domain controllers, and begin detecting valid users:</p>
 <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">./</span><span class="n">Talon</span> <span class="o">-</span><span class="n">E</span> <span class="o">-</span><span class="n">D</span> <span class="o">&lt;</span><span class="n">domain</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">Userfile</span> <span class="o">&lt;</span><span class="n">username_file</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">Hostfile</span> <span class="o">&lt;</span><span class="n">DC_list</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">O</span> <span class="o">&lt;</span><span class="n">output_file</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">sleep</span> <span class="m">1</span>
 </code></pre></div></div>
 
@@ -474,12 +470,12 @@ python3 linkedin2username.py <span class="nt">-u</span> &lt;username&gt; <span c
         <img src="/assets/images/misc/linkedin_talon/pwdspray.png" />
 </p>
 
-<p>As you can see, each password spraying attempt was successful, as each account used a password of <code class="language-plaintext highlighter-rouge">Password1!</code>.</p>
+<p>Each password spraying attempt was successful, as each account used a password of <code class="language-plaintext highlighter-rouge">Password1!</code>.</p>
 
 <p class="notice--primary"><strong>Note</strong>: You can instruct Talon to only utilize Kerberos or LDAPS for enumeration. This can be performed via:<br /> <code class="language-plaintext highlighter-rouge">-L</code> for LDAPS<br /> <code class="language-plaintext highlighter-rouge">-K</code> for Kerberos</p>
 
 <h4 id="additional-functionality">Additional Functionality</h4>
-<p>Here are the additional options within <a href="https://github.com/0xAsh/Talon">my fork of Talon</a>:</p>
+<p>Here are the additional options within Talon to automate this process:</p>
 <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Extra</span> <span class="n">Usage</span> <span class="n">of</span> <span class="o">./</span><span class="n">Talon</span><span class="o">:</span>
   <span class="o">-</span><span class="n">A</span> <span class="n">float</span>
         <span class="n">Authentication</span> <span class="n">attempts</span> <span class="n">per</span> <span class="n">lockout</span> <span class="n">period</span> <span class="p">(</span><span class="k">default</span> <span class="m">3</span><span class="p">)</span>
@@ -500,7 +496,7 @@ python3 linkedin2username.py <span class="nt">-u</span> &lt;username&gt; <span c
         <img src="/assets/images/misc/linkedin_talon/pwdlistspray.png" />
 </p>
 
-<p>As you may have noticed, I’ve added some timestamping to the output, as well as a notification of when the next attempt cycle will occur.</p>
+<p>You’ll notice additional timestamping within the output, as well as a notification of when the next attempt cycle will occur.</p>
 
 <p>As we progressed through a password list, eventually we hit the same password found earlier, and achieved a successful login to the target accounts.</p>
 
@@ -509,10 +505,8 @@ python3 linkedin2username.py <span class="nt">-u</span> &lt;username&gt; <span c
         <img src="/assets/images/misc/linkedin_talon/auditlog.png" />
 </p>
 
-<p>If you use my fork please be careful and don’t break stuff lol.</p>
-
 <h2 id="final-thoughts">Final Thoughts</h2>
-<p>I would highly recommend walking through the process of password spraying with whoever you’ll be testing before performing any of this activity. It’s also a good idea to get their password policy from them if they are onboard so you can tailor testing to not lockout anyone/anything out. If password spraying isn’t something your target is comfortable with, you shouldn’t perform it :)</p>
+<p>It’s recommended to talk about the process of password spraying with whoever you’ll be testing before performing any of this activity. It’s also a good idea to get their password policy from them if they are onboard so you can tailor testing to not lockout anyone/anything out. If password spraying isn’t something your target is comfortable with, you shouldn’t perform it :)</p>
 
 <p>Also huge thanks to <a href="https://twitter.com/Tyl0us">Tylous</a> for not only writing the tool but also making it public. It’s really great.</p>
 
