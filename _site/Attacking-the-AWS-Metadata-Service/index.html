@@ -1,0 +1,575 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Attacking the AWS Metadata Service - Ash</title>
+<meta name="description" content="“Since it first launched over 10 years ago, the Amazon EC2 Instance Metadata Service (IMDS) has helped customers build secure and scalable applications. The IMDS solved a big security headache for cloud users by providing access to temporary, frequently rotated credentials, removing the need to hardcode or distribute sensitive credentials to instances manually or programatically. “However, as you may have noticed, the Metadata service possesses one unique characteristic that is useful to attackers. Along with providing information access to the given instance, it also provides credentials.Why does this matter?">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Ash">
+<meta property="og:title" content="Attacking the AWS Metadata Service">
+<meta property="og:url" content="http://localhost:4000/Attacking-the-AWS-Metadata-Service/">
+
+
+  <meta property="og:description" content="“Since it first launched over 10 years ago, the Amazon EC2 Instance Metadata Service (IMDS) has helped customers build secure and scalable applications. The IMDS solved a big security headache for cloud users by providing access to temporary, frequently rotated credentials, removing the need to hardcode or distribute sensitive credentials to instances manually or programatically. “However, as you may have noticed, the Metadata service possesses one unique characteristic that is useful to attackers. Along with providing information access to the given instance, it also provides credentials.Why does this matter?">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/aws_metadata/logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-01T00:00:00-04:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Attacking-the-AWS-Metadata-Service/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ash",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Ash Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<link rel="shortcut icon" type="image/png" href="favicon.ico">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="shortcut icon" href="/assets/images/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/images/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/banner_logo.gif" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Attacking the AWS Metadata Service</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/logo.png" alt="Ash" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Ash</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Computer enjoyer.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/_bin_Ash" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://github.com/0xAsh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://keybase.io/ashhhhhhh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-keybase" aria-hidden="true"></i> Keybase</a></li>
+          
+        
+          
+            <li><a href="https://app.hackthebox.com/profile/72624" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-cube" aria-hidden="true"></i> HackTheBox</a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Attacking the AWS Metadata Service">
+    <meta itemprop="description" content="“Since it first launched over 10 years ago, the Amazon EC2 Instance Metadata Service (IMDS) has helped customers build secure and scalable applications. The IMDS solved a big security headache for cloud users by providing access to temporary, frequently rotated credentials, removing the need to hardcode or distribute sensitive credentials to instances manually or programatically. “However, as you may have noticed, the Metadata service possesses one unique characteristic that is useful to attackers. Along with providing information access to the given instance, it also provides credentials.Why does this matter?">
+    <meta itemprop="datePublished" content="July 01, 2022">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Attacking the AWS Metadata Service
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2022-07-01T00:00:00-04:00">July 01, 2022 </time>&emsp;
+          
+          
+        </p>
+        <p class="notice--warning">I originally developed this blog for the <a href="https://risk3sixty.com/penetration-testing/">Renegade Labs team</a> at <a href="https://risk3sixty.com/">risk3sixty</a>, and have cross-posted it here for replication of my personal work.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mitre ATT&amp;CK Technique</th>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://attack.mitre.org/techniques/T1552/005/">Unsecured Credentials: Cloud Instance Metadata API</a></td>
+      <td>T1552.005</td>
+    </tr>
+  </tbody>
+</table>
+
+<p align="center">
+        <img src="/assets/images/aws_metadata/xmind_1.png" />
+</p>
+
+<p>The AWS Metadata service facilitiates information access for applications running on a given EC2 instance. This is provided to aid configuration and management of tooling and is accessible only by the instance itself.</p>
+
+<p>Per <a href="https://aws.amazon.com/blogs/security/defense-in-depth-open-firewalls-reverse-proxies-ssrf-vulnerabilities-ec2-instance-metadata-service/">Amazon</a>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Since it first launched over 10 years ago, the [Amazon EC2](http://aws.amazon.com/ec2) Instance Metadata Service (IMDS) has helped customers build secure and scalable applications. The IMDS solved a big security headache for cloud users by providing access to temporary, frequently rotated credentials, removing the need to hardcode or distribute sensitive credentials to instances manually or programatically.
+</code></pre></div></div>
+
+<p>However, as you may have noticed, the Metadata service possesses one unique characteristic that is useful to attackers. Along with providing information access to the given instance, it also provides <em>credentials</em>.</p>
+
+<p>Why does this matter?</p>
+
+<p>This effectively means that an attacker who compromised an AWS instance can query the Metadata service for credentials that can be then used for lateral movement to other cloud resources.</p>
+
+<h2 id="attack-breakdown">Attack Breakdown</h2>
+<p>Let’s say an attacker has compromised a host and acquired access using SSH. From a shell, the Metadata service can be accessed using:
+<code class="language-plaintext highlighter-rouge">curl http://169.254.169.254</code>.</p>
+<p align="center">
+        <img src="/assets/images/aws_metadata/curl_1.png" />
+</p>
+
+<p>The Metadata service can then be more directly queried through the <code class="language-plaintext highlighter-rouge">/latest/meta-data</code> path on this URL.</p>
+
+<p align="center">
+        <img src="/assets/images/aws_metadata/curl_2.png" />
+</p>
+
+<p>The attacker can request a fresh pair of AWS access keys using the complete path of: 
+<code class="language-plaintext highlighter-rouge">http://169.254.169.254/latest/meta-data/identity-credentials/ec2/security-credentials/ec2-instance</code></p>
+
+<p align="center">
+        <img src="/assets/images/aws_metadata/curl_3.png" />
+</p>
+
+<p>And just like that an attacker has a separate pair of credentials! These keys can be then used for lateral movement after an initial breach or persistence.</p>
+
+<h2 id="but-wait-theres-more">But Wait There’s More</h2>
+<p>So while the first example is only limited to an attacker somehow acquiring a shell on a resource, it is actually not the most realistic attack scenario that exploits the Metadata service.</p>
+
+<p>Instead, a web application exploitation method known as Server-Side Request Forgery (SSRF) is actually the most likely candidate to grant attackers the ability to target the metadata service.</p>
+
+<p>The interesting thing about this attack chain is that it immediately shifts the threat model of an organization from their web application environment to their infrastructure. This breaks the common assumption that a web application vulnerability can only impact the application itself. In some cases this can be devastating for an organization should the appropriate variables be in place.</p>
+
+<h3 id="ssrf">SSRF</h3>
+<p align="center">
+        <img src="/assets/images/aws_metadata/xmind_2.png" />
+</p>
+<p>To understand how this works, one must know what a SSRF vulnerability looks like. For example, consider a web application hosted on AWS that has the following URL:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://mywebapp.com/images/remote?=http://imgur.com
+</code></pre></div></div>
+
+<p>This URL allows the application to load images from disparate locations that are used in the web application. However, an attacker notices this and changes the <code class="language-plaintext highlighter-rouge">remote</code> parameter to an IP address under their control.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://mywebapp.com/images/remote?=http://1.2.3.4 &lt;- malicious IP
+</code></pre></div></div>
+
+<p>Once the new URL is accessed, the attacker checks their server logs and notes a hit from the web application server.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
+&lt;web server IP&gt; - - [03/Jul/2022 07:41:11] "GET / HTTP/1.1" 200 -
+</code></pre></div></div>
+
+<p>This is a SSRF vulnerability, as the attacker can induce the web application into making requests to unintended resources.</p>
+
+<p>When chained against web applications that run on AWS, this kind of weakness can be catastrophic. Consider an attacker who takes advantage of the same URL by issuing this request:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://mywebapp.com/images/remote?=http://169.254.169.254/
+</code></pre></div></div>
+
+<p>When this is issued, the web application tries to fetch the “image” and store it in the web application, but in reality fetches a fresh pair of AWS credentials that can be used by the attacker:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "Code" : "Success",
+  "LastUpdated" : "2022-07-03T11:53:44Z",
+  "Type" : "AWS-HMAC",
+  "AccessKeyId" : "ASIAVQ[...snip...]K62GIEE",
+  "SecretAccessKey" : "wK8[...snip...]rX9mvFK",
+  "Token" : "IQoJb[...snip...]1clp9UA==",
+  "Expiration" : "2022-07-03T18:04:22Z"
+}  
+</code></pre></div></div>
+
+<h2 id="mitigation-imdsv2">Mitigation: IMDSv2</h2>
+<p>AWS has since released Instnace Metadata Service v2 (IMDSv2), which adds an addiitonal layer of protection on the metadata service by requesting session authentication.</p>
+
+<p>This is achieved by requiring a <code class="language-plaintext highlighter-rouge">PUT</code> request to be used initially to gather a secret token. This token is then used like a password for performing additional actions with the metadata service, including still requesting credentials.</p>
+
+<p>Therefore, IMDSv2 does not fix metadata service credential leakage entirely, but rather makes it more difficult to achieve through a generic SSRF vulnerability.</p>
+
+<p>Alternatively, the metadata service can be completely disabled on EC2 instances, although this remediation path may have drawbacks should your assets utilize the service.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#aws" class="page__taxonomy-item" rel="tag">AWS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#cloud" class="page__taxonomy-item" rel="tag">Cloud</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ssrf" class="page__taxonomy-item" rel="tag">SSRF</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#tradecraft-and-techniques" class="page__taxonomy-item" rel="tag">Tradecraft and Techniques</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2022-07-01T00:00:00-04:00">July 01, 2022</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/An-Introduction-to-Active-Dreictory-Enumeration/" class="pagination--pager" title="An Introduction to Active Directory Enumeration
+">Previous</a>
+    
+    
+      <a href="/Farming-Breached-Password-Data-With-Dehashed/" class="pagination--pager" title="Farming Breached Password Data with Dehashed
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Ash</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+  </body>
+</html>

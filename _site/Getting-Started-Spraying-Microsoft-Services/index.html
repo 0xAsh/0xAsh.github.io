@@ -1,0 +1,561 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Getting Started Spraying Microsoft Services - Ash</title>
+<meta name="description" content="Password spraying is the process of brute-force guessing passwords against a list of accounts either externally or internally. Adversaries use this tactic to attempt to establish initial access within an organization and/or laterally move to alternate identities within a network.The process of getting started password spraying is surprisingly easy. This is in part thanks to the prevalence of remote-work solutions that have created the need to allow users to authenticate from pretty much anywhere. Cloud services such as Office365 actually assist the password spraying process, by providing a reliable, centralized location that can be used to attempt to breach a company’s accounts.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Ash">
+<meta property="og:title" content="Getting Started Spraying Microsoft Services">
+<meta property="og:url" content="http://localhost:4000/Getting-Started-Spraying-Microsoft-Services/">
+
+
+  <meta property="og:description" content="Password spraying is the process of brute-force guessing passwords against a list of accounts either externally or internally. Adversaries use this tactic to attempt to establish initial access within an organization and/or laterally move to alternate identities within a network.The process of getting started password spraying is surprisingly easy. This is in part thanks to the prevalence of remote-work solutions that have created the need to allow users to authenticate from pretty much anywhere. Cloud services such as Office365 actually assist the password spraying process, by providing a reliable, centralized location that can be used to attempt to breach a company’s accounts.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/spraying_ms/logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-01T00:00:00-04:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Getting-Started-Spraying-Microsoft-Services/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ash",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Ash Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<link rel="shortcut icon" type="image/png" href="favicon.ico">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="shortcut icon" href="/assets/images/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/images/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/banner_logo.gif" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Getting Started Spraying Microsoft Services</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/logo.png" alt="Ash" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Ash</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Computer enjoyer.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/_bin_Ash" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://github.com/0xAsh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://keybase.io/ashhhhhhh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-keybase" aria-hidden="true"></i> Keybase</a></li>
+          
+        
+          
+            <li><a href="https://app.hackthebox.com/profile/72624" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-cube" aria-hidden="true"></i> HackTheBox</a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Getting Started Spraying Microsoft Services">
+    <meta itemprop="description" content="Password spraying is the process of brute-force guessing passwords against a list of accounts either externally or internally. Adversaries use this tactic to attempt to establish initial access within an organization and/or laterally move to alternate identities within a network.The process of getting started password spraying is surprisingly easy. This is in part thanks to the prevalence of remote-work solutions that have created the need to allow users to authenticate from pretty much anywhere. Cloud services such as Office365 actually assist the password spraying process, by providing a reliable, centralized location that can be used to attempt to breach a company’s accounts.">
+    <meta itemprop="datePublished" content="July 01, 2022">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Getting Started Spraying Microsoft Services
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2022-07-01T00:00:00-04:00">July 01, 2022 </time>&emsp;
+          
+          
+        </p>
+        <p class="notice--warning">I originally developed this blog for the <a href="https://risk3sixty.com/penetration-testing/">Renegade Labs team</a> at <a href="https://risk3sixty.com/">risk3sixty</a>, and have cross-posted it here for replication of my personal work.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mitre ATT&amp;CK Technique</th>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://attack.mitre.org/techniques/T1110/003/">Brute Force: Password Spraying</a></td>
+      <td>T1110.003</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Password spraying is the process of brute-force guessing passwords against a list of accounts either externally or internally. Adversaries use this tactic to attempt to establish initial access within an organization and/or laterally move to alternate identities within a network.</p>
+
+<p>The process of getting started password spraying is surprisingly easy. This is in part thanks to the prevalence of remote-work solutions that have created the need to allow users to authenticate from <em>pretty much anywhere</em>. Cloud services such as Office365 actually <em>assist</em> the password spraying process, by providing a reliable, centralized location that can be used to attempt to breach a company’s accounts.</p>
+
+<p>To begin, attackers may perform some sort of open-source intelligence gathering to generate a list of users and emails for an organization, that can be later used in password spraying attemtps. In combination with this tactic, weak, seasonal-based (<code class="language-plaintext highlighter-rouge">Summer2022!</code>) or company-based (<code class="language-plaintext highlighter-rouge">Company123</code>) passwords are commonly used in stuffing attacks.</p>
+
+<h1 id="so-how-does-it-work">So how does it work?</h1>
+<h2 id="password-spraying-azure">Password Spraying Azure</h2>
+<p>Let’s say we are an attacker targeting the ficticious <code class="language-plaintext highlighter-rouge">&lt;testlab.com&gt;</code> company. We have a list of target users we’ve skimmed from LinkedIn, and we have a hunch that they use a weak password.</p>
+
+<p>We’re going to utilize the <a href="https://github.com/dafthack/MSOLSpray">MSOLSpray</a> toolset from Beau Bollock (<a href="https://twitter.com/dafthack">@dafthack</a>) to attempt to login to each of target users with a weak password.</p>
+
+<p>Getting started using the tool is quite simple. We can open a PowerShell window and download the tool using:</p>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">wget</span><span class="w"> </span><span class="nx">https://raw.githubusercontent.com/dafthack/MSOLSpray/master/MSOLSpray.ps1</span><span class="w"> </span><span class="nt">-OutFile</span><span class="w"> </span><span class="nx">MSOLSpray.ps1</span><span class="w">
+</span></code></pre></div></div>
+
+<p>After which we can import it via:</p>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Import-Module</span><span class="w"> </span><span class="o">.</span><span class="nx">\MSOLSpray.ps1</span><span class="w">
+</span></code></pre></div></div>
+
+<p>We will construct a short list of users to target:</p>
+<p align="center">
+        <img src="/assets/images/spraying_ms/userlist.png" />
+</p>
+
+<p>And now we can easily spray a login attempt to each account with MSOLSpray.ps1. We’ll use the <code class="language-plaintext highlighter-rouge">Summer2022</code> password, and launch the attack via:</p>
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Invoke-MSOLSpray</span><span class="w"> </span><span class="nt">-UserList</span><span class="w"> </span><span class="o">.</span><span class="nx">\Users.txt</span><span class="w"> </span><span class="nt">-Password</span><span class="w"> </span><span class="nx">Summer2022</span><span class="w">
+</span></code></pre></div></div>
+
+<p align="center">
+        <img src="/assets/images/spraying_ms/msolspray.png" />
+</p>
+
+<p>In our case the ficticious <code class="language-plaintext highlighter-rouge">testlab.com</code> domain does not actually exist, however one can see how quickly spraying attempts can be performed against a target organization.</p>
+
+<p>This is just one example against a particular service, and multiple options exist that allow attacks to target a suite of applications used by organizations.</p>
+
+<h2 id="password-spraying-active-directory">Password Spraying Active Directory</h2>
+<p>On the internal network side of house, there are a suite of password spraying toolsets to choose from. At Renegade Labs, we particularly like using <a href="https://github.com/optiv/Talon">Talon</a> from <a href="https://www.optiv.com/">Optiv</a>. It’s very flexible, written in Golang, and portable to multiple platforms.</p>
+
+<p>Let’s shift gears and say we’re within an internal network and want to spray passwords. We’ll start by grabbing a fresh copy of Talon and constructing a userlist:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">## Download Talon and make it executable</span>
+wget https://github.com/optiv/Talon/releases/download/v3.0/Talon_3.0_linux_amd64
+<span class="nb">mv </span>Talon_3.0_linux_amd64 Talon <span class="o">&amp;&amp;</span> <span class="nb">chmod</span> +x Talon
+
+<span class="c">## Construct a users list</span>
+<span class="nb">cat </span>users.txt
+bob
+mike
+cindy
+cheryl
+jim
+</code></pre></div></div>
+
+<p>Now we can begin spraying passwords. Talon possesses a wide suite of options that allows an operator to heavily modify how they would like to spray passwords, but for our purposes lets simply issue one round of spraying with the <code class="language-plaintext highlighter-rouge">Passw0rd!</code> password.</p>
+
+<p>We can do so using the following command:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./Talon -D testlab.local -H 10.0.0.36 -Userfile users.txt -P 'Passw0rd!' -K
+</code></pre></div></div>
+
+<p align="center">
+        <img src="/assets/images/spraying_ms/talon.png" />
+</p>
+
+<p>From the generated spraying attempts, we can see that this password is set for the <code class="language-plaintext highlighter-rouge">bob</code> account, allowing us to authenticate as that identity and inherit their access. This is how quickly a penetration tester (or attacker) can spin up password spraying attempts after initial access is achieved.</p>
+
+<h2 id="mitigation-password-policy-reigns-supreme">Mitigation: Password Policy Reigns Supreme</h2>
+<p>On the defensive side of house, there is one direct and fullproof mitigation that still stands the test of time: the password policy. While regular password rotation is important, we cannot place enough emphasis on enforcing the <em>strength</em> of passwords that are set.</p>
+
+<p>A 14 character, highly-complex password that is set for a year is much more valuable than an eight character password that changes every 60 days. In most cases all this achieves is incrementing a number by one (Passw0rd1 -&gt; Passw0rd2) or changing a slight detail to get pass policy requirements.</p>
+
+<p>In addition to password policies, organizations should pursue utilization of MFA. This should be prioritized especially for all methods of an end user logging into resources externally, or in other words from the public internet. In most cases this is for systems such as a VPN solution, email (Google Mail/Outlook), messaging platforms (looking at you Slack), or other systems that could be used for further information gathering and pretext-based social engineering (HR systems/finance applications/note taking applications).</p>
+
+<p>There are a series of application-specific protections that we could go into to try to limit password spraying on a case-by-case basis, but this blog aims to simply shed light on the process of password spraying and how easy it is to get started as an attacker. So, go setup MFA, and use good passwords!</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#active-directory" class="page__taxonomy-item" rel="tag">Active Directory</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#office365" class="page__taxonomy-item" rel="tag">Office365</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#osint" class="page__taxonomy-item" rel="tag">OSINT</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#password-spraying" class="page__taxonomy-item" rel="tag">Password Spraying</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#tradecraft-and-techniques" class="page__taxonomy-item" rel="tag">Tradecraft and Techniques</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2022-07-01T00:00:00-04:00">July 01, 2022</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/Farming-Breached-Password-Data-With-Dehashed/" class="pagination--pager" title="Farming Breached Password Data with Dehashed
+">Previous</a>
+    
+    
+      <a href="/I-Love-ScoutSuite-and-You-Should-Too/" class="pagination--pager" title="I Love ScoutSuite and You Should Too
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Ash</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+  </body>
+</html>

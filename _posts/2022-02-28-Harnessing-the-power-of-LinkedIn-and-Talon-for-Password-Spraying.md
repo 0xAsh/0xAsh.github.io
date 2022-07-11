@@ -6,7 +6,7 @@ header:
   teaser: /assets/images/misc/linkedin_talon/logo.png
   teaser_home_page: true
 title: "Harnessing the Power of LinkedIn and Talon for Password Spraying"
-excerpt: "A quick guide on low-and-slow password spraying using LinkedIn enumeration output along with the amazing Talon toolset written by Tylous."
+excerpt: "I'll talk through how one can use LinkedIn to gather listings of usernames and email addresses that can be combined with password spraying tactics. For demonstration of password spraying, we'll target internal Active Directory services with the Talon toolset written by Tylous. I'll also document some of the extra functionality I added to the tool that is now included in the main version."
 categories:
   - Tradecraft and Techniques
 tags:

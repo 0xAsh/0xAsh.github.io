@@ -1,0 +1,560 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Using cloud_enum to Find S3 Buckets and More - Ash</title>
+<meta name="description" content="S3, first introduced in 2006, is one of Amazon Web Services’ most popular services. This simple and fast cloud object solution has undoubtely made development, file sharing, content-delivery, and much more seamless for its users across the years. However, this flexibiltiy and arguably confusing design has led to some of the biggest data breaches ever seen. With this in mind, let’s walk through why I like using cloud_enum to find S3 buckets and other goodies.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Ash">
+<meta property="og:title" content="Using cloud_enum to Find S3 Buckets and More">
+<meta property="og:url" content="http://localhost:4000/Using-cloud_enum-to-find-S3-buckets-and-more/">
+
+
+  <meta property="og:description" content="S3, first introduced in 2006, is one of Amazon Web Services’ most popular services. This simple and fast cloud object solution has undoubtely made development, file sharing, content-delivery, and much more seamless for its users across the years. However, this flexibiltiy and arguably confusing design has led to some of the biggest data breaches ever seen. With this in mind, let’s walk through why I like using cloud_enum to find S3 buckets and other goodies.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/cloud_enum/logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-01T00:00:00-04:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Using-cloud_enum-to-find-S3-buckets-and-more/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ash",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Ash Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<link rel="shortcut icon" type="image/png" href="favicon.ico">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="shortcut icon" href="/assets/images/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/images/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/banner_logo.gif" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Using cloud_enum to Find S3 Buckets and More</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/logo.png" alt="Ash" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Ash</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Computer enjoyer.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/_bin_Ash" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://github.com/0xAsh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://keybase.io/ashhhhhhh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-keybase" aria-hidden="true"></i> Keybase</a></li>
+          
+        
+          
+            <li><a href="https://app.hackthebox.com/profile/72624" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-cube" aria-hidden="true"></i> HackTheBox</a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Using cloud_enum to Find S3 Buckets and More">
+    <meta itemprop="description" content="S3, first introduced in 2006, is one of Amazon Web Services’ most popular services. This simple and fast cloud object solution has undoubtely made development, file sharing, content-delivery, and much more seamless for its users across the years. However, this flexibiltiy and arguably confusing design has led to some of the biggest data breaches ever seen. With this in mind, let’s walk through why I like using cloud_enum to find S3 buckets and other goodies.">
+    <meta itemprop="datePublished" content="July 01, 2022">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Using cloud_enum to Find S3 Buckets and More
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2022-07-01T00:00:00-04:00">July 01, 2022 </time>&emsp;
+          
+          
+        </p>
+        <p class="notice--warning">I originally developed this blog for the <a href="https://risk3sixty.com/penetration-testing/">Renegade Labs team</a> at <a href="https://risk3sixty.com/">risk3sixty</a>, and have cross-posted it here for replication of my personal work.</p>
+
+<h1 id="s3-buckets">S3 Buckets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mitre ATT&amp;CK Technique</th>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://attack.mitre.org/techniques/T1530/">Data from Cloud Storage Object</a></td>
+      <td>T1530</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="buckets">Buckets?</h2>
+<p>S3, first introduced in 2006, is one of Amazon Web Services’ most popular services. This simple and fast cloud object solution has undoubtely made development, file sharing, content-delivery, and much more seamless for its users across the years. However, this flexibiltiy and arguably confusing design has led to some of the biggest data breaches ever seen.</p>
+
+<h3 id="buckets-are-bad">Buckets are bad?</h3>
+<p>Buckets are not bad by themself, but they sure can lead to issues. Just in 2022, the following data breaches have occurred thanks to misconfigured S3 buckets:</p>
+<ul>
+  <li><a href="https://portswigger.net/daily-swig/insecure-amazon-s3-bucket-exposed-personal-data-on-500-000-ghanaian-graduates">500,000 Ghanaian graduates personal data leaked by S3 bucket</a></li>
+  <li><a href="https://securityaffairs.co/wordpress/126258/data-breach/sega-europe-aws-s3-bucket-data-leak.html">SEGA S3 bucket with AWS credentials and PII left open</a></li>
+</ul>
+
+<p>This is in no way a conclusive list, in fact there are multiple different <a href="https://www.hackmageddon.com/2022/02/21/leaky-buckets-in-2022/">sites</a> and <a href="https://github.com/nagwww/s3-leaks">repos</a> that have attempted to catalogue each S3 bucket data breach. I would not want to try to keep up with the pace.</p>
+
+<h2 id="how-does-this-happen">How does this happen?</h2>
+<p>The issue arises when S3 buckets are set to <code class="language-plaintext highlighter-rouge">Public</code>. This allows any user to access the contents stored within the bucket at their will. Development life cycles may forget about test buckets that are used during sprints, or in other cases applications utilize the same bucket for multiple purposes, such as content delivery for an application <em>as well as</em> storage of the sensitive data an application utilizes.</p>
+
+<p>These environmental variables are the reason that so many issues have come to light over the years with S3 buckets leaking information, and I would argue <em>it’s not entirely the userbase’s fault.</em></p>
+
+<p>In the article <a href="https://www.upguard.com/blog/s3-security-is-flawed-by-design">S3 Security Is Flawed By Design</a>, Kaushik Sen makes the argument that S3 is a victim of its own success. It’s hard to roll out intrinsic changes to one of the most utilized services on the entire AWS platform.</p>
+
+<p>He proposes that S3 should be split into two separate services to  avoid ambiguity on <em>what exactly S3 it should be used for.</em> These are:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"1. **Amazon Web Hosting** - designed to host public websites, this storage solution would always be public.
+
+2. **Amazon Private Storage** - designed to hold any data you wouldn't want posted on the Internet, this storage is always private and cannot be accessed directly over the Internet."
+</code></pre></div></div>
+
+<p>In the meantime however, we still need to protect and secure this service. So how do attackers and security researchers locate these buckets? Let’s walk through some enumeration tactics we’ve used historically at Renegade Labs.</p>
+
+<h3 id="searching-for-open-s3-buckets">Searching for Open S3 Buckets</h3>
+<h4 id="cloud_enum">Cloud_enum</h4>
+<p>One of our go to tools for enumerating S3 buckets (and all sorts of cloud resources) is a tool called <a href="https://github.com/initstring/cloud_enum">cloud_enum</a> from <a href="https://github.com/initstring">initstring</a>.</p>
+
+<p>You can grab a fresh copy of the tool and install it via:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/initstring/cloud_enum 
+<span class="nb">cd </span>cloud_enum
+virtualenv <span class="nt">-p</span> python3 <span class="nb">.</span> 
+<span class="nb">source </span>bin/activate
+pip3 <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
+
+<span class="c">## Run it!</span>
+python3 cloud_enum.py
+</code></pre></div></div>
+
+<p>Once installed, the tool is very simple to use, with the operator only needing to supply a target organization via the <code class="language-plaintext highlighter-rouge">-k KEYWORD</code> argument.</p>
+
+<p>In our demonstration, let’s target <code class="language-plaintext highlighter-rouge">contoso</code>.</p>
+<p align="center">
+        <img src="/assets/images/cloud_enum/cloud_enum_1.png" />
+</p>
+
+<p>In a short period of time (44 seconds!) we’ve identified a series of S3 buckets, all thanks to cloud_enum. It performs this by searching a series of mutations and brute-force options, searching for buckets with similar names to our keyword. We’ve found great success with this in the wild, in some cases gathering an extremely useful list of S3 buckets.</p>
+
+<p>In this case however, each bucket is “protected”, meaning it is not open to the public and cannot be listed. Or can it?</p>
+
+<h4 id="any-authenticated-users">“Any Authenticated Users”</h4>
+<p>S3 Access Control Lists introduce the ability for a user to grant bucket access to the <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html">“Authenticated Users group”</a>. What is this group you ask? Well, it’s <em>any individual with valid AWS credentials.</em></p>
+
+<p>For example, while I cannot access <code class="language-plaintext highlighter-rouge">http://contoso.s3.amazonaws.com</code> with my web browser, if the <code class="language-plaintext highlighter-rouge">Authenticated Users group</code> has been granted access to the bucket, <em>I can actually potentially query and gather stored within the bucket.</em></p>
+
+<p>In a piece of functionality that feels oddly similar to the <code class="language-plaintext highlighter-rouge">Domain Users</code> group in Active Directory, this configuration can create immense risk for an organization, and allow their buckets to essentially be public without them even realizing.</p>
+
+<p>So how does an attacker enumerate for this? It’s actually quite simple. With valid AWS credentials configured and the AWS CLI installed, a simple <code class="language-plaintext highlighter-rouge">aws s3 ls</code> command can be used to attempt to list a bucket’s contents.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>aws s3 <span class="nb">ls </span>s3://contoso                                                                                                       
+An error occurred <span class="o">(</span>AccessDenied<span class="o">)</span> when calling the ListObjectsV2 operation: Access Denied
+</code></pre></div></div>
+
+<p>Fortunately, this bucket was not configured with the “Authenticated Users group” (we wouldn’t have included it otherwise), nullifying this attack.</p>
+
+<p>Despite this, situations do arise from time to time where this configuration can be taken advantage of.</p>
+
+<p>It’s safe to say that S3 is not going anywhere, and who knows when AWS will opt to make intrinsic changes to the service. There have been several answers implemented by AWS to attempt to address the data breaches that have occurred through the service, but it is not an issue that will likely be eliminated within the future.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#aws" class="page__taxonomy-item" rel="tag">AWS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#cloud" class="page__taxonomy-item" rel="tag">Cloud</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#osint" class="page__taxonomy-item" rel="tag">OSINT</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#s3" class="page__taxonomy-item" rel="tag">S3</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#tradecraft-and-techniques" class="page__taxonomy-item" rel="tag">Tradecraft and Techniques</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2022-07-01T00:00:00-04:00">July 01, 2022</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/Passing-the-Hash-For-Fun-and-Profit/" class="pagination--pager" title="Passing the Hash for Fun and Profit
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Ash</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+  </body>
+</html>

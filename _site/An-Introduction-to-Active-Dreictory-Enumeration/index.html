@@ -1,0 +1,629 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>An Introduction to Active Directory Enumeration - Ash</title>
+<meta name="description" content="Active Directory is a platform that has received plenty of attention from adversaries and operators over the years. It has a rich history of exploitaiton methodologies, and new abuse mechanisms and regularly released by security researchs. Combine these factors with the prevalence that it is encountered within organizations, and you can quickly see why it’s a favorite target for attackers.There are a plethora of toolsets, cheatsheets, and enumeration options for Microsoft’s flagship directory service. Let’s outline a few of our favorite tools (hint: BloodHound) one can use to begin enumerating an Active Directory environment.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Ash">
+<meta property="og:title" content="An Introduction to Active Directory Enumeration">
+<meta property="og:url" content="http://localhost:4000/An-Introduction-to-Active-Dreictory-Enumeration/">
+
+
+  <meta property="og:description" content="Active Directory is a platform that has received plenty of attention from adversaries and operators over the years. It has a rich history of exploitaiton methodologies, and new abuse mechanisms and regularly released by security researchs. Combine these factors with the prevalence that it is encountered within organizations, and you can quickly see why it’s a favorite target for attackers.There are a plethora of toolsets, cheatsheets, and enumeration options for Microsoft’s flagship directory service. Let’s outline a few of our favorite tools (hint: BloodHound) one can use to begin enumerating an Active Directory environment.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/ad_enum/logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-01T00:00:00-04:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/An-Introduction-to-Active-Dreictory-Enumeration/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ash",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Ash Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<link rel="shortcut icon" type="image/png" href="favicon.ico">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="shortcut icon" href="/assets/images/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/images/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/banner_logo.gif" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">An Introduction to Active Directory Enumeration</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/logo.png" alt="Ash" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Ash</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Computer enjoyer.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/_bin_Ash" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://github.com/0xAsh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://keybase.io/ashhhhhhh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-keybase" aria-hidden="true"></i> Keybase</a></li>
+          
+        
+          
+            <li><a href="https://app.hackthebox.com/profile/72624" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-cube" aria-hidden="true"></i> HackTheBox</a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="An Introduction to Active Directory Enumeration">
+    <meta itemprop="description" content="Active Directory is a platform that has received plenty of attention from adversaries and operators over the years. It has a rich history of exploitaiton methodologies, and new abuse mechanisms and regularly released by security researchs. Combine these factors with the prevalence that it is encountered within organizations, and you can quickly see why it’s a favorite target for attackers.There are a plethora of toolsets, cheatsheets, and enumeration options for Microsoft’s flagship directory service. Let’s outline a few of our favorite tools (hint: BloodHound) one can use to begin enumerating an Active Directory environment.">
+    <meta itemprop="datePublished" content="July 01, 2022">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">An Introduction to Active Directory Enumeration
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2022-07-01T00:00:00-04:00">July 01, 2022 </time>&emsp;
+          
+          
+        </p>
+        <p class="notice--warning">I originally developed this blog for the <a href="https://risk3sixty.com/penetration-testing/">Renegade Labs team</a> at <a href="https://risk3sixty.com/">risk3sixty</a>, and have cross-posted it here for replication of my personal work.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mitre ATT&amp;CK Technique</th>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://attack.mitre.org/techniques/T1087/002/">Account Discovery: Domain Account</a></td>
+      <td>T1087.002</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Active Directory is a platform that has received plenty of attention from adversaries and operators over the years. It has a rich history of exploitaiton methodologies, and new abuse mechanisms and regularly released by security researchs. Combine these factors with the prevalence that it is encountered within organizations, and you can quickly see why it’s a favorite target for attackers.</p>
+
+<p>There are a plethora of toolsets, cheatsheets, and enumeration options for Microsoft’s flagship directory service. Let’s outline a few of our favorite tools (hint: BloodHound) one can use to begin enumerating an Active Directory environment.</p>
+
+<h2 id="getaduserspy">GetAdUsers.py</h2>
+<p>We’ll start simple with the often overlooked <code class="language-plaintext highlighter-rouge">GetADUsers.py</code> toolset which comes with the <a href="https://github.com/SecureAuthCorp/impacket">Impacket</a> library. This tool produces short, succint information about a domain’s users.</p>
+<p align="center">
+        <img src="/assets/images/ad_enum/getadusers.png" />
+</p>
+
+<p>It’s not much, but sometimes this script can come in handy if you’re in a pinch and do not have the ability to install custom toolsets.</p>
+
+<h2 id="ldapdomaindump">LdapDomainDump</h2>
+<p>Moving on, <a href="https://github.com/dirkjanm/ldapdomaindump">LdapDomainDump</a> written by <a href="https://twitter.com/_dirkjan">Dirk-Jan</a> is a great lightweight toolset that quickly gathers a wide range of useful information about an environment.</p>
+
+<p>In our lab, we will begin by running it with the following options:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ldapdomaindump -u 'testlab\bob' -p 'Passw0rd!' -at SIMPLE -n 10.0.0.36 dc01.testlab.local 
+</code></pre></div></div>
+
+<p>This will authenticate to the domain controller (<code class="language-plaintext highlighter-rouge">dc01.testlab.local</code>) and issue a series of LDAP queries to gather information about the domain. Once this is completed, multiple output files will be placed within your current working directory:</p>
+<p align="center">
+        <img src="/assets/images/ad_enum/ldapdomaindumpoutput.png" />
+</p>
+
+<p>Typically during an engagement I’ll use the <code class="language-plaintext highlighter-rouge">.html</code> files to view information. For example, if we open <code class="language-plaintext highlighter-rouge">domain_users.html</code>, we can see a succint listing of each user within the domain, their password flags, description field, and other historical information like the last time they logged on.</p>
+
+<p align="center">
+        <img src="/assets/images/ad_enum/ldapdomaindumphtml.png" />
+</p>
+
+<p>The description field in particular may prove to be useful during a penetration test, as in some cases an account’s password is placed within this field when it is created.</p>
+
+<p>Throughout several engagements, Renegade Labs operators have been able to use output from this tool to highlight attack paths, identify weaknesses within environments’ policy configurations, or gather context for a domain’s administration tendencies prior to further exploitation.</p>
+
+<h2 id="bloodhound">BloodHound</h2>
+<p>BloodHound is a graphical toolset that graphs and maps attack paths between objects in Active Directory. It was created by <a href="https://twitter.com/_wald0">_wald0 (Andy Robbins)</a>, <a href="https://twitter.com/harmj0y">harmj0y (Will Schroeder)</a>, and <a href="https://twitter.com/CptJesus">CptJesus (Rohan Vazarkar)</a> from <a href="https://twitter.com/specterops">SpectreOps</a>, who painstakingly put together an amazing piece of software that is used by defenders and attackers alike.</p>
+
+<p>So why is it so useful? Well it maps attack paths that otherwise would be extremely difficult to identify much less manage and catalogue at scale.</p>
+
+<p>It does this by using <strong>Graph Theory</strong>:</p>
+
+<blockquote>
+  <p><em>“graph theory is the study of <strong>graphs</strong>, which are mathematical structures used to model pairwise relations between objects. A graph in this context is made up of <strong>vertices</strong> (also called nodes or points) which are connected by <strong>edges</strong> (also called links or lines)”</em></p>
+</blockquote>
+
+<p>Via: <a href="https://en.wikipedia.org/wiki/Graph_theory">https://en.wikipedia.org/wiki/Graph_theory</a></p>
+
+<h3 id="why-is-it-so-useful-why-does-graph-theory-matter">Why is it so useful? Why does graph theory matter?</h3>
+<p>Take, for example, the following group in Active Directory named “Fax Machine Users”.</p>
+<p align="center">
+        <img src="/assets/images/ad_enum/net_group.png" />
+</p>
+
+<p>We can see that the “bob” user is a member of the group.</p>
+
+<p>If we take a look at the alternate “Front Desk” group however, we can see that the “Fax Machine Users” group is nested within it. Bob is a member of “Fax Machine Users”, which means he inherits any access rights granted to that group <em>and also</em> any rights granted to the “Front Desk” group.</p>
+
+<p align="center">
+        <img src="/assets/images/ad_enum/front_desk.png" />
+</p>
+
+<p>You might already be able to see how convoluted this can get. Without good PowerShell queries nested group membership is very hard to track, and even if one can identify it visualization of the relationships is strenuous. Now picture an environment with hundereds if not thousands of global groups, one-off access grants to groups and users, and disparate direct local administrative access. It’s a headache-indusing problem to try to track and manage as a security professional.</p>
+
+<p>Now let’s see what the same configuration looks like in BloodHound:</p>
+<p align="center">
+        <img src="/assets/images/ad_enum/fax_bloodhound.png" />
+</p>
+
+<p>A nice illustration of Bob’s node connected to the “Fax Machine Users” node. This is through a “link” (or “edge”) called “MemberOf”, as Bob is a member of the group.</p>
+
+<p>BloodHound makes the next leap even easier, by demonstrating multiple “edges” between nodes. With this visualization, we can now easily observe that Bob is a member of “Fax Machine Users”, and by extension the “Front Desk” group thanks to nested group membership.</p>
+
+<p align="center">
+        <img src="/assets/images/ad_enum/fax_bloodhound2.png" />
+</p>
+
+<p>In fact, we can visualize an entire attack path that may have otherwise been difficult to identify:</p>
+<p align="center">
+        <img src="/assets/images/ad_enum/fax_bloodhound3.png" />
+</p>
+
+<p>The “Front Desk” group is nested within the “Physical Security” group, and the “Physical Security” group is nested within the “Security” group. Finally, the “Security” group possesses a “GenericWrite” link to the “Domain Admins” group, effectively creating an attack path from “Bob” to complete control of the domain.</p>
+<p align="center">
+        <img src="/assets/images/ad_enum/fax_bloodhound4.png" />
+</p>
+
+<p>Thus one can see how what may have at first glance appeared to be a simple configuration, a single user within the “Fax Machine Users” group, can turn into an attack path an adversary can follow. It’s worth noting that this configuration traverses a “path” across three nested group memberships. Imagine trying to enumerate this by hand with PowerShell queries or “net group” statements, and you can see why BloodHound is so loved.</p>
+
+<h3 id="using-bloodhound">Using BloodHound</h3>
+<p>There’s a great <a href="https://bloodhound.readthedocs.io/">body of documentation</a> that comes with the tool. Since we usually run the toolset from a Linux environment, we follow the related installation guide <a href="https://bloodhound.readthedocs.io/en/latest/installation/linux.html">here</a>. There are associated guides for each platform one might need to install the toolset on.</p>
+
+<p>Let’s quickly highlight how we gather information to be used within BloodHound during an engagement. To generate data to import into BloodHound you need to run a BloodHound “ingestor”, which is just a fancy name for a toolset that performs the neccessary queries and formatting of data used by BloodHound.</p>
+
+<p>There are a few forms of these tools, namely SharpHound which is a compiled executable that can be executed on comrpomised Windows hosts, as well as the Python alternative <a href="https://github.com/fox-it/BloodHound.py">BloodHound.py</a> which is what we will use in this case.</p>
+
+<p>This ingestor is also written and maintained by the talented <a href="https://twitter.com/_dirkjan">Dirk-Jan</a>, and can be easily installed with <code class="language-plaintext highlighter-rouge">pip installed bloodhound</code>:</p>
+<p align="center">
+        <img src="/assets/images/ad_enum/pip_bloodhound.png" />
+</p>
+
+<p>_Note: you may need to update your PATH environment variable to utilize the Python Bloodhound ingestor once it’s installed. If you’re on a Kali environment, the installation process will likely include the binary in <code class="language-plaintext highlighter-rouge">/home/kali/.local/bin</code>.</p>
+
+<p>To add this temporarily to your PATH you can run <code class="language-plaintext highlighter-rouge">export PATH=$PATH:/home/kali/.local/bin</code>, although you will likely want to include this in your <code class="language-plaintext highlighter-rouge">~/.zshrc</code> or <code class="language-plaintext highlighter-rouge">~/.bashrc</code> file._</p>
+
+<p>With the Python Ingestor installed, let’s gather some data to import into BloodHound. This can be done by running “Bloodhound.py” (<code class="language-plaintext highlighter-rouge">bloodhound-python</code> is the program name) with the followinf arguments:
+	- <code class="language-plaintext highlighter-rouge">-u</code>: username
+	- <code class="language-plaintext highlighter-rouge">-p</code>: password
+	- <code class="language-plaintext highlighter-rouge">-d</code>: domain name
+	- <code class="language-plaintext highlighter-rouge">-ns</code>: name server</p>
+
+<p align="center">
+        <img src="/assets/images/ad_enum/ingest.png" />
+</p>
+
+<p>In our experience, certain options may need to be modified to allow the tool to work. Additionally, there are a suite of “collection methods” that can be controlled with the <code class="language-plaintext highlighter-rouge">-c</code> parameter. You can add <code class="language-plaintext highlighter-rouge">-c all</code> to the command to ensure that each piece of data is collected.</p>
+
+<p>If we look in the directory we executed the ingestor from, we should now see a series of JSON files.</p>
+<p align="center">
+        <img src="/assets/images/ad_enum/json_output.png" />
+</p>
+
+<p>We can import these into BloodHound using the “Upload Data” button in the GUI, or by simply dragging and dropping the files into BloodHound.</p>
+
+<p align="center">
+        <img src="/assets/images/ad_enum/import.png" />
+</p>
+
+<p>Once the data imports, you are ready to start looking around the environment. There are a number of prebuilt queries that ship with the tool. For example, below you can see the output from clicking on the “Find all Domain Admins” query in the tool.</p>
+
+<p align="center">
+        <img src="/assets/images/ad_enum/queries.png" />
+</p>
+
+<p>But the analysis does not stop there. There are virtually no limits to the types of information you can gather with custom BloodHound queries. I personally like using the <a href="https://github.com/CompassSecurity/BloodHoundQueries">“BloodHoundQueries” repo from Compass Security</a> in addition to the pre-built ones included with BloodHound.</p>
+
+<p>And that’s it! Once the tool is configured and data is imported, one can reference it throughout an engagement as certain objectives are met, credentials are compromised, or attack paths need to be discovered.</p>
+
+<p>This certainly does not do BloodHound, LdapDomainDump, or GetADUsers.py justice, and a more detailed post is warranted to explore all the useful features that they provide. This blog aims to simply outline a few different methods an attacker (or defender) can use to get started enumerating Active Directory environments.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#active-directory" class="page__taxonomy-item" rel="tag">Active Directory</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#bloodhound" class="page__taxonomy-item" rel="tag">BloodHound</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#impacket" class="page__taxonomy-item" rel="tag">Impacket</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ldap" class="page__taxonomy-item" rel="tag">LDAP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#networks" class="page__taxonomy-item" rel="tag">Networks</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#tradecraft-and-techniques" class="page__taxonomy-item" rel="tag">Tradecraft and Techniques</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2022-07-01T00:00:00-04:00">July 01, 2022</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/An-Introduction-To-Kerberoasting/" class="pagination--pager" title="An Introduction to Kerberoasting
+">Previous</a>
+    
+    
+      <a href="/Attacking-the-AWS-Metadata-Service/" class="pagination--pager" title="Attacking the AWS Metadata Service
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Ash</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+  </body>
+</html>

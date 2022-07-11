@@ -1,0 +1,580 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Farming Breached Password Data with Dehashed - Ash</title>
+<meta name="description" content="Every year countless data breaches occur.From 700 Million LinkedIn users’ information getting leaked  sometime between 2020 and 2021, to at least 500 million Yahoo accounts information being breached in 2014, to the notable 2017 Equifax data breach which impacted millions of individuals, it’s safe to say that breaches are a part of the everyday news cycle in the present day.These breaches contain a wide variety of data that has a variety of use cases. Social security numbers and credit card information can lead to fraud, age information and phone numbers can lead to targeted phishing attacks, and usernames and passwords can lead to… what exactly?">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Ash">
+<meta property="og:title" content="Farming Breached Password Data with Dehashed">
+<meta property="og:url" content="http://localhost:4000/Farming-Breached-Password-Data-With-Dehashed/">
+
+
+  <meta property="og:description" content="Every year countless data breaches occur.From 700 Million LinkedIn users’ information getting leaked  sometime between 2020 and 2021, to at least 500 million Yahoo accounts information being breached in 2014, to the notable 2017 Equifax data breach which impacted millions of individuals, it’s safe to say that breaches are a part of the everyday news cycle in the present day.These breaches contain a wide variety of data that has a variety of use cases. Social security numbers and credit card information can lead to fraud, age information and phone numbers can lead to targeted phishing attacks, and usernames and passwords can lead to… what exactly?">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/dehashed/logo.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-01T00:00:00-04:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/Farming-Breached-Password-Data-With-Dehashed/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ash",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Ash Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<link rel="shortcut icon" type="image/png" href="favicon.ico">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+<link rel="manifest" href="/assets/images/site.webmanifest">
+<link rel="shortcut icon" href="/assets/images/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/assets/images/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/banner_logo.gif" alt=""></a>
+                
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+    
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Farming Breached Password Data with Dehashed</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/logo.png" alt="Ash" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Ash</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Computer enjoyer.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/_bin_Ash" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+            <li><a href="https://github.com/0xAsh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://keybase.io/ashhhhhhh" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-keybase" aria-hidden="true"></i> Keybase</a></li>
+          
+        
+          
+            <li><a href="https://app.hackthebox.com/profile/72624" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-cube" aria-hidden="true"></i> HackTheBox</a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Farming Breached Password Data with Dehashed">
+    <meta itemprop="description" content="Every year countless data breaches occur.From 700 Million LinkedIn users’ information getting leaked  sometime between 2020 and 2021, to at least 500 million Yahoo accounts information being breached in 2014, to the notable 2017 Equifax data breach which impacted millions of individuals, it’s safe to say that breaches are a part of the everyday news cycle in the present day.These breaches contain a wide variety of data that has a variety of use cases. Social security numbers and credit card information can lead to fraud, age information and phone numbers can lead to targeted phishing attacks, and usernames and passwords can lead to… what exactly?">
+    <meta itemprop="datePublished" content="July 01, 2022">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Farming Breached Password Data with Dehashed
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p class="page__meta">
+          
+            <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="2022-07-01T00:00:00-04:00">July 01, 2022 </time>&emsp;
+          
+          
+        </p>
+        <p class="notice--warning">I originally developed this blog for the <a href="https://risk3sixty.com/penetration-testing/">Renegade Labs team</a> at <a href="https://risk3sixty.com/">risk3sixty</a>, and have cross-posted it here for replication of my personal work.</p>
+
+<h1 id="password-breach-data">Password Breach Data</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mitre ATT&amp;CK Technique</th>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://attack.mitre.org/techniques/T1110/004/">Brute Force: Credential Stuffing</a></td>
+      <td>T1110.004</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Every year countless data breaches occur.</p>
+
+<p>From <a href="https://fortune.com/2021/06/30/linkedin-data-theft-700-million-users-personal-information-cybersecurity/">700 Million LinkedIn users’ information getting leaked  sometime between 2020 and 2021</a>, to <em>at least</em> <a href="https://www.lifelock.com/learn/data-breaches/company-data-breach">500 million Yahoo accounts information being breached in 2014</a>, to the notable <a href="https://en.wikipedia.org/wiki/2017_Equifax_data_breach">2017 Equifax data breach which impacted millions of individuals</a>, it’s safe to say that breaches are a part of the everyday news cycle in the present day.</p>
+
+<p>These breaches contain a wide variety of data that has a variety of use cases. Social security numbers and credit card information can lead to fraud, age information and phone numbers can lead to targeted phishing attacks, and usernames and passwords can lead to… what exactly?</p>
+
+<p>Have you ever wondered what happens to this data <em>after</em> it’s leaked? What about the private breaches that are not publicized but rather are sold on forums?</p>
+
+<p>This dark world is one that’s extremely interesting and often misunderstood. Unfortunately, risk3sixty is not a threat intelligence company, so large knowledge on the breadth of these attacks an their outcomes is out of our wheelhouse. Our friends at <a href="https://www.recordedfuture.com/">Recorded Future</a> however likely have <a href="https://www.recordedfuture.com/combatting-data-and-credential-exposure-with-intelligence">more information</a> that can help answer some of those questions for you.</p>
+
+<p>With that said, let’s take a step back and look at how penetration testers and adversaries alike take advantage of data breaches during engagements.</p>
+
+<h2 id="engagement-process">Engagement Process</h2>
+<p>On specific targeted engagements, Renegade Labs operators interact with the internet “underworld” that is password breach information. There are a few requirements for this to make sense:</p>
+<ul>
+  <li>An organization’s risk profile has to line up with the tactics in use.</li>
+  <li>An organization has to be comfortable with the outcomes of this type of reconaissance</li>
+  <li>An organization may need to be open to password spraying attacks with breach data to ensure that the project provides the most real-world value</li>
+  <li>Lastly, breaches happen. The organization should not punish users for their information being leaked. Often times it is solely out of their control.</li>
+</ul>
+
+<p>To operationalize this process (and keep it as legitimate as possible), we heavily utilize the <a href="https://www.dehashed.com/">Dehashed</a> service for information retrieval.</p>
+
+<p>Dehashed presents a useful and fairly cost effective API for data retrieval. This allows us to quickly and reliably have a source of data for engagements, instead of trying to keep up with forum posts, leaks, and the ethical headaches that coincide with these efforts.</p>
+
+<p>To access the Dehashed API, a vali subscription is needed:</p>
+<p align="center">
+        <img src="/assets/images/dehashed/subs.png" />
+</p>
+
+<p>Additionally, one must purchase API credits to use with their account. For reference, 100 API creds costs only $3.</p>
+
+<p>Once your account is setup and loaded with valid API credits, the <a href="https://www.dehashed.com/docs">API reference documentation</a> can be used, from which you find a series of options to meet your needs.</p>
+
+<p>Let’s say we want to query all information Dehashed possesses on a username of <code class="language-plaintext highlighter-rouge">bob</code>. We can do this through the following Curl request:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl 'https://api.dehashed.com/search?query=username:bob' \
+-u 'email:api_key' \
+-H 'Accept: application/json'
+</code></pre></div></div>
+
+<p><em><strong>Note</strong>: you’ll likely want to write collected output to a file to avoid wasting API credits</em></p>
+
+<p>Let’s issue the request, and view the output using <code class="language-plaintext highlighter-rouge">jq</code>. Unfortunately, we really don’t want to leak any information that is sensitive and technically paywalled, so the image below is heavily redacted. What one <em>can</em> note however are the fields contained within the output:</p>
+
+<p align="center">
+        <img src="/assets/images/dehashed/data.png" />
+</p>
+
+<p>The parameters that stand out are:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">email</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ip_address</code></li>
+  <li><code class="language-plaintext highlighter-rouge">password</code></li>
+  <li><code class="language-plaintext highlighter-rouge">hashed_password</code></li>
+</ul>
+
+<p>In our case, the results were limited to 100 entries per the API specification, however there are ways to query more data, which does have pricing implications.</p>
+
+<p align="center">
+        <img src="/assets/images/dehashed/sizing.png" />
+</p>
+
+<p>And that is how simple it is to use Dehashed to gather data! You might see why it has quickly become one of our favorite services for engagements. Generic queries with information like a simple username of <code class="language-plaintext highlighter-rouge">bob</code> produce much more information than is useful, but on targeted engagements the data acquired from the service can be highly beneficial.</p>
+
+<h2 id="mitigations">Mitigations</h2>
+<p>From <a href="https://attack.mitre.org/techniques/T1110/004/">Mitre</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mitre ID</th>
+      <th>Mitigation</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://attack.mitre.org/mitigations/M1036">M1036</a></td>
+      <td><a href="https://attack.mitre.org/mitigations/M1036">Account Use Policies</a></td>
+      <td>Set account lockout policies after a certain number of failed login attempts to prevent passwords from being guessed. Too strict a policy may create a denial of service condition and render environments un-usable, with all accounts used in the brute force being locked-out.</td>
+    </tr>
+    <tr>
+      <td><a href="https://attack.mitre.org/mitigations/M1032">M1032</a></td>
+      <td><a href="https://attack.mitre.org/mitigations/M1032">Multi-factor Authentication</a></td>
+      <td>Use multi-factor authentication. Where possible, also enable multi-factor authentication on externally facing services.</td>
+    </tr>
+    <tr>
+      <td><a href="https://attack.mitre.org/mitigations/M1027">M1027</a></td>
+      <td><a href="https://attack.mitre.org/mitigations/M1027">Password Policies</a></td>
+      <td>Refer to <a href="https://pages.nist.gov/800-63-3/sp800-63b.html">NIST guidelines</a> when creating password policies.</td>
+    </tr>
+    <tr>
+      <td><a href="https://attack.mitre.org/mitigations/M1018">M1018</a></td>
+      <td><a href="https://attack.mitre.org/mitigations/M1018">User Account Management</a></td>
+      <td>Proactively reset accounts that are known to be part of breached credentials either immediately, or after detecting bruteforce attempts.</td>
+    </tr>
+  </tbody>
+</table>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#osint" class="page__taxonomy-item" rel="tag">OSINT</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#password-breaches" class="page__taxonomy-item" rel="tag">Password Breaches</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#tradecraft-and-techniques" class="page__taxonomy-item" rel="tag">Tradecraft and Techniques</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2022-07-01T00:00:00-04:00">July 01, 2022</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/Attacking-the-AWS-Metadata-Service/" class="pagination--pager" title="Attacking the AWS Metadata Service
+">Previous</a>
+    
+    
+      <a href="/Getting-Started-Spraying-Microsoft-Services/" class="pagination--pager" title="Getting Started Spraying Microsoft Services
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Ash</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script data-search-pseudo-elements defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+  </body>
+</html>
